@@ -3,3 +3,91 @@ type User {
   name: String!
   email: String!
 }
+
+type Region {
+
+id: ID! @id @unique
+regName: String!
+regCode: String!
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!@updatedAt
+}
+type Division {
+
+id: ID! @id @unique
+divName: String!
+divCode: String!
+region: Region!
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!@updatedAt
+}
+
+type SubDivision {
+
+id: ID! @id @unique
+subDivName: String!
+subDivCode: String!
+division: Division!
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!@updatedAt
+}
+
+type Town {
+
+id: ID! @id @unique
+townName: String!
+townCode: String!
+subDiv: SubDivision!
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!@updatedAt
+}
+
+type exanCenter {
+
+id: ID! @id @unique
+centerName: String!
+centerCode: String!
+town: Town!
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!@updatedAt
+}
+
+type Series {
+
+id: ID! @id @unique
+seriesName: String!
+seriesCode: String!
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!@updatedAt
+}
+type Exam {
+
+id: ID! @id @unique
+examName: String!
+examCode: String!
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!@updatedAt
+}
+type Subject {
+
+id: ID! @id @unique
+subjName: String!
+subjCode: String!
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!@updatedAt
+}
+type Presence {
+
+id: ID! @id @unique
+regName: Boolean! 
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!@updatedAt
+}
+type examSession {
+
+id: ID! @id @unique
+sessionName: String!
+sessionCode: String!
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!@updatedAt
+}

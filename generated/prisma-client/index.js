@@ -7,6 +7,46 @@ var models = [
   {
     name: "User",
     embedded: false
+  },
+  {
+    name: "Region",
+    embedded: false
+  },
+  {
+    name: "Division",
+    embedded: false
+  },
+  {
+    name: "SubDivision",
+    embedded: false
+  },
+  {
+    name: "Town",
+    embedded: false
+  },
+  {
+    name: "exanCenter",
+    embedded: false
+  },
+  {
+    name: "Series",
+    embedded: false
+  },
+  {
+    name: "Exam",
+    embedded: false
+  },
+  {
+    name: "Subject",
+    embedded: false
+  },
+  {
+    name: "Presence",
+    embedded: false
+  },
+  {
+    name: "examSession",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({

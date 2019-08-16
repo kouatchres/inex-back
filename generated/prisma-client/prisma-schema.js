@@ -3,7 +3,47 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateUser {
+/* GraphQL */ `type AggregateDivision {
+  count: Int!
+}
+
+type AggregateExam {
+  count: Int!
+}
+
+type AggregateexamSession {
+  count: Int!
+}
+
+type AggregateexanCenter {
+  count: Int!
+}
+
+type AggregatePresence {
+  count: Int!
+}
+
+type AggregateRegion {
+  count: Int!
+}
+
+type AggregateSeries {
+  count: Int!
+}
+
+type AggregateSubDivision {
+  count: Int!
+}
+
+type AggregateSubject {
+  count: Int!
+}
+
+type AggregateTown {
+  count: Int!
+}
+
+type AggregateUser {
   count: Int!
 }
 
@@ -11,15 +51,676 @@ type BatchPayload {
   count: Long!
 }
 
+scalar DateTime
+
+type Division {
+  id: ID!
+  divName: String!
+  divCode: String!
+  region: Region!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type DivisionConnection {
+  pageInfo: PageInfo!
+  edges: [DivisionEdge]!
+  aggregate: AggregateDivision!
+}
+
+input DivisionCreateInput {
+  id: ID
+  divName: String!
+  divCode: String!
+  region: RegionCreateOneInput!
+}
+
+input DivisionCreateOneInput {
+  create: DivisionCreateInput
+  connect: DivisionWhereUniqueInput
+}
+
+type DivisionEdge {
+  node: Division!
+  cursor: String!
+}
+
+enum DivisionOrderByInput {
+  id_ASC
+  id_DESC
+  divName_ASC
+  divName_DESC
+  divCode_ASC
+  divCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type DivisionPreviousValues {
+  id: ID!
+  divName: String!
+  divCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type DivisionSubscriptionPayload {
+  mutation: MutationType!
+  node: Division
+  updatedFields: [String!]
+  previousValues: DivisionPreviousValues
+}
+
+input DivisionSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: DivisionWhereInput
+  AND: [DivisionSubscriptionWhereInput!]
+  OR: [DivisionSubscriptionWhereInput!]
+  NOT: [DivisionSubscriptionWhereInput!]
+}
+
+input DivisionUpdateDataInput {
+  divName: String
+  divCode: String
+  region: RegionUpdateOneRequiredInput
+}
+
+input DivisionUpdateInput {
+  divName: String
+  divCode: String
+  region: RegionUpdateOneRequiredInput
+}
+
+input DivisionUpdateManyMutationInput {
+  divName: String
+  divCode: String
+}
+
+input DivisionUpdateOneRequiredInput {
+  create: DivisionCreateInput
+  update: DivisionUpdateDataInput
+  upsert: DivisionUpsertNestedInput
+  connect: DivisionWhereUniqueInput
+}
+
+input DivisionUpsertNestedInput {
+  update: DivisionUpdateDataInput!
+  create: DivisionCreateInput!
+}
+
+input DivisionWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  divName: String
+  divName_not: String
+  divName_in: [String!]
+  divName_not_in: [String!]
+  divName_lt: String
+  divName_lte: String
+  divName_gt: String
+  divName_gte: String
+  divName_contains: String
+  divName_not_contains: String
+  divName_starts_with: String
+  divName_not_starts_with: String
+  divName_ends_with: String
+  divName_not_ends_with: String
+  divCode: String
+  divCode_not: String
+  divCode_in: [String!]
+  divCode_not_in: [String!]
+  divCode_lt: String
+  divCode_lte: String
+  divCode_gt: String
+  divCode_gte: String
+  divCode_contains: String
+  divCode_not_contains: String
+  divCode_starts_with: String
+  divCode_not_starts_with: String
+  divCode_ends_with: String
+  divCode_not_ends_with: String
+  region: RegionWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [DivisionWhereInput!]
+  OR: [DivisionWhereInput!]
+  NOT: [DivisionWhereInput!]
+}
+
+input DivisionWhereUniqueInput {
+  id: ID
+}
+
+type Exam {
+  id: ID!
+  examName: String!
+  examCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ExamConnection {
+  pageInfo: PageInfo!
+  edges: [ExamEdge]!
+  aggregate: AggregateExam!
+}
+
+input ExamCreateInput {
+  id: ID
+  examName: String!
+  examCode: String!
+}
+
+type ExamEdge {
+  node: Exam!
+  cursor: String!
+}
+
+enum ExamOrderByInput {
+  id_ASC
+  id_DESC
+  examName_ASC
+  examName_DESC
+  examCode_ASC
+  examCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ExamPreviousValues {
+  id: ID!
+  examName: String!
+  examCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type examSession {
+  id: ID!
+  sessionName: String!
+  sessionCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type examSessionConnection {
+  pageInfo: PageInfo!
+  edges: [examSessionEdge]!
+  aggregate: AggregateexamSession!
+}
+
+input examSessionCreateInput {
+  id: ID
+  sessionName: String!
+  sessionCode: String!
+}
+
+type examSessionEdge {
+  node: examSession!
+  cursor: String!
+}
+
+enum examSessionOrderByInput {
+  id_ASC
+  id_DESC
+  sessionName_ASC
+  sessionName_DESC
+  sessionCode_ASC
+  sessionCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type examSessionPreviousValues {
+  id: ID!
+  sessionName: String!
+  sessionCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type examSessionSubscriptionPayload {
+  mutation: MutationType!
+  node: examSession
+  updatedFields: [String!]
+  previousValues: examSessionPreviousValues
+}
+
+input examSessionSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: examSessionWhereInput
+  AND: [examSessionSubscriptionWhereInput!]
+  OR: [examSessionSubscriptionWhereInput!]
+  NOT: [examSessionSubscriptionWhereInput!]
+}
+
+input examSessionUpdateInput {
+  sessionName: String
+  sessionCode: String
+}
+
+input examSessionUpdateManyMutationInput {
+  sessionName: String
+  sessionCode: String
+}
+
+input examSessionWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  sessionName: String
+  sessionName_not: String
+  sessionName_in: [String!]
+  sessionName_not_in: [String!]
+  sessionName_lt: String
+  sessionName_lte: String
+  sessionName_gt: String
+  sessionName_gte: String
+  sessionName_contains: String
+  sessionName_not_contains: String
+  sessionName_starts_with: String
+  sessionName_not_starts_with: String
+  sessionName_ends_with: String
+  sessionName_not_ends_with: String
+  sessionCode: String
+  sessionCode_not: String
+  sessionCode_in: [String!]
+  sessionCode_not_in: [String!]
+  sessionCode_lt: String
+  sessionCode_lte: String
+  sessionCode_gt: String
+  sessionCode_gte: String
+  sessionCode_contains: String
+  sessionCode_not_contains: String
+  sessionCode_starts_with: String
+  sessionCode_not_starts_with: String
+  sessionCode_ends_with: String
+  sessionCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [examSessionWhereInput!]
+  OR: [examSessionWhereInput!]
+  NOT: [examSessionWhereInput!]
+}
+
+input examSessionWhereUniqueInput {
+  id: ID
+}
+
+type ExamSubscriptionPayload {
+  mutation: MutationType!
+  node: Exam
+  updatedFields: [String!]
+  previousValues: ExamPreviousValues
+}
+
+input ExamSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ExamWhereInput
+  AND: [ExamSubscriptionWhereInput!]
+  OR: [ExamSubscriptionWhereInput!]
+  NOT: [ExamSubscriptionWhereInput!]
+}
+
+input ExamUpdateInput {
+  examName: String
+  examCode: String
+}
+
+input ExamUpdateManyMutationInput {
+  examName: String
+  examCode: String
+}
+
+input ExamWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  examName: String
+  examName_not: String
+  examName_in: [String!]
+  examName_not_in: [String!]
+  examName_lt: String
+  examName_lte: String
+  examName_gt: String
+  examName_gte: String
+  examName_contains: String
+  examName_not_contains: String
+  examName_starts_with: String
+  examName_not_starts_with: String
+  examName_ends_with: String
+  examName_not_ends_with: String
+  examCode: String
+  examCode_not: String
+  examCode_in: [String!]
+  examCode_not_in: [String!]
+  examCode_lt: String
+  examCode_lte: String
+  examCode_gt: String
+  examCode_gte: String
+  examCode_contains: String
+  examCode_not_contains: String
+  examCode_starts_with: String
+  examCode_not_starts_with: String
+  examCode_ends_with: String
+  examCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ExamWhereInput!]
+  OR: [ExamWhereInput!]
+  NOT: [ExamWhereInput!]
+}
+
+input ExamWhereUniqueInput {
+  id: ID
+}
+
+type exanCenter {
+  id: ID!
+  centerName: String!
+  centerCode: String!
+  town: Town!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type exanCenterConnection {
+  pageInfo: PageInfo!
+  edges: [exanCenterEdge]!
+  aggregate: AggregateexanCenter!
+}
+
+input exanCenterCreateInput {
+  id: ID
+  centerName: String!
+  centerCode: String!
+  town: TownCreateOneInput!
+}
+
+type exanCenterEdge {
+  node: exanCenter!
+  cursor: String!
+}
+
+enum exanCenterOrderByInput {
+  id_ASC
+  id_DESC
+  centerName_ASC
+  centerName_DESC
+  centerCode_ASC
+  centerCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type exanCenterPreviousValues {
+  id: ID!
+  centerName: String!
+  centerCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type exanCenterSubscriptionPayload {
+  mutation: MutationType!
+  node: exanCenter
+  updatedFields: [String!]
+  previousValues: exanCenterPreviousValues
+}
+
+input exanCenterSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: exanCenterWhereInput
+  AND: [exanCenterSubscriptionWhereInput!]
+  OR: [exanCenterSubscriptionWhereInput!]
+  NOT: [exanCenterSubscriptionWhereInput!]
+}
+
+input exanCenterUpdateInput {
+  centerName: String
+  centerCode: String
+  town: TownUpdateOneRequiredInput
+}
+
+input exanCenterUpdateManyMutationInput {
+  centerName: String
+  centerCode: String
+}
+
+input exanCenterWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  centerName: String
+  centerName_not: String
+  centerName_in: [String!]
+  centerName_not_in: [String!]
+  centerName_lt: String
+  centerName_lte: String
+  centerName_gt: String
+  centerName_gte: String
+  centerName_contains: String
+  centerName_not_contains: String
+  centerName_starts_with: String
+  centerName_not_starts_with: String
+  centerName_ends_with: String
+  centerName_not_ends_with: String
+  centerCode: String
+  centerCode_not: String
+  centerCode_in: [String!]
+  centerCode_not_in: [String!]
+  centerCode_lt: String
+  centerCode_lte: String
+  centerCode_gt: String
+  centerCode_gte: String
+  centerCode_contains: String
+  centerCode_not_contains: String
+  centerCode_starts_with: String
+  centerCode_not_starts_with: String
+  centerCode_ends_with: String
+  centerCode_not_ends_with: String
+  town: TownWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [exanCenterWhereInput!]
+  OR: [exanCenterWhereInput!]
+  NOT: [exanCenterWhereInput!]
+}
+
+input exanCenterWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createDivision(data: DivisionCreateInput!): Division!
+  updateDivision(data: DivisionUpdateInput!, where: DivisionWhereUniqueInput!): Division
+  updateManyDivisions(data: DivisionUpdateManyMutationInput!, where: DivisionWhereInput): BatchPayload!
+  upsertDivision(where: DivisionWhereUniqueInput!, create: DivisionCreateInput!, update: DivisionUpdateInput!): Division!
+  deleteDivision(where: DivisionWhereUniqueInput!): Division
+  deleteManyDivisions(where: DivisionWhereInput): BatchPayload!
+  createExam(data: ExamCreateInput!): Exam!
+  updateExam(data: ExamUpdateInput!, where: ExamWhereUniqueInput!): Exam
+  updateManyExams(data: ExamUpdateManyMutationInput!, where: ExamWhereInput): BatchPayload!
+  upsertExam(where: ExamWhereUniqueInput!, create: ExamCreateInput!, update: ExamUpdateInput!): Exam!
+  deleteExam(where: ExamWhereUniqueInput!): Exam
+  deleteManyExams(where: ExamWhereInput): BatchPayload!
+  createPresence(data: PresenceCreateInput!): Presence!
+  updatePresence(data: PresenceUpdateInput!, where: PresenceWhereUniqueInput!): Presence
+  updateManyPresences(data: PresenceUpdateManyMutationInput!, where: PresenceWhereInput): BatchPayload!
+  upsertPresence(where: PresenceWhereUniqueInput!, create: PresenceCreateInput!, update: PresenceUpdateInput!): Presence!
+  deletePresence(where: PresenceWhereUniqueInput!): Presence
+  deleteManyPresences(where: PresenceWhereInput): BatchPayload!
+  createRegion(data: RegionCreateInput!): Region!
+  updateRegion(data: RegionUpdateInput!, where: RegionWhereUniqueInput!): Region
+  updateManyRegions(data: RegionUpdateManyMutationInput!, where: RegionWhereInput): BatchPayload!
+  upsertRegion(where: RegionWhereUniqueInput!, create: RegionCreateInput!, update: RegionUpdateInput!): Region!
+  deleteRegion(where: RegionWhereUniqueInput!): Region
+  deleteManyRegions(where: RegionWhereInput): BatchPayload!
+  createSeries(data: SeriesCreateInput!): Series!
+  updateSeries(data: SeriesUpdateInput!, where: SeriesWhereUniqueInput!): Series
+  updateManySerieses(data: SeriesUpdateManyMutationInput!, where: SeriesWhereInput): BatchPayload!
+  upsertSeries(where: SeriesWhereUniqueInput!, create: SeriesCreateInput!, update: SeriesUpdateInput!): Series!
+  deleteSeries(where: SeriesWhereUniqueInput!): Series
+  deleteManySerieses(where: SeriesWhereInput): BatchPayload!
+  createSubDivision(data: SubDivisionCreateInput!): SubDivision!
+  updateSubDivision(data: SubDivisionUpdateInput!, where: SubDivisionWhereUniqueInput!): SubDivision
+  updateManySubDivisions(data: SubDivisionUpdateManyMutationInput!, where: SubDivisionWhereInput): BatchPayload!
+  upsertSubDivision(where: SubDivisionWhereUniqueInput!, create: SubDivisionCreateInput!, update: SubDivisionUpdateInput!): SubDivision!
+  deleteSubDivision(where: SubDivisionWhereUniqueInput!): SubDivision
+  deleteManySubDivisions(where: SubDivisionWhereInput): BatchPayload!
+  createSubject(data: SubjectCreateInput!): Subject!
+  updateSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
+  updateManySubjects(data: SubjectUpdateManyMutationInput!, where: SubjectWhereInput): BatchPayload!
+  upsertSubject(where: SubjectWhereUniqueInput!, create: SubjectCreateInput!, update: SubjectUpdateInput!): Subject!
+  deleteSubject(where: SubjectWhereUniqueInput!): Subject
+  deleteManySubjects(where: SubjectWhereInput): BatchPayload!
+  createTown(data: TownCreateInput!): Town!
+  updateTown(data: TownUpdateInput!, where: TownWhereUniqueInput!): Town
+  updateManyTowns(data: TownUpdateManyMutationInput!, where: TownWhereInput): BatchPayload!
+  upsertTown(where: TownWhereUniqueInput!, create: TownCreateInput!, update: TownUpdateInput!): Town!
+  deleteTown(where: TownWhereUniqueInput!): Town
+  deleteManyTowns(where: TownWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createexamSession(data: examSessionCreateInput!): examSession!
+  updateexamSession(data: examSessionUpdateInput!, where: examSessionWhereUniqueInput!): examSession
+  updateManyexamSessions(data: examSessionUpdateManyMutationInput!, where: examSessionWhereInput): BatchPayload!
+  upsertexamSession(where: examSessionWhereUniqueInput!, create: examSessionCreateInput!, update: examSessionUpdateInput!): examSession!
+  deleteexamSession(where: examSessionWhereUniqueInput!): examSession
+  deleteManyexamSessions(where: examSessionWhereInput): BatchPayload!
+  createexanCenter(data: exanCenterCreateInput!): exanCenter!
+  updateexanCenter(data: exanCenterUpdateInput!, where: exanCenterWhereUniqueInput!): exanCenter
+  updateManyexanCenters(data: exanCenterUpdateManyMutationInput!, where: exanCenterWhereInput): BatchPayload!
+  upsertexanCenter(where: exanCenterWhereUniqueInput!, create: exanCenterCreateInput!, update: exanCenterUpdateInput!): exanCenter!
+  deleteexanCenter(where: exanCenterWhereUniqueInput!): exanCenter
+  deleteManyexanCenters(where: exanCenterWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -39,20 +740,956 @@ type PageInfo {
   endCursor: String
 }
 
+type Presence {
+  id: ID!
+  regName: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PresenceConnection {
+  pageInfo: PageInfo!
+  edges: [PresenceEdge]!
+  aggregate: AggregatePresence!
+}
+
+input PresenceCreateInput {
+  id: ID
+  regName: Boolean!
+}
+
+type PresenceEdge {
+  node: Presence!
+  cursor: String!
+}
+
+enum PresenceOrderByInput {
+  id_ASC
+  id_DESC
+  regName_ASC
+  regName_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type PresencePreviousValues {
+  id: ID!
+  regName: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type PresenceSubscriptionPayload {
+  mutation: MutationType!
+  node: Presence
+  updatedFields: [String!]
+  previousValues: PresencePreviousValues
+}
+
+input PresenceSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PresenceWhereInput
+  AND: [PresenceSubscriptionWhereInput!]
+  OR: [PresenceSubscriptionWhereInput!]
+  NOT: [PresenceSubscriptionWhereInput!]
+}
+
+input PresenceUpdateInput {
+  regName: Boolean
+}
+
+input PresenceUpdateManyMutationInput {
+  regName: Boolean
+}
+
+input PresenceWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  regName: Boolean
+  regName_not: Boolean
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [PresenceWhereInput!]
+  OR: [PresenceWhereInput!]
+  NOT: [PresenceWhereInput!]
+}
+
+input PresenceWhereUniqueInput {
+  id: ID
+}
+
 type Query {
+  division(where: DivisionWhereUniqueInput!): Division
+  divisions(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Division]!
+  divisionsConnection(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DivisionConnection!
+  exam(where: ExamWhereUniqueInput!): Exam
+  exams(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Exam]!
+  examsConnection(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExamConnection!
+  presence(where: PresenceWhereUniqueInput!): Presence
+  presences(where: PresenceWhereInput, orderBy: PresenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Presence]!
+  presencesConnection(where: PresenceWhereInput, orderBy: PresenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PresenceConnection!
+  region(where: RegionWhereUniqueInput!): Region
+  regions(where: RegionWhereInput, orderBy: RegionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Region]!
+  regionsConnection(where: RegionWhereInput, orderBy: RegionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RegionConnection!
+  series(where: SeriesWhereUniqueInput!): Series
+  serieses(where: SeriesWhereInput, orderBy: SeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Series]!
+  seriesesConnection(where: SeriesWhereInput, orderBy: SeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SeriesConnection!
+  subDivision(where: SubDivisionWhereUniqueInput!): SubDivision
+  subDivisions(where: SubDivisionWhereInput, orderBy: SubDivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubDivision]!
+  subDivisionsConnection(where: SubDivisionWhereInput, orderBy: SubDivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubDivisionConnection!
+  subject(where: SubjectWhereUniqueInput!): Subject
+  subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
+  subjectsConnection(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectConnection!
+  town(where: TownWhereUniqueInput!): Town
+  towns(where: TownWhereInput, orderBy: TownOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Town]!
+  townsConnection(where: TownWhereInput, orderBy: TownOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TownConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  examSession(where: examSessionWhereUniqueInput!): examSession
+  examSessions(where: examSessionWhereInput, orderBy: examSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [examSession]!
+  examSessionsConnection(where: examSessionWhereInput, orderBy: examSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): examSessionConnection!
+  exanCenter(where: exanCenterWhereUniqueInput!): exanCenter
+  exanCenters(where: exanCenterWhereInput, orderBy: exanCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [exanCenter]!
+  exanCentersConnection(where: exanCenterWhereInput, orderBy: exanCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): exanCenterConnection!
   node(id: ID!): Node
 }
 
+type Region {
+  id: ID!
+  regName: String!
+  regCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type RegionConnection {
+  pageInfo: PageInfo!
+  edges: [RegionEdge]!
+  aggregate: AggregateRegion!
+}
+
+input RegionCreateInput {
+  id: ID
+  regName: String!
+  regCode: String!
+}
+
+input RegionCreateOneInput {
+  create: RegionCreateInput
+  connect: RegionWhereUniqueInput
+}
+
+type RegionEdge {
+  node: Region!
+  cursor: String!
+}
+
+enum RegionOrderByInput {
+  id_ASC
+  id_DESC
+  regName_ASC
+  regName_DESC
+  regCode_ASC
+  regCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type RegionPreviousValues {
+  id: ID!
+  regName: String!
+  regCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type RegionSubscriptionPayload {
+  mutation: MutationType!
+  node: Region
+  updatedFields: [String!]
+  previousValues: RegionPreviousValues
+}
+
+input RegionSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: RegionWhereInput
+  AND: [RegionSubscriptionWhereInput!]
+  OR: [RegionSubscriptionWhereInput!]
+  NOT: [RegionSubscriptionWhereInput!]
+}
+
+input RegionUpdateDataInput {
+  regName: String
+  regCode: String
+}
+
+input RegionUpdateInput {
+  regName: String
+  regCode: String
+}
+
+input RegionUpdateManyMutationInput {
+  regName: String
+  regCode: String
+}
+
+input RegionUpdateOneRequiredInput {
+  create: RegionCreateInput
+  update: RegionUpdateDataInput
+  upsert: RegionUpsertNestedInput
+  connect: RegionWhereUniqueInput
+}
+
+input RegionUpsertNestedInput {
+  update: RegionUpdateDataInput!
+  create: RegionCreateInput!
+}
+
+input RegionWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  regName: String
+  regName_not: String
+  regName_in: [String!]
+  regName_not_in: [String!]
+  regName_lt: String
+  regName_lte: String
+  regName_gt: String
+  regName_gte: String
+  regName_contains: String
+  regName_not_contains: String
+  regName_starts_with: String
+  regName_not_starts_with: String
+  regName_ends_with: String
+  regName_not_ends_with: String
+  regCode: String
+  regCode_not: String
+  regCode_in: [String!]
+  regCode_not_in: [String!]
+  regCode_lt: String
+  regCode_lte: String
+  regCode_gt: String
+  regCode_gte: String
+  regCode_contains: String
+  regCode_not_contains: String
+  regCode_starts_with: String
+  regCode_not_starts_with: String
+  regCode_ends_with: String
+  regCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [RegionWhereInput!]
+  OR: [RegionWhereInput!]
+  NOT: [RegionWhereInput!]
+}
+
+input RegionWhereUniqueInput {
+  id: ID
+}
+
+type Series {
+  id: ID!
+  seriesName: String!
+  seriesCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type SeriesConnection {
+  pageInfo: PageInfo!
+  edges: [SeriesEdge]!
+  aggregate: AggregateSeries!
+}
+
+input SeriesCreateInput {
+  id: ID
+  seriesName: String!
+  seriesCode: String!
+}
+
+type SeriesEdge {
+  node: Series!
+  cursor: String!
+}
+
+enum SeriesOrderByInput {
+  id_ASC
+  id_DESC
+  seriesName_ASC
+  seriesName_DESC
+  seriesCode_ASC
+  seriesCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type SeriesPreviousValues {
+  id: ID!
+  seriesName: String!
+  seriesCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type SeriesSubscriptionPayload {
+  mutation: MutationType!
+  node: Series
+  updatedFields: [String!]
+  previousValues: SeriesPreviousValues
+}
+
+input SeriesSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SeriesWhereInput
+  AND: [SeriesSubscriptionWhereInput!]
+  OR: [SeriesSubscriptionWhereInput!]
+  NOT: [SeriesSubscriptionWhereInput!]
+}
+
+input SeriesUpdateInput {
+  seriesName: String
+  seriesCode: String
+}
+
+input SeriesUpdateManyMutationInput {
+  seriesName: String
+  seriesCode: String
+}
+
+input SeriesWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  seriesName: String
+  seriesName_not: String
+  seriesName_in: [String!]
+  seriesName_not_in: [String!]
+  seriesName_lt: String
+  seriesName_lte: String
+  seriesName_gt: String
+  seriesName_gte: String
+  seriesName_contains: String
+  seriesName_not_contains: String
+  seriesName_starts_with: String
+  seriesName_not_starts_with: String
+  seriesName_ends_with: String
+  seriesName_not_ends_with: String
+  seriesCode: String
+  seriesCode_not: String
+  seriesCode_in: [String!]
+  seriesCode_not_in: [String!]
+  seriesCode_lt: String
+  seriesCode_lte: String
+  seriesCode_gt: String
+  seriesCode_gte: String
+  seriesCode_contains: String
+  seriesCode_not_contains: String
+  seriesCode_starts_with: String
+  seriesCode_not_starts_with: String
+  seriesCode_ends_with: String
+  seriesCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [SeriesWhereInput!]
+  OR: [SeriesWhereInput!]
+  NOT: [SeriesWhereInput!]
+}
+
+input SeriesWhereUniqueInput {
+  id: ID
+}
+
+type SubDivision {
+  id: ID!
+  subDivName: String!
+  subDivCode: String!
+  division: Division!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type SubDivisionConnection {
+  pageInfo: PageInfo!
+  edges: [SubDivisionEdge]!
+  aggregate: AggregateSubDivision!
+}
+
+input SubDivisionCreateInput {
+  id: ID
+  subDivName: String!
+  subDivCode: String!
+  division: DivisionCreateOneInput!
+}
+
+input SubDivisionCreateOneInput {
+  create: SubDivisionCreateInput
+  connect: SubDivisionWhereUniqueInput
+}
+
+type SubDivisionEdge {
+  node: SubDivision!
+  cursor: String!
+}
+
+enum SubDivisionOrderByInput {
+  id_ASC
+  id_DESC
+  subDivName_ASC
+  subDivName_DESC
+  subDivCode_ASC
+  subDivCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type SubDivisionPreviousValues {
+  id: ID!
+  subDivName: String!
+  subDivCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type SubDivisionSubscriptionPayload {
+  mutation: MutationType!
+  node: SubDivision
+  updatedFields: [String!]
+  previousValues: SubDivisionPreviousValues
+}
+
+input SubDivisionSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SubDivisionWhereInput
+  AND: [SubDivisionSubscriptionWhereInput!]
+  OR: [SubDivisionSubscriptionWhereInput!]
+  NOT: [SubDivisionSubscriptionWhereInput!]
+}
+
+input SubDivisionUpdateDataInput {
+  subDivName: String
+  subDivCode: String
+  division: DivisionUpdateOneRequiredInput
+}
+
+input SubDivisionUpdateInput {
+  subDivName: String
+  subDivCode: String
+  division: DivisionUpdateOneRequiredInput
+}
+
+input SubDivisionUpdateManyMutationInput {
+  subDivName: String
+  subDivCode: String
+}
+
+input SubDivisionUpdateOneRequiredInput {
+  create: SubDivisionCreateInput
+  update: SubDivisionUpdateDataInput
+  upsert: SubDivisionUpsertNestedInput
+  connect: SubDivisionWhereUniqueInput
+}
+
+input SubDivisionUpsertNestedInput {
+  update: SubDivisionUpdateDataInput!
+  create: SubDivisionCreateInput!
+}
+
+input SubDivisionWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  subDivName: String
+  subDivName_not: String
+  subDivName_in: [String!]
+  subDivName_not_in: [String!]
+  subDivName_lt: String
+  subDivName_lte: String
+  subDivName_gt: String
+  subDivName_gte: String
+  subDivName_contains: String
+  subDivName_not_contains: String
+  subDivName_starts_with: String
+  subDivName_not_starts_with: String
+  subDivName_ends_with: String
+  subDivName_not_ends_with: String
+  subDivCode: String
+  subDivCode_not: String
+  subDivCode_in: [String!]
+  subDivCode_not_in: [String!]
+  subDivCode_lt: String
+  subDivCode_lte: String
+  subDivCode_gt: String
+  subDivCode_gte: String
+  subDivCode_contains: String
+  subDivCode_not_contains: String
+  subDivCode_starts_with: String
+  subDivCode_not_starts_with: String
+  subDivCode_ends_with: String
+  subDivCode_not_ends_with: String
+  division: DivisionWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [SubDivisionWhereInput!]
+  OR: [SubDivisionWhereInput!]
+  NOT: [SubDivisionWhereInput!]
+}
+
+input SubDivisionWhereUniqueInput {
+  id: ID
+}
+
+type Subject {
+  id: ID!
+  subjName: String!
+  subjCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type SubjectConnection {
+  pageInfo: PageInfo!
+  edges: [SubjectEdge]!
+  aggregate: AggregateSubject!
+}
+
+input SubjectCreateInput {
+  id: ID
+  subjName: String!
+  subjCode: String!
+}
+
+type SubjectEdge {
+  node: Subject!
+  cursor: String!
+}
+
+enum SubjectOrderByInput {
+  id_ASC
+  id_DESC
+  subjName_ASC
+  subjName_DESC
+  subjCode_ASC
+  subjCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type SubjectPreviousValues {
+  id: ID!
+  subjName: String!
+  subjCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type SubjectSubscriptionPayload {
+  mutation: MutationType!
+  node: Subject
+  updatedFields: [String!]
+  previousValues: SubjectPreviousValues
+}
+
+input SubjectSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SubjectWhereInput
+  AND: [SubjectSubscriptionWhereInput!]
+  OR: [SubjectSubscriptionWhereInput!]
+  NOT: [SubjectSubscriptionWhereInput!]
+}
+
+input SubjectUpdateInput {
+  subjName: String
+  subjCode: String
+}
+
+input SubjectUpdateManyMutationInput {
+  subjName: String
+  subjCode: String
+}
+
+input SubjectWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  subjName: String
+  subjName_not: String
+  subjName_in: [String!]
+  subjName_not_in: [String!]
+  subjName_lt: String
+  subjName_lte: String
+  subjName_gt: String
+  subjName_gte: String
+  subjName_contains: String
+  subjName_not_contains: String
+  subjName_starts_with: String
+  subjName_not_starts_with: String
+  subjName_ends_with: String
+  subjName_not_ends_with: String
+  subjCode: String
+  subjCode_not: String
+  subjCode_in: [String!]
+  subjCode_not_in: [String!]
+  subjCode_lt: String
+  subjCode_lte: String
+  subjCode_gt: String
+  subjCode_gte: String
+  subjCode_contains: String
+  subjCode_not_contains: String
+  subjCode_starts_with: String
+  subjCode_not_starts_with: String
+  subjCode_ends_with: String
+  subjCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [SubjectWhereInput!]
+  OR: [SubjectWhereInput!]
+  NOT: [SubjectWhereInput!]
+}
+
+input SubjectWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
+  division(where: DivisionSubscriptionWhereInput): DivisionSubscriptionPayload
+  exam(where: ExamSubscriptionWhereInput): ExamSubscriptionPayload
+  presence(where: PresenceSubscriptionWhereInput): PresenceSubscriptionPayload
+  region(where: RegionSubscriptionWhereInput): RegionSubscriptionPayload
+  series(where: SeriesSubscriptionWhereInput): SeriesSubscriptionPayload
+  subDivision(where: SubDivisionSubscriptionWhereInput): SubDivisionSubscriptionPayload
+  subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
+  town(where: TownSubscriptionWhereInput): TownSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  examSession(where: examSessionSubscriptionWhereInput): examSessionSubscriptionPayload
+  exanCenter(where: exanCenterSubscriptionWhereInput): exanCenterSubscriptionPayload
+}
+
+type Town {
+  id: ID!
+  townName: String!
+  townCode: String!
+  subDiv: SubDivision!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type TownConnection {
+  pageInfo: PageInfo!
+  edges: [TownEdge]!
+  aggregate: AggregateTown!
+}
+
+input TownCreateInput {
+  id: ID
+  townName: String!
+  townCode: String!
+  subDiv: SubDivisionCreateOneInput!
+}
+
+input TownCreateOneInput {
+  create: TownCreateInput
+  connect: TownWhereUniqueInput
+}
+
+type TownEdge {
+  node: Town!
+  cursor: String!
+}
+
+enum TownOrderByInput {
+  id_ASC
+  id_DESC
+  townName_ASC
+  townName_DESC
+  townCode_ASC
+  townCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type TownPreviousValues {
+  id: ID!
+  townName: String!
+  townCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type TownSubscriptionPayload {
+  mutation: MutationType!
+  node: Town
+  updatedFields: [String!]
+  previousValues: TownPreviousValues
+}
+
+input TownSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TownWhereInput
+  AND: [TownSubscriptionWhereInput!]
+  OR: [TownSubscriptionWhereInput!]
+  NOT: [TownSubscriptionWhereInput!]
+}
+
+input TownUpdateDataInput {
+  townName: String
+  townCode: String
+  subDiv: SubDivisionUpdateOneRequiredInput
+}
+
+input TownUpdateInput {
+  townName: String
+  townCode: String
+  subDiv: SubDivisionUpdateOneRequiredInput
+}
+
+input TownUpdateManyMutationInput {
+  townName: String
+  townCode: String
+}
+
+input TownUpdateOneRequiredInput {
+  create: TownCreateInput
+  update: TownUpdateDataInput
+  upsert: TownUpsertNestedInput
+  connect: TownWhereUniqueInput
+}
+
+input TownUpsertNestedInput {
+  update: TownUpdateDataInput!
+  create: TownCreateInput!
+}
+
+input TownWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  townName: String
+  townName_not: String
+  townName_in: [String!]
+  townName_not_in: [String!]
+  townName_lt: String
+  townName_lte: String
+  townName_gt: String
+  townName_gte: String
+  townName_contains: String
+  townName_not_contains: String
+  townName_starts_with: String
+  townName_not_starts_with: String
+  townName_ends_with: String
+  townName_not_ends_with: String
+  townCode: String
+  townCode_not: String
+  townCode_in: [String!]
+  townCode_not_in: [String!]
+  townCode_lt: String
+  townCode_lte: String
+  townCode_gt: String
+  townCode_gte: String
+  townCode_contains: String
+  townCode_not_contains: String
+  townCode_starts_with: String
+  townCode_not_starts_with: String
+  townCode_ends_with: String
+  townCode_not_ends_with: String
+  subDiv: SubDivisionWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [TownWhereInput!]
+  OR: [TownWhereInput!]
+  NOT: [TownWhereInput!]
+}
+
+input TownWhereUniqueInput {
+  id: ID
 }
 
 type User {
   id: ID!
   name: String!
+  email: String!
 }
 
 type UserConnection {
@@ -64,6 +1701,7 @@ type UserConnection {
 input UserCreateInput {
   id: ID
   name: String!
+  email: String!
 }
 
 type UserEdge {
@@ -76,11 +1714,14 @@ enum UserOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  email_ASC
+  email_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   name: String!
+  email: String!
 }
 
 type UserSubscriptionPayload {
@@ -103,10 +1744,12 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   name: String
+  email: String
 }
 
 input UserUpdateManyMutationInput {
   name: String
+  email: String
 }
 
 input UserWhereInput {
@@ -138,6 +1781,20 @@ input UserWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
