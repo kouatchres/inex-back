@@ -2,6 +2,19 @@ type User {
   id: ID! @id @unique
   name: String!
   email: String!
+  createdAt: DateTime! @createdAt
+updatedAt: DateTime! @updatedAt
+
+}
+type Item {
+  id: ID! @id @unique
+  title: String!
+  descrption: String!
+  image: String
+  largeImage: String
+ createdAt: DateTime! @createdAt
+updatedAt: DateTime! @updatedAt
+ 
 }
 
 type Region {
@@ -19,7 +32,8 @@ divName: String!
 divCode: String!
 region: Region!
 createdAt: DateTime! @createdAt
-updatedAt: DateTime!@updatedAt
+updatedAt: DateTime! @updatedAt
+
 }
 
 type SubDivision {
@@ -29,7 +43,7 @@ subDivName: String!
 subDivCode: String!
 division: Division!
 createdAt: DateTime! @createdAt
-updatedAt: DateTime!@updatedAt
+updatedAt: DateTime! @updatedAt
 }
 
 type Town {
@@ -39,7 +53,7 @@ townName: String!
 townCode: String!
 subDiv: SubDivision!
 createdAt: DateTime! @createdAt
-updatedAt: DateTime!@updatedAt
+updatedAt: DateTime! @updatedAt
 }
 
 type exanCenter {
@@ -49,7 +63,7 @@ centerName: String!
 centerCode: String!
 town: Town!
 createdAt: DateTime! @createdAt
-updatedAt: DateTime!@updatedAt
+updatedAt: DateTime! @updatedAt
 }
 
 type Series {
@@ -58,7 +72,7 @@ id: ID! @id @unique
 seriesName: String!
 seriesCode: String!
 createdAt: DateTime! @createdAt
-updatedAt: DateTime!@updatedAt
+updatedAt: DateTime! @updatedAt
 }
 type Exam {
 
@@ -66,7 +80,7 @@ id: ID! @id @unique
 examName: String!
 examCode: String!
 createdAt: DateTime! @createdAt
-updatedAt: DateTime!@updatedAt
+updatedAt: DateTime! @updatedAt
 }
 type Subject {
 
@@ -74,20 +88,46 @@ id: ID! @id @unique
 subjName: String!
 subjCode: String!
 createdAt: DateTime! @createdAt
-updatedAt: DateTime!@updatedAt
+updatedAt: DateTime! @updatedAt
 }
 type Presence {
 
 id: ID! @id @unique
 regName: Boolean! 
 createdAt: DateTime! @createdAt
-updatedAt: DateTime!@updatedAt
+updatedAt: DateTime! @updatedAt
 }
-type examSession {
+type ExamSession {
 
 id: ID! @id @unique
 sessionName: String!
 sessionCode: String!
 createdAt: DateTime! @createdAt
-updatedAt: DateTime!@updatedAt
+updatedAt: DateTime! @updatedAt
+}
+
+type Gender {
+
+id: ID! @id @unique
+genderName: String!
+genderCode: String!
+createdAt: DateTime! @createdAt
+updatedAt: DateTime! @updatedAt
+}
+
+
+type Candidate {
+id: ID! @id @unique
+cand1stName: String
+cand2ndName: String
+cand3rdName: String
+candCode: String
+placeOfBirth: String
+image: String
+birthCertNumber: String
+email: String
+phoneNumb: Int
+dateOfBirth: DateTime @dateOfBirth
+createdAt: DateTime! @createdAt
+updatedAt: DateTime!  @updatedAt
 }

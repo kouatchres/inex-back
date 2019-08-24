@@ -9,6 +9,10 @@ var models = [
     embedded: false
   },
   {
+    name: "Item",
+    embedded: false
+  },
+  {
     name: "Region",
     embedded: false
   },
@@ -45,7 +49,15 @@ var models = [
     embedded: false
   },
   {
-    name: "examSession",
+    name: "ExamSession",
+    embedded: false
+  },
+  {
+    name: "Gender",
+    embedded: false
+  },
+  {
+    name: "Candidate",
     embedded: false
   }
 ];

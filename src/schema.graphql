@@ -1,9 +1,35 @@
-type User {
-    id:ID! , name: String!
-}
+# this is importing all the generated types from the prisma.graphql file
+# import * from './generated/prisma.graphql'
+
+
 type Mutation {
-              hi: String
-}
+    createUser(name: String!, email: String!): User! 
+   createCandidate(
+   cand1stName:String,
+    cand2ndName:String,
+    cand3rdName:String,
+    email: String,
+    phoneNumb: Int,
+    image: String,
+    candCode: String,
+    placeOfBirth: String
+       ):Candidate!
+       createRegion(regName: String!, regCode: String!):Region!
+       createDivision(divName: String!, divCode: String!, region: Region!):Division!
+       createItem(title: String! , description: String, image: String!):Item!
+       createGender(genderName: String! , genderCode: String!):Gender!
+      #  createDivision(data: DivisionCreateInput!): Division!
+  
+
+       }
+
 type Query {
-              hi: String
-}
+        candidates:[Candidate]!  
+        regions:[Region]! 
+        items:[Item]! 
+         users:[User]!
+         genders:[Gender]!
+         divisions:[Division]!
+
+          
+           }

@@ -16,8 +16,12 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  candidate: (where?: CandidateWhereInput) => Promise<boolean>;
   division: (where?: DivisionWhereInput) => Promise<boolean>;
   exam: (where?: ExamWhereInput) => Promise<boolean>;
+  examSession: (where?: ExamSessionWhereInput) => Promise<boolean>;
+  gender: (where?: GenderWhereInput) => Promise<boolean>;
+  item: (where?: ItemWhereInput) => Promise<boolean>;
   presence: (where?: PresenceWhereInput) => Promise<boolean>;
   region: (where?: RegionWhereInput) => Promise<boolean>;
   series: (where?: SeriesWhereInput) => Promise<boolean>;
@@ -25,7 +29,6 @@ export interface Exists {
   subject: (where?: SubjectWhereInput) => Promise<boolean>;
   town: (where?: TownWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
-  examSession: (where?: examSessionWhereInput) => Promise<boolean>;
   exanCenter: (where?: exanCenterWhereInput) => Promise<boolean>;
 }
 
@@ -48,6 +51,25 @@ export interface Prisma {
    * Queries
    */
 
+  candidate: (where: CandidateWhereUniqueInput) => CandidateNullablePromise;
+  candidates: (args?: {
+    where?: CandidateWhereInput;
+    orderBy?: CandidateOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Candidate>;
+  candidatesConnection: (args?: {
+    where?: CandidateWhereInput;
+    orderBy?: CandidateOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => CandidateConnectionPromise;
   division: (where: DivisionWhereUniqueInput) => DivisionNullablePromise;
   divisions: (args?: {
     where?: DivisionWhereInput;
@@ -86,6 +108,65 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ExamConnectionPromise;
+  examSession: (
+    where: ExamSessionWhereUniqueInput
+  ) => ExamSessionNullablePromise;
+  examSessions: (args?: {
+    where?: ExamSessionWhereInput;
+    orderBy?: ExamSessionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<ExamSession>;
+  examSessionsConnection: (args?: {
+    where?: ExamSessionWhereInput;
+    orderBy?: ExamSessionOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ExamSessionConnectionPromise;
+  gender: (where: GenderWhereUniqueInput) => GenderNullablePromise;
+  genders: (args?: {
+    where?: GenderWhereInput;
+    orderBy?: GenderOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Gender>;
+  gendersConnection: (args?: {
+    where?: GenderWhereInput;
+    orderBy?: GenderOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => GenderConnectionPromise;
+  item: (where: ItemWhereUniqueInput) => ItemNullablePromise;
+  items: (args?: {
+    where?: ItemWhereInput;
+    orderBy?: ItemOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Item>;
+  itemsConnection: (args?: {
+    where?: ItemWhereInput;
+    orderBy?: ItemOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => ItemConnectionPromise;
   presence: (where: PresenceWhereUniqueInput) => PresenceNullablePromise;
   presences: (args?: {
     where?: PresenceWhereInput;
@@ -221,27 +302,6 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => UserConnectionPromise;
-  examSession: (
-    where: examSessionWhereUniqueInput
-  ) => examSessionNullablePromise;
-  examSessions: (args?: {
-    where?: examSessionWhereInput;
-    orderBy?: examSessionOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => FragmentableArray<examSession>;
-  examSessionsConnection: (args?: {
-    where?: examSessionWhereInput;
-    orderBy?: examSessionOrderByInput;
-    skip?: Int;
-    after?: String;
-    before?: String;
-    first?: Int;
-    last?: Int;
-  }) => examSessionConnectionPromise;
   exanCenter: (where: exanCenterWhereUniqueInput) => exanCenterNullablePromise;
   exanCenters: (args?: {
     where?: exanCenterWhereInput;
@@ -267,6 +327,22 @@ export interface Prisma {
    * Mutations
    */
 
+  createCandidate: (data: CandidateCreateInput) => CandidatePromise;
+  updateCandidate: (args: {
+    data: CandidateUpdateInput;
+    where: CandidateWhereUniqueInput;
+  }) => CandidatePromise;
+  updateManyCandidates: (args: {
+    data: CandidateUpdateManyMutationInput;
+    where?: CandidateWhereInput;
+  }) => BatchPayloadPromise;
+  upsertCandidate: (args: {
+    where: CandidateWhereUniqueInput;
+    create: CandidateCreateInput;
+    update: CandidateUpdateInput;
+  }) => CandidatePromise;
+  deleteCandidate: (where: CandidateWhereUniqueInput) => CandidatePromise;
+  deleteManyCandidates: (where?: CandidateWhereInput) => BatchPayloadPromise;
   createDivision: (data: DivisionCreateInput) => DivisionPromise;
   updateDivision: (args: {
     data: DivisionUpdateInput;
@@ -299,6 +375,56 @@ export interface Prisma {
   }) => ExamPromise;
   deleteExam: (where: ExamWhereUniqueInput) => ExamPromise;
   deleteManyExams: (where?: ExamWhereInput) => BatchPayloadPromise;
+  createExamSession: (data: ExamSessionCreateInput) => ExamSessionPromise;
+  updateExamSession: (args: {
+    data: ExamSessionUpdateInput;
+    where: ExamSessionWhereUniqueInput;
+  }) => ExamSessionPromise;
+  updateManyExamSessions: (args: {
+    data: ExamSessionUpdateManyMutationInput;
+    where?: ExamSessionWhereInput;
+  }) => BatchPayloadPromise;
+  upsertExamSession: (args: {
+    where: ExamSessionWhereUniqueInput;
+    create: ExamSessionCreateInput;
+    update: ExamSessionUpdateInput;
+  }) => ExamSessionPromise;
+  deleteExamSession: (where: ExamSessionWhereUniqueInput) => ExamSessionPromise;
+  deleteManyExamSessions: (
+    where?: ExamSessionWhereInput
+  ) => BatchPayloadPromise;
+  createGender: (data: GenderCreateInput) => GenderPromise;
+  updateGender: (args: {
+    data: GenderUpdateInput;
+    where: GenderWhereUniqueInput;
+  }) => GenderPromise;
+  updateManyGenders: (args: {
+    data: GenderUpdateManyMutationInput;
+    where?: GenderWhereInput;
+  }) => BatchPayloadPromise;
+  upsertGender: (args: {
+    where: GenderWhereUniqueInput;
+    create: GenderCreateInput;
+    update: GenderUpdateInput;
+  }) => GenderPromise;
+  deleteGender: (where: GenderWhereUniqueInput) => GenderPromise;
+  deleteManyGenders: (where?: GenderWhereInput) => BatchPayloadPromise;
+  createItem: (data: ItemCreateInput) => ItemPromise;
+  updateItem: (args: {
+    data: ItemUpdateInput;
+    where: ItemWhereUniqueInput;
+  }) => ItemPromise;
+  updateManyItems: (args: {
+    data: ItemUpdateManyMutationInput;
+    where?: ItemWhereInput;
+  }) => BatchPayloadPromise;
+  upsertItem: (args: {
+    where: ItemWhereUniqueInput;
+    create: ItemCreateInput;
+    update: ItemUpdateInput;
+  }) => ItemPromise;
+  deleteItem: (where: ItemWhereUniqueInput) => ItemPromise;
+  deleteManyItems: (where?: ItemWhereInput) => BatchPayloadPromise;
   createPresence: (data: PresenceCreateInput) => PresencePromise;
   updatePresence: (args: {
     data: PresenceUpdateInput;
@@ -413,24 +539,6 @@ export interface Prisma {
   }) => UserPromise;
   deleteUser: (where: UserWhereUniqueInput) => UserPromise;
   deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
-  createexamSession: (data: examSessionCreateInput) => examSessionPromise;
-  updateexamSession: (args: {
-    data: examSessionUpdateInput;
-    where: examSessionWhereUniqueInput;
-  }) => examSessionPromise;
-  updateManyexamSessions: (args: {
-    data: examSessionUpdateManyMutationInput;
-    where?: examSessionWhereInput;
-  }) => BatchPayloadPromise;
-  upsertexamSession: (args: {
-    where: examSessionWhereUniqueInput;
-    create: examSessionCreateInput;
-    update: examSessionUpdateInput;
-  }) => examSessionPromise;
-  deleteexamSession: (where: examSessionWhereUniqueInput) => examSessionPromise;
-  deleteManyexamSessions: (
-    where?: examSessionWhereInput
-  ) => BatchPayloadPromise;
   createexanCenter: (data: exanCenterCreateInput) => exanCenterPromise;
   updateexanCenter: (args: {
     data: exanCenterUpdateInput;
@@ -456,12 +564,24 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  candidate: (
+    where?: CandidateSubscriptionWhereInput
+  ) => CandidateSubscriptionPayloadSubscription;
   division: (
     where?: DivisionSubscriptionWhereInput
   ) => DivisionSubscriptionPayloadSubscription;
   exam: (
     where?: ExamSubscriptionWhereInput
   ) => ExamSubscriptionPayloadSubscription;
+  examSession: (
+    where?: ExamSessionSubscriptionWhereInput
+  ) => ExamSessionSubscriptionPayloadSubscription;
+  gender: (
+    where?: GenderSubscriptionWhereInput
+  ) => GenderSubscriptionPayloadSubscription;
+  item: (
+    where?: ItemSubscriptionWhereInput
+  ) => ItemSubscriptionPayloadSubscription;
   presence: (
     where?: PresenceSubscriptionWhereInput
   ) => PresenceSubscriptionPayloadSubscription;
@@ -483,9 +603,6 @@ export interface Subscription {
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
-  examSession: (
-    where?: examSessionSubscriptionWhereInput
-  ) => examSessionSubscriptionPayloadSubscription;
   exanCenter: (
     where?: exanCenterSubscriptionWhereInput
   ) => exanCenterSubscriptionPayloadSubscription;
@@ -499,25 +616,13 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type SubjectOrderByInput =
+export type SeriesOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "subjName_ASC"
-  | "subjName_DESC"
-  | "subjCode_ASC"
-  | "subjCode_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type ExamOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "examName_ASC"
-  | "examName_DESC"
-  | "examCode_ASC"
-  | "examCode_DESC"
+  | "seriesName_ASC"
+  | "seriesName_DESC"
+  | "seriesCode_ASC"
+  | "seriesCode_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -530,18 +635,6 @@ export type DivisionOrderByInput =
   | "divName_DESC"
   | "divCode_ASC"
   | "divCode_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type exanCenterOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "centerName_ASC"
-  | "centerName_DESC"
-  | "centerCode_ASC"
-  | "centerCode_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -569,13 +662,131 @@ export type RegionOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type SeriesOrderByInput =
+export type ItemOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "seriesName_ASC"
-  | "seriesName_DESC"
-  | "seriesCode_ASC"
-  | "seriesCode_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "descrption_ASC"
+  | "descrption_DESC"
+  | "image_ASC"
+  | "image_DESC"
+  | "largeImage_ASC"
+  | "largeImage_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type UserOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "name_ASC"
+  | "name_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type SubjectOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "subjName_ASC"
+  | "subjName_DESC"
+  | "subjCode_ASC"
+  | "subjCode_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+
+export type ExamOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "examName_ASC"
+  | "examName_DESC"
+  | "examCode_ASC"
+  | "examCode_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type ExamSessionOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "sessionName_ASC"
+  | "sessionName_DESC"
+  | "sessionCode_ASC"
+  | "sessionCode_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type GenderOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "genderName_ASC"
+  | "genderName_DESC"
+  | "genderCode_ASC"
+  | "genderCode_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type CandidateOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "cand1stName_ASC"
+  | "cand1stName_DESC"
+  | "cand2ndName_ASC"
+  | "cand2ndName_DESC"
+  | "cand3rdName_ASC"
+  | "cand3rdName_DESC"
+  | "candCode_ASC"
+  | "candCode_DESC"
+  | "placeOfBirth_ASC"
+  | "placeOfBirth_DESC"
+  | "image_ASC"
+  | "image_DESC"
+  | "birthCertNumber_ASC"
+  | "birthCertNumber_DESC"
+  | "email_ASC"
+  | "email_DESC"
+  | "phoneNumb_ASC"
+  | "phoneNumb_DESC"
+  | "dateOfBirth_ASC"
+  | "dateOfBirth_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type TownOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "townName_ASC"
+  | "townName_DESC"
+  | "townCode_ASC"
+  | "townCode_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
+
+export type exanCenterOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "centerName_ASC"
+  | "centerName_DESC"
+  | "centerCode_ASC"
+  | "centerCode_DESC"
   | "createdAt_ASC"
   | "createdAt_DESC"
   | "updatedAt_ASC"
@@ -593,474 +804,151 @@ export type SubDivisionOrderByInput =
   | "updatedAt_ASC"
   | "updatedAt_DESC";
 
-export type examSessionOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "sessionName_ASC"
-  | "sessionName_DESC"
-  | "sessionCode_ASC"
-  | "sessionCode_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type MutationType = "CREATED" | "UPDATED" | "DELETED";
-
-export type TownOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "townName_ASC"
-  | "townName_DESC"
-  | "townCode_ASC"
-  | "townCode_DESC"
-  | "createdAt_ASC"
-  | "createdAt_DESC"
-  | "updatedAt_ASC"
-  | "updatedAt_DESC";
-
-export type UserOrderByInput =
-  | "id_ASC"
-  | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "email_ASC"
-  | "email_DESC";
-
-export interface DivisionCreateInput {
-  id?: Maybe<ID_Input>;
-  divName: String;
-  divCode: String;
-  region: RegionCreateOneInput;
+export interface RegionUpdateDataInput {
+  regName?: Maybe<String>;
+  regCode?: Maybe<String>;
 }
-
-export type DivisionWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export type TownWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface ExamUpdateInput {
-  examName?: Maybe<String>;
-  examCode?: Maybe<String>;
-}
-
-export interface TownUpdateInput {
-  townName?: Maybe<String>;
-  townCode?: Maybe<String>;
-  subDiv?: Maybe<SubDivisionUpdateOneRequiredInput>;
-}
-
-export interface DivisionUpdateManyMutationInput {
-  divName?: Maybe<String>;
-  divCode?: Maybe<String>;
-}
-
-export interface TownWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  townName?: Maybe<String>;
-  townName_not?: Maybe<String>;
-  townName_in?: Maybe<String[] | String>;
-  townName_not_in?: Maybe<String[] | String>;
-  townName_lt?: Maybe<String>;
-  townName_lte?: Maybe<String>;
-  townName_gt?: Maybe<String>;
-  townName_gte?: Maybe<String>;
-  townName_contains?: Maybe<String>;
-  townName_not_contains?: Maybe<String>;
-  townName_starts_with?: Maybe<String>;
-  townName_not_starts_with?: Maybe<String>;
-  townName_ends_with?: Maybe<String>;
-  townName_not_ends_with?: Maybe<String>;
-  townCode?: Maybe<String>;
-  townCode_not?: Maybe<String>;
-  townCode_in?: Maybe<String[] | String>;
-  townCode_not_in?: Maybe<String[] | String>;
-  townCode_lt?: Maybe<String>;
-  townCode_lte?: Maybe<String>;
-  townCode_gt?: Maybe<String>;
-  townCode_gte?: Maybe<String>;
-  townCode_contains?: Maybe<String>;
-  townCode_not_contains?: Maybe<String>;
-  townCode_starts_with?: Maybe<String>;
-  townCode_not_starts_with?: Maybe<String>;
-  townCode_ends_with?: Maybe<String>;
-  townCode_not_ends_with?: Maybe<String>;
-  subDiv?: Maybe<SubDivisionWhereInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<TownWhereInput[] | TownWhereInput>;
-  OR?: Maybe<TownWhereInput[] | TownWhereInput>;
-  NOT?: Maybe<TownWhereInput[] | TownWhereInput>;
-}
-
-export interface ExamWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  examName?: Maybe<String>;
-  examName_not?: Maybe<String>;
-  examName_in?: Maybe<String[] | String>;
-  examName_not_in?: Maybe<String[] | String>;
-  examName_lt?: Maybe<String>;
-  examName_lte?: Maybe<String>;
-  examName_gt?: Maybe<String>;
-  examName_gte?: Maybe<String>;
-  examName_contains?: Maybe<String>;
-  examName_not_contains?: Maybe<String>;
-  examName_starts_with?: Maybe<String>;
-  examName_not_starts_with?: Maybe<String>;
-  examName_ends_with?: Maybe<String>;
-  examName_not_ends_with?: Maybe<String>;
-  examCode?: Maybe<String>;
-  examCode_not?: Maybe<String>;
-  examCode_in?: Maybe<String[] | String>;
-  examCode_not_in?: Maybe<String[] | String>;
-  examCode_lt?: Maybe<String>;
-  examCode_lte?: Maybe<String>;
-  examCode_gt?: Maybe<String>;
-  examCode_gte?: Maybe<String>;
-  examCode_contains?: Maybe<String>;
-  examCode_not_contains?: Maybe<String>;
-  examCode_starts_with?: Maybe<String>;
-  examCode_not_starts_with?: Maybe<String>;
-  examCode_ends_with?: Maybe<String>;
-  examCode_not_ends_with?: Maybe<String>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<ExamWhereInput[] | ExamWhereInput>;
-  OR?: Maybe<ExamWhereInput[] | ExamWhereInput>;
-  NOT?: Maybe<ExamWhereInput[] | ExamWhereInput>;
-}
-
-export interface DivisionWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  divName?: Maybe<String>;
-  divName_not?: Maybe<String>;
-  divName_in?: Maybe<String[] | String>;
-  divName_not_in?: Maybe<String[] | String>;
-  divName_lt?: Maybe<String>;
-  divName_lte?: Maybe<String>;
-  divName_gt?: Maybe<String>;
-  divName_gte?: Maybe<String>;
-  divName_contains?: Maybe<String>;
-  divName_not_contains?: Maybe<String>;
-  divName_starts_with?: Maybe<String>;
-  divName_not_starts_with?: Maybe<String>;
-  divName_ends_with?: Maybe<String>;
-  divName_not_ends_with?: Maybe<String>;
-  divCode?: Maybe<String>;
-  divCode_not?: Maybe<String>;
-  divCode_in?: Maybe<String[] | String>;
-  divCode_not_in?: Maybe<String[] | String>;
-  divCode_lt?: Maybe<String>;
-  divCode_lte?: Maybe<String>;
-  divCode_gt?: Maybe<String>;
-  divCode_gte?: Maybe<String>;
-  divCode_contains?: Maybe<String>;
-  divCode_not_contains?: Maybe<String>;
-  divCode_starts_with?: Maybe<String>;
-  divCode_not_starts_with?: Maybe<String>;
-  divCode_ends_with?: Maybe<String>;
-  divCode_not_ends_with?: Maybe<String>;
-  region?: Maybe<RegionWhereInput>;
-  createdAt?: Maybe<DateTimeInput>;
-  createdAt_not?: Maybe<DateTimeInput>;
-  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  createdAt_lt?: Maybe<DateTimeInput>;
-  createdAt_lte?: Maybe<DateTimeInput>;
-  createdAt_gt?: Maybe<DateTimeInput>;
-  createdAt_gte?: Maybe<DateTimeInput>;
-  updatedAt?: Maybe<DateTimeInput>;
-  updatedAt_not?: Maybe<DateTimeInput>;
-  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  updatedAt_lt?: Maybe<DateTimeInput>;
-  updatedAt_lte?: Maybe<DateTimeInput>;
-  updatedAt_gt?: Maybe<DateTimeInput>;
-  updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<DivisionWhereInput[] | DivisionWhereInput>;
-  OR?: Maybe<DivisionWhereInput[] | DivisionWhereInput>;
-  NOT?: Maybe<DivisionWhereInput[] | DivisionWhereInput>;
-}
-
-export interface UserSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<UserWhereInput>;
-  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
-}
-
-export interface SubDivisionCreateOneInput {
-  create?: Maybe<SubDivisionCreateInput>;
-  connect?: Maybe<SubDivisionWhereUniqueInput>;
-}
-
-export interface SubjectSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<SubjectWhereInput>;
-  AND?: Maybe<SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput>;
-  OR?: Maybe<SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput>;
-  NOT?: Maybe<SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput>;
-}
-
-export interface TownCreateInput {
-  id?: Maybe<ID_Input>;
-  townName: String;
-  townCode: String;
-  subDiv: SubDivisionCreateOneInput;
-}
-
-export interface SubDivisionSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<SubDivisionWhereInput>;
-  AND?: Maybe<
-    SubDivisionSubscriptionWhereInput[] | SubDivisionSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    SubDivisionSubscriptionWhereInput[] | SubDivisionSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    SubDivisionSubscriptionWhereInput[] | SubDivisionSubscriptionWhereInput
-  >;
-}
-
-export interface SubjectUpdateManyMutationInput {
-  subjName?: Maybe<String>;
-  subjCode?: Maybe<String>;
-}
-
-export interface SeriesSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<SeriesWhereInput>;
-  AND?: Maybe<SeriesSubscriptionWhereInput[] | SeriesSubscriptionWhereInput>;
-  OR?: Maybe<SeriesSubscriptionWhereInput[] | SeriesSubscriptionWhereInput>;
-  NOT?: Maybe<SeriesSubscriptionWhereInput[] | SeriesSubscriptionWhereInput>;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface PresenceSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<PresenceWhereInput>;
-  AND?: Maybe<
-    PresenceSubscriptionWhereInput[] | PresenceSubscriptionWhereInput
-  >;
-  OR?: Maybe<PresenceSubscriptionWhereInput[] | PresenceSubscriptionWhereInput>;
-  NOT?: Maybe<
-    PresenceSubscriptionWhereInput[] | PresenceSubscriptionWhereInput
-  >;
-}
-
-export interface SubjectUpdateInput {
-  subjName?: Maybe<String>;
-  subjCode?: Maybe<String>;
-}
-
-export type RegionWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface UserWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  email?: Maybe<String>;
-  email_not?: Maybe<String>;
-  email_in?: Maybe<String[] | String>;
-  email_not_in?: Maybe<String[] | String>;
-  email_lt?: Maybe<String>;
-  email_lte?: Maybe<String>;
-  email_gt?: Maybe<String>;
-  email_gte?: Maybe<String>;
-  email_contains?: Maybe<String>;
-  email_not_contains?: Maybe<String>;
-  email_starts_with?: Maybe<String>;
-  email_not_starts_with?: Maybe<String>;
-  email_ends_with?: Maybe<String>;
-  email_not_ends_with?: Maybe<String>;
-  AND?: Maybe<UserWhereInput[] | UserWhereInput>;
-  OR?: Maybe<UserWhereInput[] | UserWhereInput>;
-  NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
-}
-
-export interface exanCenterUpdateManyMutationInput {
-  centerName?: Maybe<String>;
-  centerCode?: Maybe<String>;
-}
-
-export interface SubjectCreateInput {
-  id?: Maybe<ID_Input>;
-  subjName: String;
-  subjCode: String;
-}
-
-export interface TownUpdateDataInput {
-  townName?: Maybe<String>;
-  townCode?: Maybe<String>;
-  subDiv?: Maybe<SubDivisionUpdateOneRequiredInput>;
-}
-
-export interface SubDivisionUpdateManyMutationInput {
-  subDivName?: Maybe<String>;
-  subDivCode?: Maybe<String>;
-}
-
-export interface TownUpdateOneRequiredInput {
-  create?: Maybe<TownCreateInput>;
-  update?: Maybe<TownUpdateDataInput>;
-  upsert?: Maybe<TownUpsertNestedInput>;
-  connect?: Maybe<TownWhereUniqueInput>;
-}
-
-export interface DivisionUpsertNestedInput {
-  update: DivisionUpdateDataInput;
-  create: DivisionCreateInput;
-}
-
-export interface exanCenterUpdateInput {
-  centerName?: Maybe<String>;
-  centerCode?: Maybe<String>;
-  town?: Maybe<TownUpdateOneRequiredInput>;
-}
-
-export interface DivisionUpdateDataInput {
-  divName?: Maybe<String>;
-  divCode?: Maybe<String>;
-  region?: Maybe<RegionUpdateOneRequiredInput>;
-}
-
-export interface exanCenterCreateInput {
-  id?: Maybe<ID_Input>;
-  centerName: String;
-  centerCode: String;
-  town: TownCreateOneInput;
-}
-
-export type examSessionWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export type SubDivisionWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
 
 export interface DivisionUpdateOneRequiredInput {
   create?: Maybe<DivisionCreateInput>;
   update?: Maybe<DivisionUpdateDataInput>;
   upsert?: Maybe<DivisionUpsertNestedInput>;
   connect?: Maybe<DivisionWhereUniqueInput>;
+}
+
+export type CandidateWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface SubDivisionUpdateInput {
+  subDivName?: Maybe<String>;
+  subDivCode?: Maybe<String>;
+  division?: Maybe<DivisionUpdateOneRequiredInput>;
+}
+
+export interface RegionWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  regName?: Maybe<String>;
+  regName_not?: Maybe<String>;
+  regName_in?: Maybe<String[] | String>;
+  regName_not_in?: Maybe<String[] | String>;
+  regName_lt?: Maybe<String>;
+  regName_lte?: Maybe<String>;
+  regName_gt?: Maybe<String>;
+  regName_gte?: Maybe<String>;
+  regName_contains?: Maybe<String>;
+  regName_not_contains?: Maybe<String>;
+  regName_starts_with?: Maybe<String>;
+  regName_not_starts_with?: Maybe<String>;
+  regName_ends_with?: Maybe<String>;
+  regName_not_ends_with?: Maybe<String>;
+  regCode?: Maybe<String>;
+  regCode_not?: Maybe<String>;
+  regCode_in?: Maybe<String[] | String>;
+  regCode_not_in?: Maybe<String[] | String>;
+  regCode_lt?: Maybe<String>;
+  regCode_lte?: Maybe<String>;
+  regCode_gt?: Maybe<String>;
+  regCode_gte?: Maybe<String>;
+  regCode_contains?: Maybe<String>;
+  regCode_not_contains?: Maybe<String>;
+  regCode_starts_with?: Maybe<String>;
+  regCode_not_starts_with?: Maybe<String>;
+  regCode_ends_with?: Maybe<String>;
+  regCode_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<RegionWhereInput[] | RegionWhereInput>;
+  OR?: Maybe<RegionWhereInput[] | RegionWhereInput>;
+  NOT?: Maybe<RegionWhereInput[] | RegionWhereInput>;
+}
+
+export interface DivisionCreateOneInput {
+  create?: Maybe<DivisionCreateInput>;
+  connect?: Maybe<DivisionWhereUniqueInput>;
+}
+
+export interface ExamSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ExamWhereInput>;
+  AND?: Maybe<ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput>;
+  OR?: Maybe<ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput>;
+  NOT?: Maybe<ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput>;
+}
+
+export type SubDivisionWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ExamSessionSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ExamSessionWhereInput>;
+  AND?: Maybe<
+    ExamSessionSubscriptionWhereInput[] | ExamSessionSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    ExamSessionSubscriptionWhereInput[] | ExamSessionSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    ExamSessionSubscriptionWhereInput[] | ExamSessionSubscriptionWhereInput
+  >;
+}
+
+export interface SubDivisionCreateInput {
+  id?: Maybe<ID_Input>;
+  subDivName: String;
+  subDivCode: String;
+  division: DivisionCreateOneInput;
+}
+
+export interface CandidateSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<CandidateWhereInput>;
+  AND?: Maybe<
+    CandidateSubscriptionWhereInput[] | CandidateSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    CandidateSubscriptionWhereInput[] | CandidateSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    CandidateSubscriptionWhereInput[] | CandidateSubscriptionWhereInput
+  >;
 }
 
 export interface SubDivisionWhereInput {
@@ -1128,7 +1016,54 @@ export interface SubDivisionWhereInput {
   NOT?: Maybe<SubDivisionWhereInput[] | SubDivisionWhereInput>;
 }
 
-export interface examSessionWhereInput {
+export interface GenderSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<GenderWhereInput>;
+  AND?: Maybe<GenderSubscriptionWhereInput[] | GenderSubscriptionWhereInput>;
+  OR?: Maybe<GenderSubscriptionWhereInput[] | GenderSubscriptionWhereInput>;
+  NOT?: Maybe<GenderSubscriptionWhereInput[] | GenderSubscriptionWhereInput>;
+}
+
+export interface SubDivisionSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<SubDivisionWhereInput>;
+  AND?: Maybe<
+    SubDivisionSubscriptionWhereInput[] | SubDivisionSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    SubDivisionSubscriptionWhereInput[] | SubDivisionSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    SubDivisionSubscriptionWhereInput[] | SubDivisionSubscriptionWhereInput
+  >;
+}
+
+export interface TownUpsertNestedInput {
+  update: TownUpdateDataInput;
+  create: TownCreateInput;
+}
+
+export interface SeriesUpdateManyMutationInput {
+  seriesName?: Maybe<String>;
+  seriesCode?: Maybe<String>;
+}
+
+export type ExamSessionWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface SeriesUpdateInput {
+  seriesName?: Maybe<String>;
+  seriesCode?: Maybe<String>;
+}
+
+export interface ExamSessionWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -1187,9 +1122,37 @@ export interface examSessionWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<examSessionWhereInput[] | examSessionWhereInput>;
-  OR?: Maybe<examSessionWhereInput[] | examSessionWhereInput>;
-  NOT?: Maybe<examSessionWhereInput[] | examSessionWhereInput>;
+  AND?: Maybe<ExamSessionWhereInput[] | ExamSessionWhereInput>;
+  OR?: Maybe<ExamSessionWhereInput[] | ExamSessionWhereInput>;
+  NOT?: Maybe<ExamSessionWhereInput[] | ExamSessionWhereInput>;
+}
+
+export interface SeriesCreateInput {
+  id?: Maybe<ID_Input>;
+  seriesName: String;
+  seriesCode: String;
+}
+
+export interface exanCenterUpdateInput {
+  centerName?: Maybe<String>;
+  centerCode?: Maybe<String>;
+  town?: Maybe<TownUpdateOneRequiredInput>;
+}
+
+export type SubjectWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface exanCenterCreateInput {
+  id?: Maybe<ID_Input>;
+  centerName: String;
+  centerCode: String;
+  town: TownCreateOneInput;
+}
+
+export interface RegionUpdateManyMutationInput {
+  regName?: Maybe<String>;
+  regCode?: Maybe<String>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -1197,36 +1160,7 @@ export interface UserUpdateManyMutationInput {
   email?: Maybe<String>;
 }
 
-export interface SubDivisionUpdateInput {
-  subDivName?: Maybe<String>;
-  subDivCode?: Maybe<String>;
-  division?: Maybe<DivisionUpdateOneRequiredInput>;
-}
-
-export interface UserCreateInput {
-  id?: Maybe<ID_Input>;
-  name: String;
-  email: String;
-}
-
-export interface DivisionCreateOneInput {
-  create?: Maybe<DivisionCreateInput>;
-  connect?: Maybe<DivisionWhereUniqueInput>;
-}
-
-export interface TownUpdateManyMutationInput {
-  townName?: Maybe<String>;
-  townCode?: Maybe<String>;
-}
-
-export interface SubDivisionCreateInput {
-  id?: Maybe<ID_Input>;
-  subDivName: String;
-  subDivCode: String;
-  division: DivisionCreateOneInput;
-}
-
-export interface RegionWhereInput {
+export interface SubjectWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -1241,34 +1175,34 @@ export interface RegionWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  regName?: Maybe<String>;
-  regName_not?: Maybe<String>;
-  regName_in?: Maybe<String[] | String>;
-  regName_not_in?: Maybe<String[] | String>;
-  regName_lt?: Maybe<String>;
-  regName_lte?: Maybe<String>;
-  regName_gt?: Maybe<String>;
-  regName_gte?: Maybe<String>;
-  regName_contains?: Maybe<String>;
-  regName_not_contains?: Maybe<String>;
-  regName_starts_with?: Maybe<String>;
-  regName_not_starts_with?: Maybe<String>;
-  regName_ends_with?: Maybe<String>;
-  regName_not_ends_with?: Maybe<String>;
-  regCode?: Maybe<String>;
-  regCode_not?: Maybe<String>;
-  regCode_in?: Maybe<String[] | String>;
-  regCode_not_in?: Maybe<String[] | String>;
-  regCode_lt?: Maybe<String>;
-  regCode_lte?: Maybe<String>;
-  regCode_gt?: Maybe<String>;
-  regCode_gte?: Maybe<String>;
-  regCode_contains?: Maybe<String>;
-  regCode_not_contains?: Maybe<String>;
-  regCode_starts_with?: Maybe<String>;
-  regCode_not_starts_with?: Maybe<String>;
-  regCode_ends_with?: Maybe<String>;
-  regCode_not_ends_with?: Maybe<String>;
+  subjName?: Maybe<String>;
+  subjName_not?: Maybe<String>;
+  subjName_in?: Maybe<String[] | String>;
+  subjName_not_in?: Maybe<String[] | String>;
+  subjName_lt?: Maybe<String>;
+  subjName_lte?: Maybe<String>;
+  subjName_gt?: Maybe<String>;
+  subjName_gte?: Maybe<String>;
+  subjName_contains?: Maybe<String>;
+  subjName_not_contains?: Maybe<String>;
+  subjName_starts_with?: Maybe<String>;
+  subjName_not_starts_with?: Maybe<String>;
+  subjName_ends_with?: Maybe<String>;
+  subjName_not_ends_with?: Maybe<String>;
+  subjCode?: Maybe<String>;
+  subjCode_not?: Maybe<String>;
+  subjCode_in?: Maybe<String[] | String>;
+  subjCode_not_in?: Maybe<String[] | String>;
+  subjCode_lt?: Maybe<String>;
+  subjCode_lte?: Maybe<String>;
+  subjCode_gt?: Maybe<String>;
+  subjCode_gte?: Maybe<String>;
+  subjCode_contains?: Maybe<String>;
+  subjCode_not_contains?: Maybe<String>;
+  subjCode_starts_with?: Maybe<String>;
+  subjCode_not_starts_with?: Maybe<String>;
+  subjCode_ends_with?: Maybe<String>;
+  subjCode_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1285,14 +1219,299 @@ export interface RegionWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<RegionWhereInput[] | RegionWhereInput>;
-  OR?: Maybe<RegionWhereInput[] | RegionWhereInput>;
-  NOT?: Maybe<RegionWhereInput[] | RegionWhereInput>;
+  AND?: Maybe<SubjectWhereInput[] | SubjectWhereInput>;
+  OR?: Maybe<SubjectWhereInput[] | SubjectWhereInput>;
+  NOT?: Maybe<SubjectWhereInput[] | SubjectWhereInput>;
 }
 
-export interface SeriesUpdateManyMutationInput {
-  seriesName?: Maybe<String>;
-  seriesCode?: Maybe<String>;
+export interface ItemSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<ItemWhereInput>;
+  AND?: Maybe<ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput>;
+  OR?: Maybe<ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput>;
+  NOT?: Maybe<ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput>;
+}
+
+export interface CandidateWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  cand1stName?: Maybe<String>;
+  cand1stName_not?: Maybe<String>;
+  cand1stName_in?: Maybe<String[] | String>;
+  cand1stName_not_in?: Maybe<String[] | String>;
+  cand1stName_lt?: Maybe<String>;
+  cand1stName_lte?: Maybe<String>;
+  cand1stName_gt?: Maybe<String>;
+  cand1stName_gte?: Maybe<String>;
+  cand1stName_contains?: Maybe<String>;
+  cand1stName_not_contains?: Maybe<String>;
+  cand1stName_starts_with?: Maybe<String>;
+  cand1stName_not_starts_with?: Maybe<String>;
+  cand1stName_ends_with?: Maybe<String>;
+  cand1stName_not_ends_with?: Maybe<String>;
+  cand2ndName?: Maybe<String>;
+  cand2ndName_not?: Maybe<String>;
+  cand2ndName_in?: Maybe<String[] | String>;
+  cand2ndName_not_in?: Maybe<String[] | String>;
+  cand2ndName_lt?: Maybe<String>;
+  cand2ndName_lte?: Maybe<String>;
+  cand2ndName_gt?: Maybe<String>;
+  cand2ndName_gte?: Maybe<String>;
+  cand2ndName_contains?: Maybe<String>;
+  cand2ndName_not_contains?: Maybe<String>;
+  cand2ndName_starts_with?: Maybe<String>;
+  cand2ndName_not_starts_with?: Maybe<String>;
+  cand2ndName_ends_with?: Maybe<String>;
+  cand2ndName_not_ends_with?: Maybe<String>;
+  cand3rdName?: Maybe<String>;
+  cand3rdName_not?: Maybe<String>;
+  cand3rdName_in?: Maybe<String[] | String>;
+  cand3rdName_not_in?: Maybe<String[] | String>;
+  cand3rdName_lt?: Maybe<String>;
+  cand3rdName_lte?: Maybe<String>;
+  cand3rdName_gt?: Maybe<String>;
+  cand3rdName_gte?: Maybe<String>;
+  cand3rdName_contains?: Maybe<String>;
+  cand3rdName_not_contains?: Maybe<String>;
+  cand3rdName_starts_with?: Maybe<String>;
+  cand3rdName_not_starts_with?: Maybe<String>;
+  cand3rdName_ends_with?: Maybe<String>;
+  cand3rdName_not_ends_with?: Maybe<String>;
+  candCode?: Maybe<String>;
+  candCode_not?: Maybe<String>;
+  candCode_in?: Maybe<String[] | String>;
+  candCode_not_in?: Maybe<String[] | String>;
+  candCode_lt?: Maybe<String>;
+  candCode_lte?: Maybe<String>;
+  candCode_gt?: Maybe<String>;
+  candCode_gte?: Maybe<String>;
+  candCode_contains?: Maybe<String>;
+  candCode_not_contains?: Maybe<String>;
+  candCode_starts_with?: Maybe<String>;
+  candCode_not_starts_with?: Maybe<String>;
+  candCode_ends_with?: Maybe<String>;
+  candCode_not_ends_with?: Maybe<String>;
+  placeOfBirth?: Maybe<String>;
+  placeOfBirth_not?: Maybe<String>;
+  placeOfBirth_in?: Maybe<String[] | String>;
+  placeOfBirth_not_in?: Maybe<String[] | String>;
+  placeOfBirth_lt?: Maybe<String>;
+  placeOfBirth_lte?: Maybe<String>;
+  placeOfBirth_gt?: Maybe<String>;
+  placeOfBirth_gte?: Maybe<String>;
+  placeOfBirth_contains?: Maybe<String>;
+  placeOfBirth_not_contains?: Maybe<String>;
+  placeOfBirth_starts_with?: Maybe<String>;
+  placeOfBirth_not_starts_with?: Maybe<String>;
+  placeOfBirth_ends_with?: Maybe<String>;
+  placeOfBirth_not_ends_with?: Maybe<String>;
+  image?: Maybe<String>;
+  image_not?: Maybe<String>;
+  image_in?: Maybe<String[] | String>;
+  image_not_in?: Maybe<String[] | String>;
+  image_lt?: Maybe<String>;
+  image_lte?: Maybe<String>;
+  image_gt?: Maybe<String>;
+  image_gte?: Maybe<String>;
+  image_contains?: Maybe<String>;
+  image_not_contains?: Maybe<String>;
+  image_starts_with?: Maybe<String>;
+  image_not_starts_with?: Maybe<String>;
+  image_ends_with?: Maybe<String>;
+  image_not_ends_with?: Maybe<String>;
+  birthCertNumber?: Maybe<String>;
+  birthCertNumber_not?: Maybe<String>;
+  birthCertNumber_in?: Maybe<String[] | String>;
+  birthCertNumber_not_in?: Maybe<String[] | String>;
+  birthCertNumber_lt?: Maybe<String>;
+  birthCertNumber_lte?: Maybe<String>;
+  birthCertNumber_gt?: Maybe<String>;
+  birthCertNumber_gte?: Maybe<String>;
+  birthCertNumber_contains?: Maybe<String>;
+  birthCertNumber_not_contains?: Maybe<String>;
+  birthCertNumber_starts_with?: Maybe<String>;
+  birthCertNumber_not_starts_with?: Maybe<String>;
+  birthCertNumber_ends_with?: Maybe<String>;
+  birthCertNumber_not_ends_with?: Maybe<String>;
+  email?: Maybe<String>;
+  email_not?: Maybe<String>;
+  email_in?: Maybe<String[] | String>;
+  email_not_in?: Maybe<String[] | String>;
+  email_lt?: Maybe<String>;
+  email_lte?: Maybe<String>;
+  email_gt?: Maybe<String>;
+  email_gte?: Maybe<String>;
+  email_contains?: Maybe<String>;
+  email_not_contains?: Maybe<String>;
+  email_starts_with?: Maybe<String>;
+  email_not_starts_with?: Maybe<String>;
+  email_ends_with?: Maybe<String>;
+  email_not_ends_with?: Maybe<String>;
+  phoneNumb?: Maybe<Int>;
+  phoneNumb_not?: Maybe<Int>;
+  phoneNumb_in?: Maybe<Int[] | Int>;
+  phoneNumb_not_in?: Maybe<Int[] | Int>;
+  phoneNumb_lt?: Maybe<Int>;
+  phoneNumb_lte?: Maybe<Int>;
+  phoneNumb_gt?: Maybe<Int>;
+  phoneNumb_gte?: Maybe<Int>;
+  dateOfBirth?: Maybe<DateTimeInput>;
+  dateOfBirth_not?: Maybe<DateTimeInput>;
+  dateOfBirth_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  dateOfBirth_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  dateOfBirth_lt?: Maybe<DateTimeInput>;
+  dateOfBirth_lte?: Maybe<DateTimeInput>;
+  dateOfBirth_gt?: Maybe<DateTimeInput>;
+  dateOfBirth_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<CandidateWhereInput[] | CandidateWhereInput>;
+  OR?: Maybe<CandidateWhereInput[] | CandidateWhereInput>;
+  NOT?: Maybe<CandidateWhereInput[] | CandidateWhereInput>;
+}
+
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  email: String;
+}
+
+export interface RegionUpdateInput {
+  regName?: Maybe<String>;
+  regCode?: Maybe<String>;
+}
+
+export type ItemWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface PresenceUpdateManyMutationInput {
+  regName?: Maybe<Boolean>;
+}
+
+export interface ItemWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  descrption?: Maybe<String>;
+  descrption_not?: Maybe<String>;
+  descrption_in?: Maybe<String[] | String>;
+  descrption_not_in?: Maybe<String[] | String>;
+  descrption_lt?: Maybe<String>;
+  descrption_lte?: Maybe<String>;
+  descrption_gt?: Maybe<String>;
+  descrption_gte?: Maybe<String>;
+  descrption_contains?: Maybe<String>;
+  descrption_not_contains?: Maybe<String>;
+  descrption_starts_with?: Maybe<String>;
+  descrption_not_starts_with?: Maybe<String>;
+  descrption_ends_with?: Maybe<String>;
+  descrption_not_ends_with?: Maybe<String>;
+  image?: Maybe<String>;
+  image_not?: Maybe<String>;
+  image_in?: Maybe<String[] | String>;
+  image_not_in?: Maybe<String[] | String>;
+  image_lt?: Maybe<String>;
+  image_lte?: Maybe<String>;
+  image_gt?: Maybe<String>;
+  image_gte?: Maybe<String>;
+  image_contains?: Maybe<String>;
+  image_not_contains?: Maybe<String>;
+  image_starts_with?: Maybe<String>;
+  image_not_starts_with?: Maybe<String>;
+  image_ends_with?: Maybe<String>;
+  image_not_ends_with?: Maybe<String>;
+  largeImage?: Maybe<String>;
+  largeImage_not?: Maybe<String>;
+  largeImage_in?: Maybe<String[] | String>;
+  largeImage_not_in?: Maybe<String[] | String>;
+  largeImage_lt?: Maybe<String>;
+  largeImage_lte?: Maybe<String>;
+  largeImage_gt?: Maybe<String>;
+  largeImage_gte?: Maybe<String>;
+  largeImage_contains?: Maybe<String>;
+  largeImage_not_contains?: Maybe<String>;
+  largeImage_starts_with?: Maybe<String>;
+  largeImage_not_starts_with?: Maybe<String>;
+  largeImage_ends_with?: Maybe<String>;
+  largeImage_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ItemWhereInput[] | ItemWhereInput>;
+  OR?: Maybe<ItemWhereInput[] | ItemWhereInput>;
+  NOT?: Maybe<ItemWhereInput[] | ItemWhereInput>;
+}
+
+export interface PresenceUpdateInput {
+  regName?: Maybe<Boolean>;
 }
 
 export interface SubDivisionUpdateDataInput {
@@ -1301,30 +1520,258 @@ export interface SubDivisionUpdateDataInput {
   division?: Maybe<DivisionUpdateOneRequiredInput>;
 }
 
-export type exanCenterWhereUniqueInput = AtLeastOne<{
+export type TownWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface exanCenterSubscriptionWhereInput {
+export interface TownUpdateInput {
+  townName?: Maybe<String>;
+  townCode?: Maybe<String>;
+  subDiv?: Maybe<SubDivisionUpdateOneRequiredInput>;
+}
+
+export interface PresenceCreateInput {
+  id?: Maybe<ID_Input>;
+  regName: Boolean;
+}
+
+export interface SubDivisionCreateOneInput {
+  create?: Maybe<SubDivisionCreateInput>;
+  connect?: Maybe<SubDivisionWhereUniqueInput>;
+}
+
+export interface TownWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  townName?: Maybe<String>;
+  townName_not?: Maybe<String>;
+  townName_in?: Maybe<String[] | String>;
+  townName_not_in?: Maybe<String[] | String>;
+  townName_lt?: Maybe<String>;
+  townName_lte?: Maybe<String>;
+  townName_gt?: Maybe<String>;
+  townName_gte?: Maybe<String>;
+  townName_contains?: Maybe<String>;
+  townName_not_contains?: Maybe<String>;
+  townName_starts_with?: Maybe<String>;
+  townName_not_starts_with?: Maybe<String>;
+  townName_ends_with?: Maybe<String>;
+  townName_not_ends_with?: Maybe<String>;
+  townCode?: Maybe<String>;
+  townCode_not?: Maybe<String>;
+  townCode_in?: Maybe<String[] | String>;
+  townCode_not_in?: Maybe<String[] | String>;
+  townCode_lt?: Maybe<String>;
+  townCode_lte?: Maybe<String>;
+  townCode_gt?: Maybe<String>;
+  townCode_gte?: Maybe<String>;
+  townCode_contains?: Maybe<String>;
+  townCode_not_contains?: Maybe<String>;
+  townCode_starts_with?: Maybe<String>;
+  townCode_not_starts_with?: Maybe<String>;
+  townCode_ends_with?: Maybe<String>;
+  townCode_not_ends_with?: Maybe<String>;
+  subDiv?: Maybe<SubDivisionWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<TownWhereInput[] | TownWhereInput>;
+  OR?: Maybe<TownWhereInput[] | TownWhereInput>;
+  NOT?: Maybe<TownWhereInput[] | TownWhereInput>;
+}
+
+export interface RegionSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<exanCenterWhereInput>;
-  AND?: Maybe<
-    exanCenterSubscriptionWhereInput[] | exanCenterSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    exanCenterSubscriptionWhereInput[] | exanCenterSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    exanCenterSubscriptionWhereInput[] | exanCenterSubscriptionWhereInput
-  >;
+  node?: Maybe<RegionWhereInput>;
+  AND?: Maybe<RegionSubscriptionWhereInput[] | RegionSubscriptionWhereInput>;
+  OR?: Maybe<RegionSubscriptionWhereInput[] | RegionSubscriptionWhereInput>;
+  NOT?: Maybe<RegionSubscriptionWhereInput[] | RegionSubscriptionWhereInput>;
 }
 
-export interface SeriesUpdateInput {
-  seriesName?: Maybe<String>;
-  seriesCode?: Maybe<String>;
+export interface SubjectSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<SubjectWhereInput>;
+  AND?: Maybe<SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput>;
+  OR?: Maybe<SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput>;
+  NOT?: Maybe<SubjectSubscriptionWhereInput[] | SubjectSubscriptionWhereInput>;
+}
+
+export interface SubjectUpdateManyMutationInput {
+  subjName?: Maybe<String>;
+  subjCode?: Maybe<String>;
+}
+
+export interface ItemUpdateManyMutationInput {
+  title?: Maybe<String>;
+  descrption?: Maybe<String>;
+  image?: Maybe<String>;
+  largeImage?: Maybe<String>;
+}
+
+export type RegionWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ItemUpdateInput {
+  title?: Maybe<String>;
+  descrption?: Maybe<String>;
+  image?: Maybe<String>;
+  largeImage?: Maybe<String>;
+}
+
+export interface SubjectCreateInput {
+  id?: Maybe<ID_Input>;
+  subjName: String;
+  subjCode: String;
+}
+
+export interface ItemCreateInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  descrption: String;
+  image?: Maybe<String>;
+  largeImage?: Maybe<String>;
+}
+
+export interface DivisionUpsertNestedInput {
+  update: DivisionUpdateDataInput;
+  create: DivisionCreateInput;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface DivisionUpdateDataInput {
+  divName?: Maybe<String>;
+  divCode?: Maybe<String>;
+  region?: Maybe<RegionUpdateOneRequiredInput>;
+}
+
+export interface GenderUpdateManyMutationInput {
+  genderName?: Maybe<String>;
+  genderCode?: Maybe<String>;
+}
+
+export interface SeriesSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<SeriesWhereInput>;
+  AND?: Maybe<SeriesSubscriptionWhereInput[] | SeriesSubscriptionWhereInput>;
+  OR?: Maybe<SeriesSubscriptionWhereInput[] | SeriesSubscriptionWhereInput>;
+  NOT?: Maybe<SeriesSubscriptionWhereInput[] | SeriesSubscriptionWhereInput>;
+}
+
+export interface UserWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  email?: Maybe<String>;
+  email_not?: Maybe<String>;
+  email_in?: Maybe<String[] | String>;
+  email_not_in?: Maybe<String[] | String>;
+  email_lt?: Maybe<String>;
+  email_lte?: Maybe<String>;
+  email_gt?: Maybe<String>;
+  email_gte?: Maybe<String>;
+  email_contains?: Maybe<String>;
+  email_not_contains?: Maybe<String>;
+  email_starts_with?: Maybe<String>;
+  email_not_starts_with?: Maybe<String>;
+  email_ends_with?: Maybe<String>;
+  email_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<UserWhereInput[] | UserWhereInput>;
+  OR?: Maybe<UserWhereInput[] | UserWhereInput>;
+  NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
+}
+
+export interface DivisionSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<DivisionWhereInput>;
+  AND?: Maybe<
+    DivisionSubscriptionWhereInput[] | DivisionSubscriptionWhereInput
+  >;
+  OR?: Maybe<DivisionSubscriptionWhereInput[] | DivisionSubscriptionWhereInput>;
+  NOT?: Maybe<
+    DivisionSubscriptionWhereInput[] | DivisionSubscriptionWhereInput
+  >;
 }
 
 export interface TownSubscriptionWhereInput {
@@ -1336,6 +1783,119 @@ export interface TownSubscriptionWhereInput {
   AND?: Maybe<TownSubscriptionWhereInput[] | TownSubscriptionWhereInput>;
   OR?: Maybe<TownSubscriptionWhereInput[] | TownSubscriptionWhereInput>;
   NOT?: Maybe<TownSubscriptionWhereInput[] | TownSubscriptionWhereInput>;
+}
+
+export interface ExamWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  examName?: Maybe<String>;
+  examName_not?: Maybe<String>;
+  examName_in?: Maybe<String[] | String>;
+  examName_not_in?: Maybe<String[] | String>;
+  examName_lt?: Maybe<String>;
+  examName_lte?: Maybe<String>;
+  examName_gt?: Maybe<String>;
+  examName_gte?: Maybe<String>;
+  examName_contains?: Maybe<String>;
+  examName_not_contains?: Maybe<String>;
+  examName_starts_with?: Maybe<String>;
+  examName_not_starts_with?: Maybe<String>;
+  examName_ends_with?: Maybe<String>;
+  examName_not_ends_with?: Maybe<String>;
+  examCode?: Maybe<String>;
+  examCode_not?: Maybe<String>;
+  examCode_in?: Maybe<String[] | String>;
+  examCode_not_in?: Maybe<String[] | String>;
+  examCode_lt?: Maybe<String>;
+  examCode_lte?: Maybe<String>;
+  examCode_gt?: Maybe<String>;
+  examCode_gte?: Maybe<String>;
+  examCode_contains?: Maybe<String>;
+  examCode_not_contains?: Maybe<String>;
+  examCode_starts_with?: Maybe<String>;
+  examCode_not_starts_with?: Maybe<String>;
+  examCode_ends_with?: Maybe<String>;
+  examCode_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<ExamWhereInput[] | ExamWhereInput>;
+  OR?: Maybe<ExamWhereInput[] | ExamWhereInput>;
+  NOT?: Maybe<ExamWhereInput[] | ExamWhereInput>;
+}
+
+export interface GenderUpdateInput {
+  genderName?: Maybe<String>;
+  genderCode?: Maybe<String>;
+}
+
+export interface TownUpdateDataInput {
+  townName?: Maybe<String>;
+  townCode?: Maybe<String>;
+  subDiv?: Maybe<SubDivisionUpdateOneRequiredInput>;
+}
+
+export interface GenderCreateInput {
+  id?: Maybe<ID_Input>;
+  genderName: String;
+  genderCode: String;
+}
+
+export type DivisionWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface ExamSessionUpdateManyMutationInput {
+  sessionName?: Maybe<String>;
+  sessionCode?: Maybe<String>;
+}
+
+export type GenderWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type exanCenterWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface UserUpdateInput {
+  name?: Maybe<String>;
+  email?: Maybe<String>;
+}
+
+export interface ExamSessionUpdateInput {
+  sessionName?: Maybe<String>;
+  sessionCode?: Maybe<String>;
+}
+
+export interface SubDivisionUpsertNestedInput {
+  update: SubDivisionUpdateDataInput;
+  create: SubDivisionCreateInput;
 }
 
 export interface exanCenterWhereInput {
@@ -1403,6 +1963,24 @@ export interface exanCenterWhereInput {
   NOT?: Maybe<exanCenterWhereInput[] | exanCenterWhereInput>;
 }
 
+export interface SubDivisionUpdateOneRequiredInput {
+  create?: Maybe<SubDivisionCreateInput>;
+  update?: Maybe<SubDivisionUpdateDataInput>;
+  upsert?: Maybe<SubDivisionUpsertNestedInput>;
+  connect?: Maybe<SubDivisionWhereUniqueInput>;
+}
+
+export interface UserSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<UserWhereInput>;
+  AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+  NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+}
+
 export interface PresenceWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
@@ -1441,36 +2019,30 @@ export interface PresenceWhereInput {
   NOT?: Maybe<PresenceWhereInput[] | PresenceWhereInput>;
 }
 
-export interface SeriesCreateInput {
+export interface ExamSessionCreateInput {
   id?: Maybe<ID_Input>;
-  seriesName: String;
-  seriesCode: String;
+  sessionName: String;
+  sessionCode: String;
 }
 
-export interface ExamSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ExamWhereInput>;
-  AND?: Maybe<ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput>;
-  OR?: Maybe<ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput>;
-  NOT?: Maybe<ExamSubscriptionWhereInput[] | ExamSubscriptionWhereInput>;
+export interface SubjectUpdateInput {
+  subjName?: Maybe<String>;
+  subjCode?: Maybe<String>;
 }
 
-export interface RegionUpdateManyMutationInput {
-  regName?: Maybe<String>;
-  regCode?: Maybe<String>;
+export interface ExamUpdateManyMutationInput {
+  examName?: Maybe<String>;
+  examCode?: Maybe<String>;
 }
 
-export interface TownUpsertNestedInput {
-  update: TownUpdateDataInput;
-  create: TownCreateInput;
+export interface SubDivisionUpdateManyMutationInput {
+  subDivName?: Maybe<String>;
+  subDivCode?: Maybe<String>;
 }
 
-export interface RegionUpdateInput {
-  regName?: Maybe<String>;
-  regCode?: Maybe<String>;
+export interface ExamUpdateInput {
+  examName?: Maybe<String>;
+  examCode?: Maybe<String>;
 }
 
 export interface SeriesWhereInput {
@@ -1537,101 +2109,51 @@ export interface SeriesWhereInput {
   NOT?: Maybe<SeriesWhereInput[] | SeriesWhereInput>;
 }
 
-export interface PresenceUpdateManyMutationInput {
-  regName?: Maybe<Boolean>;
-}
-
-export interface examSessionUpdateManyMutationInput {
-  sessionName?: Maybe<String>;
-  sessionCode?: Maybe<String>;
-}
-
-export interface examSessionCreateInput {
+export interface ExamCreateInput {
   id?: Maybe<ID_Input>;
-  sessionName: String;
-  sessionCode: String;
+  examName: String;
+  examCode: String;
 }
 
-export type SubjectWhereUniqueInput = AtLeastOne<{
+export type ExamWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface PresenceUpdateInput {
-  regName?: Maybe<Boolean>;
-}
-
-export interface SubDivisionUpsertNestedInput {
-  update: SubDivisionUpdateDataInput;
-  create: SubDivisionCreateInput;
-}
-
-export interface RegionCreateOneInput {
-  create?: Maybe<RegionCreateInput>;
-  connect?: Maybe<RegionWhereUniqueInput>;
-}
-
-export interface examSessionSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<examSessionWhereInput>;
-  AND?: Maybe<
-    examSessionSubscriptionWhereInput[] | examSessionSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    examSessionSubscriptionWhereInput[] | examSessionSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    examSessionSubscriptionWhereInput[] | examSessionSubscriptionWhereInput
-  >;
-}
-
-export interface RegionCreateInput {
+export interface CandidateCreateInput {
   id?: Maybe<ID_Input>;
-  regName: String;
-  regCode: String;
+  cand1stName?: Maybe<String>;
+  cand2ndName?: Maybe<String>;
+  cand3rdName?: Maybe<String>;
+  candCode?: Maybe<String>;
+  placeOfBirth?: Maybe<String>;
+  image?: Maybe<String>;
+  birthCertNumber?: Maybe<String>;
+  email?: Maybe<String>;
+  phoneNumb?: Maybe<Int>;
+  dateOfBirth?: Maybe<DateTimeInput>;
 }
 
-export interface RegionSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<RegionWhereInput>;
-  AND?: Maybe<RegionSubscriptionWhereInput[] | RegionSubscriptionWhereInput>;
-  OR?: Maybe<RegionSubscriptionWhereInput[] | RegionSubscriptionWhereInput>;
-  NOT?: Maybe<RegionSubscriptionWhereInput[] | RegionSubscriptionWhereInput>;
+export interface TownUpdateOneRequiredInput {
+  create?: Maybe<TownCreateInput>;
+  update?: Maybe<TownUpdateDataInput>;
+  upsert?: Maybe<TownUpsertNestedInput>;
+  connect?: Maybe<TownWhereUniqueInput>;
 }
 
-export interface DivisionUpdateInput {
-  divName?: Maybe<String>;
-  divCode?: Maybe<String>;
-  region?: Maybe<RegionUpdateOneRequiredInput>;
+export interface CandidateUpdateInput {
+  cand1stName?: Maybe<String>;
+  cand2ndName?: Maybe<String>;
+  cand3rdName?: Maybe<String>;
+  candCode?: Maybe<String>;
+  placeOfBirth?: Maybe<String>;
+  image?: Maybe<String>;
+  birthCertNumber?: Maybe<String>;
+  email?: Maybe<String>;
+  phoneNumb?: Maybe<Int>;
+  dateOfBirth?: Maybe<DateTimeInput>;
 }
 
-export type SeriesWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface RegionUpdateOneRequiredInput {
-  create?: Maybe<RegionCreateInput>;
-  update?: Maybe<RegionUpdateDataInput>;
-  upsert?: Maybe<RegionUpsertNestedInput>;
-  connect?: Maybe<RegionWhereUniqueInput>;
-}
-
-export interface examSessionUpdateInput {
-  sessionName?: Maybe<String>;
-  sessionCode?: Maybe<String>;
-}
-
-export interface RegionUpdateDataInput {
-  regName?: Maybe<String>;
-  regCode?: Maybe<String>;
-}
-
-export interface SubjectWhereInput {
+export interface GenderWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -1646,34 +2168,34 @@ export interface SubjectWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  subjName?: Maybe<String>;
-  subjName_not?: Maybe<String>;
-  subjName_in?: Maybe<String[] | String>;
-  subjName_not_in?: Maybe<String[] | String>;
-  subjName_lt?: Maybe<String>;
-  subjName_lte?: Maybe<String>;
-  subjName_gt?: Maybe<String>;
-  subjName_gte?: Maybe<String>;
-  subjName_contains?: Maybe<String>;
-  subjName_not_contains?: Maybe<String>;
-  subjName_starts_with?: Maybe<String>;
-  subjName_not_starts_with?: Maybe<String>;
-  subjName_ends_with?: Maybe<String>;
-  subjName_not_ends_with?: Maybe<String>;
-  subjCode?: Maybe<String>;
-  subjCode_not?: Maybe<String>;
-  subjCode_in?: Maybe<String[] | String>;
-  subjCode_not_in?: Maybe<String[] | String>;
-  subjCode_lt?: Maybe<String>;
-  subjCode_lte?: Maybe<String>;
-  subjCode_gt?: Maybe<String>;
-  subjCode_gte?: Maybe<String>;
-  subjCode_contains?: Maybe<String>;
-  subjCode_not_contains?: Maybe<String>;
-  subjCode_starts_with?: Maybe<String>;
-  subjCode_not_starts_with?: Maybe<String>;
-  subjCode_ends_with?: Maybe<String>;
-  subjCode_not_ends_with?: Maybe<String>;
+  genderName?: Maybe<String>;
+  genderName_not?: Maybe<String>;
+  genderName_in?: Maybe<String[] | String>;
+  genderName_not_in?: Maybe<String[] | String>;
+  genderName_lt?: Maybe<String>;
+  genderName_lte?: Maybe<String>;
+  genderName_gt?: Maybe<String>;
+  genderName_gte?: Maybe<String>;
+  genderName_contains?: Maybe<String>;
+  genderName_not_contains?: Maybe<String>;
+  genderName_starts_with?: Maybe<String>;
+  genderName_not_starts_with?: Maybe<String>;
+  genderName_ends_with?: Maybe<String>;
+  genderName_not_ends_with?: Maybe<String>;
+  genderCode?: Maybe<String>;
+  genderCode_not?: Maybe<String>;
+  genderCode_in?: Maybe<String[] | String>;
+  genderCode_not_in?: Maybe<String[] | String>;
+  genderCode_lt?: Maybe<String>;
+  genderCode_lte?: Maybe<String>;
+  genderCode_gt?: Maybe<String>;
+  genderCode_gte?: Maybe<String>;
+  genderCode_contains?: Maybe<String>;
+  genderCode_not_contains?: Maybe<String>;
+  genderCode_starts_with?: Maybe<String>;
+  genderCode_not_starts_with?: Maybe<String>;
+  genderCode_ends_with?: Maybe<String>;
+  genderCode_not_ends_with?: Maybe<String>;
   createdAt?: Maybe<DateTimeInput>;
   createdAt_not?: Maybe<DateTimeInput>;
   createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1690,9 +2212,49 @@ export interface SubjectWhereInput {
   updatedAt_lte?: Maybe<DateTimeInput>;
   updatedAt_gt?: Maybe<DateTimeInput>;
   updatedAt_gte?: Maybe<DateTimeInput>;
-  AND?: Maybe<SubjectWhereInput[] | SubjectWhereInput>;
-  OR?: Maybe<SubjectWhereInput[] | SubjectWhereInput>;
-  NOT?: Maybe<SubjectWhereInput[] | SubjectWhereInput>;
+  AND?: Maybe<GenderWhereInput[] | GenderWhereInput>;
+  OR?: Maybe<GenderWhereInput[] | GenderWhereInput>;
+  NOT?: Maybe<GenderWhereInput[] | GenderWhereInput>;
+}
+
+export interface CandidateUpdateManyMutationInput {
+  cand1stName?: Maybe<String>;
+  cand2ndName?: Maybe<String>;
+  cand3rdName?: Maybe<String>;
+  candCode?: Maybe<String>;
+  placeOfBirth?: Maybe<String>;
+  image?: Maybe<String>;
+  birthCertNumber?: Maybe<String>;
+  email?: Maybe<String>;
+  phoneNumb?: Maybe<Int>;
+  dateOfBirth?: Maybe<DateTimeInput>;
+}
+
+export interface PresenceSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<PresenceWhereInput>;
+  AND?: Maybe<
+    PresenceSubscriptionWhereInput[] | PresenceSubscriptionWhereInput
+  >;
+  OR?: Maybe<PresenceSubscriptionWhereInput[] | PresenceSubscriptionWhereInput>;
+  NOT?: Maybe<
+    PresenceSubscriptionWhereInput[] | PresenceSubscriptionWhereInput
+  >;
+}
+
+export interface DivisionUpdateManyMutationInput {
+  divName?: Maybe<String>;
+  divCode?: Maybe<String>;
+}
+
+export interface TownCreateInput {
+  id?: Maybe<ID_Input>;
+  townName: String;
+  townCode: String;
+  subDiv: SubDivisionCreateOneInput;
 }
 
 export interface RegionUpsertNestedInput {
@@ -1700,64 +2262,160 @@ export interface RegionUpsertNestedInput {
   create: RegionCreateInput;
 }
 
+export type SeriesWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface DivisionCreateInput {
+  id?: Maybe<ID_Input>;
+  divName: String;
+  divCode: String;
+  region: RegionCreateOneInput;
+}
+
+export interface exanCenterUpdateManyMutationInput {
+  centerName?: Maybe<String>;
+  centerCode?: Maybe<String>;
+}
+
+export interface TownUpdateManyMutationInput {
+  townName?: Maybe<String>;
+  townCode?: Maybe<String>;
+}
+
+export interface RegionUpdateOneRequiredInput {
+  create?: Maybe<RegionCreateInput>;
+  update?: Maybe<RegionUpdateDataInput>;
+  upsert?: Maybe<RegionUpsertNestedInput>;
+  connect?: Maybe<RegionWhereUniqueInput>;
+}
+
+export interface DivisionUpdateInput {
+  divName?: Maybe<String>;
+  divCode?: Maybe<String>;
+  region?: Maybe<RegionUpdateOneRequiredInput>;
+}
+
+export interface RegionCreateInput {
+  id?: Maybe<ID_Input>;
+  regName: String;
+  regCode: String;
+}
+
+export interface RegionCreateOneInput {
+  create?: Maybe<RegionCreateInput>;
+  connect?: Maybe<RegionWhereUniqueInput>;
+}
+
 export type PresenceWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
-
-export interface ExamCreateInput {
-  id?: Maybe<ID_Input>;
-  examName: String;
-  examCode: String;
-}
-
-export interface ExamUpdateManyMutationInput {
-  examName?: Maybe<String>;
-  examCode?: Maybe<String>;
-}
-
-export interface PresenceCreateInput {
-  id?: Maybe<ID_Input>;
-  regName: Boolean;
-}
-
-export type ExamWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface DivisionSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<DivisionWhereInput>;
-  AND?: Maybe<
-    DivisionSubscriptionWhereInput[] | DivisionSubscriptionWhereInput
-  >;
-  OR?: Maybe<DivisionSubscriptionWhereInput[] | DivisionSubscriptionWhereInput>;
-  NOT?: Maybe<
-    DivisionSubscriptionWhereInput[] | DivisionSubscriptionWhereInput
-  >;
-}
-
-export interface SubDivisionUpdateOneRequiredInput {
-  create?: Maybe<SubDivisionCreateInput>;
-  update?: Maybe<SubDivisionUpdateDataInput>;
-  upsert?: Maybe<SubDivisionUpsertNestedInput>;
-  connect?: Maybe<SubDivisionWhereUniqueInput>;
-}
-
-export interface UserUpdateInput {
-  name?: Maybe<String>;
-  email?: Maybe<String>;
-}
 
 export interface TownCreateOneInput {
   create?: Maybe<TownCreateInput>;
   connect?: Maybe<TownWhereUniqueInput>;
 }
 
+export interface DivisionWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  divName?: Maybe<String>;
+  divName_not?: Maybe<String>;
+  divName_in?: Maybe<String[] | String>;
+  divName_not_in?: Maybe<String[] | String>;
+  divName_lt?: Maybe<String>;
+  divName_lte?: Maybe<String>;
+  divName_gt?: Maybe<String>;
+  divName_gte?: Maybe<String>;
+  divName_contains?: Maybe<String>;
+  divName_not_contains?: Maybe<String>;
+  divName_starts_with?: Maybe<String>;
+  divName_not_starts_with?: Maybe<String>;
+  divName_ends_with?: Maybe<String>;
+  divName_not_ends_with?: Maybe<String>;
+  divCode?: Maybe<String>;
+  divCode_not?: Maybe<String>;
+  divCode_in?: Maybe<String[] | String>;
+  divCode_not_in?: Maybe<String[] | String>;
+  divCode_lt?: Maybe<String>;
+  divCode_lte?: Maybe<String>;
+  divCode_gt?: Maybe<String>;
+  divCode_gte?: Maybe<String>;
+  divCode_contains?: Maybe<String>;
+  divCode_not_contains?: Maybe<String>;
+  divCode_starts_with?: Maybe<String>;
+  divCode_not_starts_with?: Maybe<String>;
+  divCode_ends_with?: Maybe<String>;
+  divCode_not_ends_with?: Maybe<String>;
+  region?: Maybe<RegionWhereInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<DivisionWhereInput[] | DivisionWhereInput>;
+  OR?: Maybe<DivisionWhereInput[] | DivisionWhereInput>;
+  NOT?: Maybe<DivisionWhereInput[] | DivisionWhereInput>;
+}
+
+export interface exanCenterSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<exanCenterWhereInput>;
+  AND?: Maybe<
+    exanCenterSubscriptionWhereInput[] | exanCenterSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    exanCenterSubscriptionWhereInput[] | exanCenterSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    exanCenterSubscriptionWhereInput[] | exanCenterSubscriptionWhereInput
+  >;
+}
+
 export interface NodeNode {
   id: ID_Output;
+}
+
+export interface AggregateExam {
+  count: Int;
+}
+
+export interface AggregateExamPromise
+  extends Promise<AggregateExam>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateExamSubscription
+  extends Promise<AsyncIterator<AggregateExam>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface exanCenterPreviousValues {
@@ -1788,91 +2446,65 @@ export interface exanCenterPreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface AggregateRegion {
-  count: Int;
-}
-
-export interface AggregateRegionPromise
-  extends Promise<AggregateRegion>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateRegionSubscription
-  extends Promise<AsyncIterator<AggregateRegion>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface AggregateDivision {
-  count: Int;
-}
-
-export interface AggregateDivisionPromise
-  extends Promise<AggregateDivision>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateDivisionSubscription
-  extends Promise<AsyncIterator<AggregateDivision>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface Series {
+export interface ExamSession {
   id: ID_Output;
-  seriesName: String;
-  seriesCode: String;
+  sessionName: String;
+  sessionCode: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
 
-export interface SeriesPromise extends Promise<Series>, Fragmentable {
+export interface ExamSessionPromise extends Promise<ExamSession>, Fragmentable {
   id: () => Promise<ID_Output>;
-  seriesName: () => Promise<String>;
-  seriesCode: () => Promise<String>;
+  sessionName: () => Promise<String>;
+  sessionCode: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface SeriesSubscription
-  extends Promise<AsyncIterator<Series>>,
+export interface ExamSessionSubscription
+  extends Promise<AsyncIterator<ExamSession>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  seriesName: () => Promise<AsyncIterator<String>>;
-  seriesCode: () => Promise<AsyncIterator<String>>;
+  sessionName: () => Promise<AsyncIterator<String>>;
+  sessionCode: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface SeriesNullablePromise
-  extends Promise<Series | null>,
+export interface ExamSessionNullablePromise
+  extends Promise<ExamSession | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  seriesName: () => Promise<String>;
-  seriesCode: () => Promise<String>;
+  sessionName: () => Promise<String>;
+  sessionCode: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface DivisionEdge {
-  node: Division;
-  cursor: String;
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
 }
 
-export interface DivisionEdgePromise
-  extends Promise<DivisionEdge>,
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
     Fragmentable {
-  node: <T = DivisionPromise>() => T;
-  cursor: () => Promise<String>;
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
 }
 
-export interface DivisionEdgeSubscription
-  extends Promise<AsyncIterator<DivisionEdge>>,
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
     Fragmentable {
-  node: <T = DivisionSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
 export interface BatchPayload {
@@ -1891,20 +2523,20 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface RegionEdge {
-  node: Region;
+export interface ExamEdge {
+  node: Exam;
   cursor: String;
 }
 
-export interface RegionEdgePromise extends Promise<RegionEdge>, Fragmentable {
-  node: <T = RegionPromise>() => T;
+export interface ExamEdgePromise extends Promise<ExamEdge>, Fragmentable {
+  node: <T = ExamPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface RegionEdgeSubscription
-  extends Promise<AsyncIterator<RegionEdge>>,
+export interface ExamEdgeSubscription
+  extends Promise<AsyncIterator<ExamEdge>>,
     Fragmentable {
-  node: <T = RegionSubscription>() => T;
+  node: <T = ExamSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
@@ -1945,6 +2577,539 @@ export interface exanCenterConnectionSubscription
   aggregate: <T = AggregateexanCenterSubscription>() => T;
 }
 
+export interface ExamConnection {
+  pageInfo: PageInfo;
+  edges: ExamEdge[];
+}
+
+export interface ExamConnectionPromise
+  extends Promise<ExamConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ExamEdge>>() => T;
+  aggregate: <T = AggregateExamPromise>() => T;
+}
+
+export interface ExamConnectionSubscription
+  extends Promise<AsyncIterator<ExamConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ExamEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateExamSubscription>() => T;
+}
+
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Exam {
+  id: ID_Output;
+  examName: String;
+  examCode: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ExamPromise extends Promise<Exam>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  examName: () => Promise<String>;
+  examCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ExamSubscription
+  extends Promise<AsyncIterator<Exam>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  examName: () => Promise<AsyncIterator<String>>;
+  examCode: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface ExamNullablePromise
+  extends Promise<Exam | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  examName: () => Promise<String>;
+  examCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface AggregateDivision {
+  count: Int;
+}
+
+export interface AggregateDivisionPromise
+  extends Promise<AggregateDivision>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateDivisionSubscription
+  extends Promise<AsyncIterator<AggregateDivision>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface AggregateTown {
+  count: Int;
+}
+
+export interface AggregateTownPromise
+  extends Promise<AggregateTown>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateTownSubscription
+  extends Promise<AsyncIterator<AggregateTown>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface CandidateSubscriptionPayload {
+  mutation: MutationType;
+  node: Candidate;
+  updatedFields: String[];
+  previousValues: CandidatePreviousValues;
+}
+
+export interface CandidateSubscriptionPayloadPromise
+  extends Promise<CandidateSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CandidatePromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CandidatePreviousValuesPromise>() => T;
+}
+
+export interface CandidateSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CandidateSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CandidateSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CandidatePreviousValuesSubscription>() => T;
+}
+
+export interface TownConnection {
+  pageInfo: PageInfo;
+  edges: TownEdge[];
+}
+
+export interface TownConnectionPromise
+  extends Promise<TownConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<TownEdge>>() => T;
+  aggregate: <T = AggregateTownPromise>() => T;
+}
+
+export interface TownConnectionSubscription
+  extends Promise<AsyncIterator<TownConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<TownEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateTownSubscription>() => T;
+}
+
+export interface CandidatePreviousValues {
+  id: ID_Output;
+  cand1stName?: String;
+  cand2ndName?: String;
+  cand3rdName?: String;
+  candCode?: String;
+  placeOfBirth?: String;
+  image?: String;
+  birthCertNumber?: String;
+  email?: String;
+  phoneNumb?: Int;
+  dateOfBirth?: DateTimeOutput;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface CandidatePreviousValuesPromise
+  extends Promise<CandidatePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  cand1stName: () => Promise<String>;
+  cand2ndName: () => Promise<String>;
+  cand3rdName: () => Promise<String>;
+  candCode: () => Promise<String>;
+  placeOfBirth: () => Promise<String>;
+  image: () => Promise<String>;
+  birthCertNumber: () => Promise<String>;
+  email: () => Promise<String>;
+  phoneNumb: () => Promise<Int>;
+  dateOfBirth: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface CandidatePreviousValuesSubscription
+  extends Promise<AsyncIterator<CandidatePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  cand1stName: () => Promise<AsyncIterator<String>>;
+  cand2ndName: () => Promise<AsyncIterator<String>>;
+  cand3rdName: () => Promise<AsyncIterator<String>>;
+  candCode: () => Promise<AsyncIterator<String>>;
+  placeOfBirth: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  birthCertNumber: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  phoneNumb: () => Promise<AsyncIterator<Int>>;
+  dateOfBirth: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface AggregateSubject {
+  count: Int;
+}
+
+export interface AggregateSubjectPromise
+  extends Promise<AggregateSubject>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSubjectSubscription
+  extends Promise<AsyncIterator<AggregateSubject>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface DivisionEdge {
+  node: Division;
+  cursor: String;
+}
+
+export interface DivisionEdgePromise
+  extends Promise<DivisionEdge>,
+    Fragmentable {
+  node: <T = DivisionPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface DivisionEdgeSubscription
+  extends Promise<AsyncIterator<DivisionEdge>>,
+    Fragmentable {
+  node: <T = DivisionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface SubjectConnection {
+  pageInfo: PageInfo;
+  edges: SubjectEdge[];
+}
+
+export interface SubjectConnectionPromise
+  extends Promise<SubjectConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SubjectEdge>>() => T;
+  aggregate: <T = AggregateSubjectPromise>() => T;
+}
+
+export interface SubjectConnectionSubscription
+  extends Promise<AsyncIterator<SubjectConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SubjectEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSubjectSubscription>() => T;
+}
+
+export interface DivisionSubscriptionPayload {
+  mutation: MutationType;
+  node: Division;
+  updatedFields: String[];
+  previousValues: DivisionPreviousValues;
+}
+
+export interface DivisionSubscriptionPayloadPromise
+  extends Promise<DivisionSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = DivisionPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = DivisionPreviousValuesPromise>() => T;
+}
+
+export interface DivisionSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<DivisionSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = DivisionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = DivisionPreviousValuesSubscription>() => T;
+}
+
+export interface AggregateSubDivision {
+  count: Int;
+}
+
+export interface AggregateSubDivisionPromise
+  extends Promise<AggregateSubDivision>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSubDivisionSubscription
+  extends Promise<AsyncIterator<AggregateSubDivision>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface DivisionPreviousValues {
+  id: ID_Output;
+  divName: String;
+  divCode: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface DivisionPreviousValuesPromise
+  extends Promise<DivisionPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  divName: () => Promise<String>;
+  divCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface DivisionPreviousValuesSubscription
+  extends Promise<AsyncIterator<DivisionPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  divName: () => Promise<AsyncIterator<String>>;
+  divCode: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface SubDivisionConnection {
+  pageInfo: PageInfo;
+  edges: SubDivisionEdge[];
+}
+
+export interface SubDivisionConnectionPromise
+  extends Promise<SubDivisionConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SubDivisionEdge>>() => T;
+  aggregate: <T = AggregateSubDivisionPromise>() => T;
+}
+
+export interface SubDivisionConnectionSubscription
+  extends Promise<AsyncIterator<SubDivisionConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SubDivisionEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSubDivisionSubscription>() => T;
+}
+
+export interface DivisionConnection {
+  pageInfo: PageInfo;
+  edges: DivisionEdge[];
+}
+
+export interface DivisionConnectionPromise
+  extends Promise<DivisionConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<DivisionEdge>>() => T;
+  aggregate: <T = AggregateDivisionPromise>() => T;
+}
+
+export interface DivisionConnectionSubscription
+  extends Promise<AsyncIterator<DivisionConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<DivisionEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateDivisionSubscription>() => T;
+}
+
+export interface AggregateSeries {
+  count: Int;
+}
+
+export interface AggregateSeriesPromise
+  extends Promise<AggregateSeries>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateSeriesSubscription
+  extends Promise<AsyncIterator<AggregateSeries>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface ExamSubscriptionPayload {
+  mutation: MutationType;
+  node: Exam;
+  updatedFields: String[];
+  previousValues: ExamPreviousValues;
+}
+
+export interface ExamSubscriptionPayloadPromise
+  extends Promise<ExamSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ExamPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ExamPreviousValuesPromise>() => T;
+}
+
+export interface ExamSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ExamSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ExamSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ExamPreviousValuesSubscription>() => T;
+}
+
+export interface SeriesConnection {
+  pageInfo: PageInfo;
+  edges: SeriesEdge[];
+}
+
+export interface SeriesConnectionPromise
+  extends Promise<SeriesConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<SeriesEdge>>() => T;
+  aggregate: <T = AggregateSeriesPromise>() => T;
+}
+
+export interface SeriesConnectionSubscription
+  extends Promise<AsyncIterator<SeriesConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<SeriesEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateSeriesSubscription>() => T;
+}
+
+export interface ExamPreviousValues {
+  id: ID_Output;
+  examName: String;
+  examCode: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface ExamPreviousValuesPromise
+  extends Promise<ExamPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  examName: () => Promise<String>;
+  examCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface ExamPreviousValuesSubscription
+  extends Promise<AsyncIterator<ExamPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  examName: () => Promise<AsyncIterator<String>>;
+  examCode: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface AggregateRegion {
+  count: Int;
+}
+
+export interface AggregateRegionPromise
+  extends Promise<AggregateRegion>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateRegionSubscription
+  extends Promise<AsyncIterator<AggregateRegion>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface Region {
+  id: ID_Output;
+  regName: String;
+  regCode: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface RegionPromise extends Promise<Region>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  regName: () => Promise<String>;
+  regCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface RegionSubscription
+  extends Promise<AsyncIterator<Region>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  regName: () => Promise<AsyncIterator<String>>;
+  regCode: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface RegionNullablePromise
+  extends Promise<Region | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  regName: () => Promise<String>;
+  regCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
 export interface RegionConnection {
   pageInfo: PageInfo;
   edges: RegionEdge[];
@@ -1966,85 +3131,108 @@ export interface RegionConnectionSubscription
   aggregate: <T = AggregateRegionSubscription>() => T;
 }
 
-export interface exanCenter {
+export interface ExamSessionSubscriptionPayload {
+  mutation: MutationType;
+  node: ExamSession;
+  updatedFields: String[];
+  previousValues: ExamSessionPreviousValues;
+}
+
+export interface ExamSessionSubscriptionPayloadPromise
+  extends Promise<ExamSessionSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = ExamSessionPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = ExamSessionPreviousValuesPromise>() => T;
+}
+
+export interface ExamSessionSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ExamSessionSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = ExamSessionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = ExamSessionPreviousValuesSubscription>() => T;
+}
+
+export interface PresenceEdge {
+  node: Presence;
+  cursor: String;
+}
+
+export interface PresenceEdgePromise
+  extends Promise<PresenceEdge>,
+    Fragmentable {
+  node: <T = PresencePromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface PresenceEdgeSubscription
+  extends Promise<AsyncIterator<PresenceEdge>>,
+    Fragmentable {
+  node: <T = PresenceSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface ExamSessionPreviousValues {
   id: ID_Output;
-  centerName: String;
-  centerCode: String;
+  sessionName: String;
+  sessionCode: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
 
-export interface exanCenterPromise extends Promise<exanCenter>, Fragmentable {
+export interface ExamSessionPreviousValuesPromise
+  extends Promise<ExamSessionPreviousValues>,
+    Fragmentable {
   id: () => Promise<ID_Output>;
-  centerName: () => Promise<String>;
-  centerCode: () => Promise<String>;
-  town: <T = TownPromise>() => T;
+  sessionName: () => Promise<String>;
+  sessionCode: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface exanCenterSubscription
-  extends Promise<AsyncIterator<exanCenter>>,
+export interface ExamSessionPreviousValuesSubscription
+  extends Promise<AsyncIterator<ExamSessionPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  centerName: () => Promise<AsyncIterator<String>>;
-  centerCode: () => Promise<AsyncIterator<String>>;
-  town: <T = TownSubscription>() => T;
+  sessionName: () => Promise<AsyncIterator<String>>;
+  sessionCode: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface exanCenterNullablePromise
-  extends Promise<exanCenter | null>,
-    Fragmentable {
+export interface Presence {
+  id: ID_Output;
+  regName: Boolean;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface PresencePromise extends Promise<Presence>, Fragmentable {
   id: () => Promise<ID_Output>;
-  centerName: () => Promise<String>;
-  centerCode: () => Promise<String>;
-  town: <T = TownPromise>() => T;
+  regName: () => Promise<Boolean>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
+export interface PresenceSubscription
+  extends Promise<AsyncIterator<Presence>>,
     Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  regName: () => Promise<AsyncIterator<Boolean>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface examSessionEdge {
-  node: examSession;
-  cursor: String;
-}
-
-export interface examSessionEdgePromise
-  extends Promise<examSessionEdge>,
+export interface PresenceNullablePromise
+  extends Promise<Presence | null>,
     Fragmentable {
-  node: <T = examSessionPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface examSessionEdgeSubscription
-  extends Promise<AsyncIterator<examSessionEdge>>,
-    Fragmentable {
-  node: <T = examSessionSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  id: () => Promise<ID_Output>;
+  regName: () => Promise<Boolean>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface Division {
@@ -2086,318 +3274,319 @@ export interface DivisionNullablePromise
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface Region {
+export interface ItemEdge {
+  node: Item;
+  cursor: String;
+}
+
+export interface ItemEdgePromise extends Promise<ItemEdge>, Fragmentable {
+  node: <T = ItemPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface ItemEdgeSubscription
+  extends Promise<AsyncIterator<ItemEdge>>,
+    Fragmentable {
+  node: <T = ItemSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface GenderSubscriptionPayload {
+  mutation: MutationType;
+  node: Gender;
+  updatedFields: String[];
+  previousValues: GenderPreviousValues;
+}
+
+export interface GenderSubscriptionPayloadPromise
+  extends Promise<GenderSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = GenderPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = GenderPreviousValuesPromise>() => T;
+}
+
+export interface GenderSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<GenderSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = GenderSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = GenderPreviousValuesSubscription>() => T;
+}
+
+export interface Item {
   id: ID_Output;
-  regName: String;
-  regCode: String;
+  title: String;
+  descrption: String;
+  image?: String;
+  largeImage?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
 
-export interface RegionPromise extends Promise<Region>, Fragmentable {
+export interface ItemPromise extends Promise<Item>, Fragmentable {
   id: () => Promise<ID_Output>;
-  regName: () => Promise<String>;
-  regCode: () => Promise<String>;
+  title: () => Promise<String>;
+  descrption: () => Promise<String>;
+  image: () => Promise<String>;
+  largeImage: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface RegionSubscription
-  extends Promise<AsyncIterator<Region>>,
+export interface ItemSubscription
+  extends Promise<AsyncIterator<Item>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  regName: () => Promise<AsyncIterator<String>>;
-  regCode: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  descrption: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  largeImage: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface RegionNullablePromise
-  extends Promise<Region | null>,
+export interface ItemNullablePromise
+  extends Promise<Item | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  regName: () => Promise<String>;
-  regCode: () => Promise<String>;
+  title: () => Promise<String>;
+  descrption: () => Promise<String>;
+  image: () => Promise<String>;
+  largeImage: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface DivisionSubscriptionPayload {
-  mutation: MutationType;
-  node: Division;
-  updatedFields: String[];
-  previousValues: DivisionPreviousValues;
+export interface GenderPreviousValues {
+  id: ID_Output;
+  genderName: String;
+  genderCode: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
-export interface DivisionSubscriptionPayloadPromise
-  extends Promise<DivisionSubscriptionPayload>,
+export interface GenderPreviousValuesPromise
+  extends Promise<GenderPreviousValues>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = DivisionPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = DivisionPreviousValuesPromise>() => T;
+  id: () => Promise<ID_Output>;
+  genderName: () => Promise<String>;
+  genderCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface DivisionSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<DivisionSubscriptionPayload>>,
+export interface GenderPreviousValuesSubscription
+  extends Promise<AsyncIterator<GenderPreviousValues>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = DivisionSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = DivisionPreviousValuesSubscription>() => T;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  genderName: () => Promise<AsyncIterator<String>>;
+  genderCode: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface AggregateUser {
+export interface GenderEdge {
+  node: Gender;
+  cursor: String;
+}
+
+export interface GenderEdgePromise extends Promise<GenderEdge>, Fragmentable {
+  node: <T = GenderPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface GenderEdgeSubscription
+  extends Promise<AsyncIterator<GenderEdge>>,
+    Fragmentable {
+  node: <T = GenderSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateCandidate {
   count: Int;
 }
 
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
+export interface AggregateCandidatePromise
+  extends Promise<AggregateCandidate>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
+export interface AggregateCandidateSubscription
+  extends Promise<AsyncIterator<AggregateCandidate>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface DivisionPreviousValues {
+export interface Gender {
   id: ID_Output;
-  divName: String;
-  divCode: String;
+  genderName: String;
+  genderCode: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
 
-export interface DivisionPreviousValuesPromise
-  extends Promise<DivisionPreviousValues>,
-    Fragmentable {
+export interface GenderPromise extends Promise<Gender>, Fragmentable {
   id: () => Promise<ID_Output>;
-  divName: () => Promise<String>;
-  divCode: () => Promise<String>;
+  genderName: () => Promise<String>;
+  genderCode: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface DivisionPreviousValuesSubscription
-  extends Promise<AsyncIterator<DivisionPreviousValues>>,
+export interface GenderSubscription
+  extends Promise<AsyncIterator<Gender>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  divName: () => Promise<AsyncIterator<String>>;
-  divCode: () => Promise<AsyncIterator<String>>;
+  genderName: () => Promise<AsyncIterator<String>>;
+  genderCode: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
-}
-
-export interface AggregatePresence {
-  count: Int;
-}
-
-export interface AggregatePresencePromise
-  extends Promise<AggregatePresence>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregatePresenceSubscription
-  extends Promise<AsyncIterator<AggregatePresence>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface User {
-  id: ID_Output;
-  name: String;
-  email: String;
-}
-
-export interface UserPromise extends Promise<User>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  email: () => Promise<String>;
-}
-
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserNullablePromise
-  extends Promise<User | null>,
+export interface GenderNullablePromise
+  extends Promise<Gender | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  email: () => Promise<String>;
+  genderName: () => Promise<String>;
+  genderCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface ExamSubscriptionPayload {
+export interface ItemSubscriptionPayload {
   mutation: MutationType;
-  node: Exam;
+  node: Item;
   updatedFields: String[];
-  previousValues: ExamPreviousValues;
+  previousValues: ItemPreviousValues;
 }
 
-export interface ExamSubscriptionPayloadPromise
-  extends Promise<ExamSubscriptionPayload>,
+export interface ItemSubscriptionPayloadPromise
+  extends Promise<ItemSubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = ExamPromise>() => T;
+  node: <T = ItemPromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = ExamPreviousValuesPromise>() => T;
+  previousValues: <T = ItemPreviousValuesPromise>() => T;
 }
 
-export interface ExamSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ExamSubscriptionPayload>>,
+export interface ItemSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<ItemSubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ExamSubscription>() => T;
+  node: <T = ItemSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ExamPreviousValuesSubscription>() => T;
+  previousValues: <T = ItemPreviousValuesSubscription>() => T;
 }
 
-export interface TownEdge {
-  node: Town;
+export interface ExamSessionEdge {
+  node: ExamSession;
   cursor: String;
 }
 
-export interface TownEdgePromise extends Promise<TownEdge>, Fragmentable {
-  node: <T = TownPromise>() => T;
+export interface ExamSessionEdgePromise
+  extends Promise<ExamSessionEdge>,
+    Fragmentable {
+  node: <T = ExamSessionPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface TownEdgeSubscription
-  extends Promise<AsyncIterator<TownEdge>>,
+export interface ExamSessionEdgeSubscription
+  extends Promise<AsyncIterator<ExamSessionEdge>>,
     Fragmentable {
-  node: <T = TownSubscription>() => T;
+  node: <T = ExamSessionSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ExamPreviousValues {
+export interface ItemPreviousValues {
   id: ID_Output;
-  examName: String;
-  examCode: String;
+  title: String;
+  descrption: String;
+  image?: String;
+  largeImage?: String;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
 
-export interface ExamPreviousValuesPromise
-  extends Promise<ExamPreviousValues>,
+export interface ItemPreviousValuesPromise
+  extends Promise<ItemPreviousValues>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  examName: () => Promise<String>;
-  examCode: () => Promise<String>;
+  title: () => Promise<String>;
+  descrption: () => Promise<String>;
+  image: () => Promise<String>;
+  largeImage: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface ExamPreviousValuesSubscription
-  extends Promise<AsyncIterator<ExamPreviousValues>>,
+export interface ItemPreviousValuesSubscription
+  extends Promise<AsyncIterator<ItemPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  examName: () => Promise<AsyncIterator<String>>;
-  examCode: () => Promise<AsyncIterator<String>>;
+  title: () => Promise<AsyncIterator<String>>;
+  descrption: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  largeImage: () => Promise<AsyncIterator<String>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface Town {
-  id: ID_Output;
-  townName: String;
-  townCode: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface TownPromise extends Promise<Town>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  townName: () => Promise<String>;
-  townCode: () => Promise<String>;
-  subDiv: <T = SubDivisionPromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface TownSubscription
-  extends Promise<AsyncIterator<Town>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  townName: () => Promise<AsyncIterator<String>>;
-  townCode: () => Promise<AsyncIterator<String>>;
-  subDiv: <T = SubDivisionSubscription>() => T;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface TownNullablePromise
-  extends Promise<Town | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  townName: () => Promise<String>;
-  townCode: () => Promise<String>;
-  subDiv: <T = SubDivisionPromise>() => T;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface PresenceEdge {
-  node: Presence;
+export interface exanCenterEdge {
+  node: exanCenter;
   cursor: String;
 }
 
-export interface PresenceEdgePromise
-  extends Promise<PresenceEdge>,
+export interface exanCenterEdgePromise
+  extends Promise<exanCenterEdge>,
     Fragmentable {
-  node: <T = PresencePromise>() => T;
+  node: <T = exanCenterPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface PresenceEdgeSubscription
-  extends Promise<AsyncIterator<PresenceEdge>>,
+export interface exanCenterEdgeSubscription
+  extends Promise<AsyncIterator<exanCenterEdge>>,
     Fragmentable {
-  node: <T = PresenceSubscription>() => T;
+  node: <T = exanCenterSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface SubjectEdge {
-  node: Subject;
+export interface CandidateEdge {
+  node: Candidate;
   cursor: String;
 }
 
-export interface SubjectEdgePromise extends Promise<SubjectEdge>, Fragmentable {
-  node: <T = SubjectPromise>() => T;
+export interface CandidateEdgePromise
+  extends Promise<CandidateEdge>,
+    Fragmentable {
+  node: <T = CandidatePromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface SubjectEdgeSubscription
-  extends Promise<AsyncIterator<SubjectEdge>>,
+export interface CandidateEdgeSubscription
+  extends Promise<AsyncIterator<CandidateEdge>>,
     Fragmentable {
-  node: <T = SubjectSubscription>() => T;
+  node: <T = CandidateSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
@@ -2424,6 +3613,466 @@ export interface PresenceSubscriptionPayloadSubscription
   node: <T = PresenceSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
   previousValues: <T = PresencePreviousValuesSubscription>() => T;
+}
+
+export interface TownEdge {
+  node: Town;
+  cursor: String;
+}
+
+export interface TownEdgePromise extends Promise<TownEdge>, Fragmentable {
+  node: <T = TownPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface TownEdgeSubscription
+  extends Promise<AsyncIterator<TownEdge>>,
+    Fragmentable {
+  node: <T = TownSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PresencePreviousValues {
+  id: ID_Output;
+  regName: Boolean;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface PresencePreviousValuesPromise
+  extends Promise<PresencePreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  regName: () => Promise<Boolean>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface PresencePreviousValuesSubscription
+  extends Promise<AsyncIterator<PresencePreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  regName: () => Promise<AsyncIterator<Boolean>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface SubjectEdge {
+  node: Subject;
+  cursor: String;
+}
+
+export interface SubjectEdgePromise extends Promise<SubjectEdge>, Fragmentable {
+  node: <T = SubjectPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SubjectEdgeSubscription
+  extends Promise<AsyncIterator<SubjectEdge>>,
+    Fragmentable {
+  node: <T = SubjectSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface exanCenterSubscriptionPayload {
+  mutation: MutationType;
+  node: exanCenter;
+  updatedFields: String[];
+  previousValues: exanCenterPreviousValues;
+}
+
+export interface exanCenterSubscriptionPayloadPromise
+  extends Promise<exanCenterSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = exanCenterPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = exanCenterPreviousValuesPromise>() => T;
+}
+
+export interface exanCenterSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<exanCenterSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = exanCenterSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = exanCenterPreviousValuesSubscription>() => T;
+}
+
+export interface SubDivisionEdge {
+  node: SubDivision;
+  cursor: String;
+}
+
+export interface SubDivisionEdgePromise
+  extends Promise<SubDivisionEdge>,
+    Fragmentable {
+  node: <T = SubDivisionPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SubDivisionEdgeSubscription
+  extends Promise<AsyncIterator<SubDivisionEdge>>,
+    Fragmentable {
+  node: <T = SubDivisionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface RegionSubscriptionPayload {
+  mutation: MutationType;
+  node: Region;
+  updatedFields: String[];
+  previousValues: RegionPreviousValues;
+}
+
+export interface RegionSubscriptionPayloadPromise
+  extends Promise<RegionSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = RegionPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = RegionPreviousValuesPromise>() => T;
+}
+
+export interface RegionSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<RegionSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = RegionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = RegionPreviousValuesSubscription>() => T;
+}
+
+export interface SeriesEdge {
+  node: Series;
+  cursor: String;
+}
+
+export interface SeriesEdgePromise extends Promise<SeriesEdge>, Fragmentable {
+  node: <T = SeriesPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface SeriesEdgeSubscription
+  extends Promise<AsyncIterator<SeriesEdge>>,
+    Fragmentable {
+  node: <T = SeriesSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface RegionPreviousValues {
+  id: ID_Output;
+  regName: String;
+  regCode: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface RegionPreviousValuesPromise
+  extends Promise<RegionPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  regName: () => Promise<String>;
+  regCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface RegionPreviousValuesSubscription
+  extends Promise<AsyncIterator<RegionPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  regName: () => Promise<AsyncIterator<String>>;
+  regCode: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface RegionEdge {
+  node: Region;
+  cursor: String;
+}
+
+export interface RegionEdgePromise extends Promise<RegionEdge>, Fragmentable {
+  node: <T = RegionPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface RegionEdgeSubscription
+  extends Promise<AsyncIterator<RegionEdge>>,
+    Fragmentable {
+  node: <T = RegionSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface PresenceConnection {
+  pageInfo: PageInfo;
+  edges: PresenceEdge[];
+}
+
+export interface PresenceConnectionPromise
+  extends Promise<PresenceConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<PresenceEdge>>() => T;
+  aggregate: <T = AggregatePresencePromise>() => T;
+}
+
+export interface PresenceConnectionSubscription
+  extends Promise<AsyncIterator<PresenceConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PresenceEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePresenceSubscription>() => T;
+}
+
+export interface SeriesSubscriptionPayload {
+  mutation: MutationType;
+  node: Series;
+  updatedFields: String[];
+  previousValues: SeriesPreviousValues;
+}
+
+export interface SeriesSubscriptionPayloadPromise
+  extends Promise<SeriesSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SeriesPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SeriesPreviousValuesPromise>() => T;
+}
+
+export interface SeriesSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SeriesSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SeriesSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SeriesPreviousValuesSubscription>() => T;
+}
+
+export interface ItemConnection {
+  pageInfo: PageInfo;
+  edges: ItemEdge[];
+}
+
+export interface ItemConnectionPromise
+  extends Promise<ItemConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ItemEdge>>() => T;
+  aggregate: <T = AggregateItemPromise>() => T;
+}
+
+export interface ItemConnectionSubscription
+  extends Promise<AsyncIterator<ItemConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ItemEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateItemSubscription>() => T;
+}
+
+export interface SeriesPreviousValues {
+  id: ID_Output;
+  seriesName: String;
+  seriesCode: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface SeriesPreviousValuesPromise
+  extends Promise<SeriesPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  seriesName: () => Promise<String>;
+  seriesCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface SeriesPreviousValuesSubscription
+  extends Promise<AsyncIterator<SeriesPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  seriesName: () => Promise<AsyncIterator<String>>;
+  seriesCode: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface GenderConnection {
+  pageInfo: PageInfo;
+  edges: GenderEdge[];
+}
+
+export interface GenderConnectionPromise
+  extends Promise<GenderConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<GenderEdge>>() => T;
+  aggregate: <T = AggregateGenderPromise>() => T;
+}
+
+export interface GenderConnectionSubscription
+  extends Promise<AsyncIterator<GenderConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<GenderEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateGenderSubscription>() => T;
+}
+
+export interface CandidateConnection {
+  pageInfo: PageInfo;
+  edges: CandidateEdge[];
+}
+
+export interface CandidateConnectionPromise
+  extends Promise<CandidateConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<CandidateEdge>>() => T;
+  aggregate: <T = AggregateCandidatePromise>() => T;
+}
+
+export interface CandidateConnectionSubscription
+  extends Promise<AsyncIterator<CandidateConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CandidateEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCandidateSubscription>() => T;
+}
+
+export interface ExamSessionConnection {
+  pageInfo: PageInfo;
+  edges: ExamSessionEdge[];
+}
+
+export interface ExamSessionConnectionPromise
+  extends Promise<ExamSessionConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<ExamSessionEdge>>() => T;
+  aggregate: <T = AggregateExamSessionPromise>() => T;
+}
+
+export interface ExamSessionConnectionSubscription
+  extends Promise<AsyncIterator<ExamSessionConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<ExamSessionEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateExamSessionSubscription>() => T;
+}
+
+export interface SubDivisionSubscriptionPayload {
+  mutation: MutationType;
+  node: SubDivision;
+  updatedFields: String[];
+  previousValues: SubDivisionPreviousValues;
+}
+
+export interface SubDivisionSubscriptionPayloadPromise
+  extends Promise<SubDivisionSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = SubDivisionPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = SubDivisionPreviousValuesPromise>() => T;
+}
+
+export interface SubDivisionSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<SubDivisionSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = SubDivisionSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = SubDivisionPreviousValuesSubscription>() => T;
+}
+
+export interface User {
+  id: ID_Output;
+  name: String;
+  email: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface UserPromise extends Promise<User>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  email: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface UserNullablePromise
+  extends Promise<User | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  email: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface SubDivisionPreviousValues {
+  id: ID_Output;
+  subDivName: String;
+  subDivCode: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface SubDivisionPreviousValuesPromise
+  extends Promise<SubDivisionPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  subDivName: () => Promise<String>;
+  subDivCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface SubDivisionPreviousValuesSubscription
+  extends Promise<AsyncIterator<SubDivisionPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  subDivName: () => Promise<AsyncIterator<String>>;
+  subDivCode: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface Subject {
@@ -2462,275 +4111,75 @@ export interface SubjectNullablePromise
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface PresencePreviousValues {
+export interface Candidate {
   id: ID_Output;
-  regName: Boolean;
+  cand1stName?: String;
+  cand2ndName?: String;
+  cand3rdName?: String;
+  candCode?: String;
+  placeOfBirth?: String;
+  image?: String;
+  birthCertNumber?: String;
+  email?: String;
+  phoneNumb?: Int;
+  dateOfBirth?: DateTimeOutput;
   createdAt: DateTimeOutput;
   updatedAt: DateTimeOutput;
 }
 
-export interface PresencePreviousValuesPromise
-  extends Promise<PresencePreviousValues>,
-    Fragmentable {
+export interface CandidatePromise extends Promise<Candidate>, Fragmentable {
   id: () => Promise<ID_Output>;
-  regName: () => Promise<Boolean>;
+  cand1stName: () => Promise<String>;
+  cand2ndName: () => Promise<String>;
+  cand3rdName: () => Promise<String>;
+  candCode: () => Promise<String>;
+  placeOfBirth: () => Promise<String>;
+  image: () => Promise<String>;
+  birthCertNumber: () => Promise<String>;
+  email: () => Promise<String>;
+  phoneNumb: () => Promise<Int>;
+  dateOfBirth: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface PresencePreviousValuesSubscription
-  extends Promise<AsyncIterator<PresencePreviousValues>>,
+export interface CandidateSubscription
+  extends Promise<AsyncIterator<Candidate>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  regName: () => Promise<AsyncIterator<Boolean>>;
+  cand1stName: () => Promise<AsyncIterator<String>>;
+  cand2ndName: () => Promise<AsyncIterator<String>>;
+  cand3rdName: () => Promise<AsyncIterator<String>>;
+  candCode: () => Promise<AsyncIterator<String>>;
+  placeOfBirth: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  birthCertNumber: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  phoneNumb: () => Promise<AsyncIterator<Int>>;
+  dateOfBirth: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface SubDivisionEdge {
-  node: SubDivision;
-  cursor: String;
-}
-
-export interface SubDivisionEdgePromise
-  extends Promise<SubDivisionEdge>,
-    Fragmentable {
-  node: <T = SubDivisionPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface SubDivisionEdgeSubscription
-  extends Promise<AsyncIterator<SubDivisionEdge>>,
-    Fragmentable {
-  node: <T = SubDivisionSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface PresenceConnection {
-  pageInfo: PageInfo;
-  edges: PresenceEdge[];
-}
-
-export interface PresenceConnectionPromise
-  extends Promise<PresenceConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<PresenceEdge>>() => T;
-  aggregate: <T = AggregatePresencePromise>() => T;
-}
-
-export interface PresenceConnectionSubscription
-  extends Promise<AsyncIterator<PresenceConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<PresenceEdgeSubscription>>>() => T;
-  aggregate: <T = AggregatePresenceSubscription>() => T;
-}
-
-export interface examSessionPreviousValues {
-  id: ID_Output;
-  sessionName: String;
-  sessionCode: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface examSessionPreviousValuesPromise
-  extends Promise<examSessionPreviousValues>,
+export interface CandidateNullablePromise
+  extends Promise<Candidate | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  sessionName: () => Promise<String>;
-  sessionCode: () => Promise<String>;
+  cand1stName: () => Promise<String>;
+  cand2ndName: () => Promise<String>;
+  cand3rdName: () => Promise<String>;
+  candCode: () => Promise<String>;
+  placeOfBirth: () => Promise<String>;
+  image: () => Promise<String>;
+  birthCertNumber: () => Promise<String>;
+  email: () => Promise<String>;
+  phoneNumb: () => Promise<Int>;
+  dateOfBirth: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface examSessionPreviousValuesSubscription
-  extends Promise<AsyncIterator<examSessionPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  sessionName: () => Promise<AsyncIterator<String>>;
-  sessionCode: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface RegionSubscriptionPayload {
-  mutation: MutationType;
-  node: Region;
-  updatedFields: String[];
-  previousValues: RegionPreviousValues;
-}
-
-export interface RegionSubscriptionPayloadPromise
-  extends Promise<RegionSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = RegionPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = RegionPreviousValuesPromise>() => T;
-}
-
-export interface RegionSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<RegionSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = RegionSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = RegionPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateSeries {
-  count: Int;
-}
-
-export interface AggregateSeriesPromise
-  extends Promise<AggregateSeries>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateSeriesSubscription
-  extends Promise<AsyncIterator<AggregateSeries>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface RegionPreviousValues {
-  id: ID_Output;
-  regName: String;
-  regCode: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface RegionPreviousValuesPromise
-  extends Promise<RegionPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  regName: () => Promise<String>;
-  regCode: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface RegionPreviousValuesSubscription
-  extends Promise<AsyncIterator<RegionPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  regName: () => Promise<AsyncIterator<String>>;
-  regCode: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface SeriesConnection {
-  pageInfo: PageInfo;
-  edges: SeriesEdge[];
-}
-
-export interface SeriesConnectionPromise
-  extends Promise<SeriesConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<SeriesEdge>>() => T;
-  aggregate: <T = AggregateSeriesPromise>() => T;
-}
-
-export interface SeriesConnectionSubscription
-  extends Promise<AsyncIterator<SeriesConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<SeriesEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateSeriesSubscription>() => T;
-}
-
-export interface examSessionSubscriptionPayload {
-  mutation: MutationType;
-  node: examSession;
-  updatedFields: String[];
-  previousValues: examSessionPreviousValues;
-}
-
-export interface examSessionSubscriptionPayloadPromise
-  extends Promise<examSessionSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = examSessionPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = examSessionPreviousValuesPromise>() => T;
-}
-
-export interface examSessionSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<examSessionSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = examSessionSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = examSessionPreviousValuesSubscription>() => T;
-}
-
-export interface exanCenterEdge {
-  node: exanCenter;
-  cursor: String;
-}
-
-export interface exanCenterEdgePromise
-  extends Promise<exanCenterEdge>,
-    Fragmentable {
-  node: <T = exanCenterPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface exanCenterEdgeSubscription
-  extends Promise<AsyncIterator<exanCenterEdge>>,
-    Fragmentable {
-  node: <T = exanCenterSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface SeriesSubscriptionPayload {
-  mutation: MutationType;
-  node: Series;
-  updatedFields: String[];
-  previousValues: SeriesPreviousValues;
-}
-
-export interface SeriesSubscriptionPayloadPromise
-  extends Promise<SeriesSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = SeriesPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = SeriesPreviousValuesPromise>() => T;
-}
-
-export interface SeriesSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<SeriesSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = SeriesSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = SeriesPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateexamSession {
-  count: Int;
-}
-
-export interface AggregateexamSessionPromise
-  extends Promise<AggregateexamSession>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateexamSessionSubscription
-  extends Promise<AsyncIterator<AggregateexamSession>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface SeriesPreviousValues {
+export interface Series {
   id: ID_Output;
   seriesName: String;
   seriesCode: String;
@@ -2738,9 +4187,7 @@ export interface SeriesPreviousValues {
   updatedAt: DateTimeOutput;
 }
 
-export interface SeriesPreviousValuesPromise
-  extends Promise<SeriesPreviousValues>,
-    Fragmentable {
+export interface SeriesPromise extends Promise<Series>, Fragmentable {
   id: () => Promise<ID_Output>;
   seriesName: () => Promise<String>;
   seriesCode: () => Promise<String>;
@@ -2748,8 +4195,8 @@ export interface SeriesPreviousValuesPromise
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface SeriesPreviousValuesSubscription
-  extends Promise<AsyncIterator<SeriesPreviousValues>>,
+export interface SeriesSubscription
+  extends Promise<AsyncIterator<Series>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   seriesName: () => Promise<AsyncIterator<String>>;
@@ -2758,240 +4205,14 @@ export interface SeriesPreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface examSession {
-  id: ID_Output;
-  sessionName: String;
-  sessionCode: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface examSessionPromise extends Promise<examSession>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  sessionName: () => Promise<String>;
-  sessionCode: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface examSessionSubscription
-  extends Promise<AsyncIterator<examSession>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  sessionName: () => Promise<AsyncIterator<String>>;
-  sessionCode: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface examSessionNullablePromise
-  extends Promise<examSession | null>,
+export interface SeriesNullablePromise
+  extends Promise<Series | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  sessionName: () => Promise<String>;
-  sessionCode: () => Promise<String>;
+  seriesName: () => Promise<String>;
+  seriesCode: () => Promise<String>;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface Presence {
-  id: ID_Output;
-  regName: Boolean;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface PresencePromise extends Promise<Presence>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  regName: () => Promise<Boolean>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface PresenceSubscription
-  extends Promise<AsyncIterator<Presence>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  regName: () => Promise<AsyncIterator<Boolean>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface PresenceNullablePromise
-  extends Promise<Presence | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  regName: () => Promise<Boolean>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface Exam {
-  id: ID_Output;
-  examName: String;
-  examCode: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface ExamPromise extends Promise<Exam>, Fragmentable {
-  id: () => Promise<ID_Output>;
-  examName: () => Promise<String>;
-  examCode: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface ExamSubscription
-  extends Promise<AsyncIterator<Exam>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  examName: () => Promise<AsyncIterator<String>>;
-  examCode: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface ExamNullablePromise
-  extends Promise<Exam | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  examName: () => Promise<String>;
-  examCode: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface SubDivisionSubscriptionPayload {
-  mutation: MutationType;
-  node: SubDivision;
-  updatedFields: String[];
-  previousValues: SubDivisionPreviousValues;
-}
-
-export interface SubDivisionSubscriptionPayloadPromise
-  extends Promise<SubDivisionSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = SubDivisionPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = SubDivisionPreviousValuesPromise>() => T;
-}
-
-export interface SubDivisionSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<SubDivisionSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = SubDivisionSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = SubDivisionPreviousValuesSubscription>() => T;
-}
-
-export interface TownConnection {
-  pageInfo: PageInfo;
-  edges: TownEdge[];
-}
-
-export interface TownConnectionPromise
-  extends Promise<TownConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<TownEdge>>() => T;
-  aggregate: <T = AggregateTownPromise>() => T;
-}
-
-export interface TownConnectionSubscription
-  extends Promise<AsyncIterator<TownConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<TownEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateTownSubscription>() => T;
-}
-
-export interface SubDivisionPreviousValues {
-  id: ID_Output;
-  subDivName: String;
-  subDivCode: String;
-  createdAt: DateTimeOutput;
-  updatedAt: DateTimeOutput;
-}
-
-export interface SubDivisionPreviousValuesPromise
-  extends Promise<SubDivisionPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  subDivName: () => Promise<String>;
-  subDivCode: () => Promise<String>;
-  createdAt: () => Promise<DateTimeOutput>;
-  updatedAt: () => Promise<DateTimeOutput>;
-}
-
-export interface SubDivisionPreviousValuesSubscription
-  extends Promise<AsyncIterator<SubDivisionPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  subDivName: () => Promise<AsyncIterator<String>>;
-  subDivCode: () => Promise<AsyncIterator<String>>;
-  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
-}
-
-export interface SubjectConnection {
-  pageInfo: PageInfo;
-  edges: SubjectEdge[];
-}
-
-export interface SubjectConnectionPromise
-  extends Promise<SubjectConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<SubjectEdge>>() => T;
-  aggregate: <T = AggregateSubjectPromise>() => T;
-}
-
-export interface SubjectConnectionSubscription
-  extends Promise<AsyncIterator<SubjectConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<SubjectEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateSubjectSubscription>() => T;
-}
-
-export interface AggregateExam {
-  count: Int;
-}
-
-export interface AggregateExamPromise
-  extends Promise<AggregateExam>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateExamSubscription
-  extends Promise<AsyncIterator<AggregateExam>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface SubDivisionConnection {
-  pageInfo: PageInfo;
-  edges: SubDivisionEdge[];
-}
-
-export interface SubDivisionConnectionPromise
-  extends Promise<SubDivisionConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<SubDivisionEdge>>() => T;
-  aggregate: <T = AggregateSubDivisionPromise>() => T;
-}
-
-export interface SubDivisionConnectionSubscription
-  extends Promise<AsyncIterator<SubDivisionConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<SubDivisionEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateSubDivisionSubscription>() => T;
 }
 
 export interface SubjectSubscriptionPayload {
@@ -3019,21 +4240,117 @@ export interface SubjectSubscriptionPayloadSubscription
   previousValues: <T = SubjectPreviousValuesSubscription>() => T;
 }
 
-export interface SeriesEdge {
-  node: Series;
-  cursor: String;
+export interface AggregateItem {
+  count: Int;
 }
 
-export interface SeriesEdgePromise extends Promise<SeriesEdge>, Fragmentable {
-  node: <T = SeriesPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface SeriesEdgeSubscription
-  extends Promise<AsyncIterator<SeriesEdge>>,
+export interface AggregateItemPromise
+  extends Promise<AggregateItem>,
     Fragmentable {
-  node: <T = SeriesSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
+  count: () => Promise<Int>;
+}
+
+export interface AggregateItemSubscription
+  extends Promise<AsyncIterator<AggregateItem>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface AggregateExamSession {
+  count: Int;
+}
+
+export interface AggregateExamSessionPromise
+  extends Promise<AggregateExamSession>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateExamSessionSubscription
+  extends Promise<AsyncIterator<AggregateExamSession>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface TownPreviousValues {
+  id: ID_Output;
+  townName: String;
+  townCode: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface TownPreviousValuesPromise
+  extends Promise<TownPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  townName: () => Promise<String>;
+  townCode: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface TownPreviousValuesSubscription
+  extends Promise<AsyncIterator<TownPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  townName: () => Promise<AsyncIterator<String>>;
+  townCode: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface TownSubscriptionPayload {
+  mutation: MutationType;
+  node: Town;
+  updatedFields: String[];
+  previousValues: TownPreviousValues;
+}
+
+export interface TownSubscriptionPayloadPromise
+  extends Promise<TownSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = TownPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = TownPreviousValuesPromise>() => T;
+}
+
+export interface TownSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<TownSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = TownSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = TownPreviousValuesSubscription>() => T;
+}
+
+export interface UserPreviousValues {
+  id: ID_Output;
+  name: String;
+  email: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+}
+
+export interface UserPreviousValuesPromise
+  extends Promise<UserPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  name: () => Promise<String>;
+  email: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface UserPreviousValuesSubscription
+  extends Promise<AsyncIterator<UserPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  name: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface SubjectPreviousValues {
@@ -3064,102 +4381,73 @@ export interface SubjectPreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface exanCenterSubscriptionPayload {
-  mutation: MutationType;
-  node: exanCenter;
-  updatedFields: String[];
-  previousValues: exanCenterPreviousValues;
+export interface exanCenter {
+  id: ID_Output;
+  centerName: String;
+  centerCode: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
-export interface exanCenterSubscriptionPayloadPromise
-  extends Promise<exanCenterSubscriptionPayload>,
+export interface exanCenterPromise extends Promise<exanCenter>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  centerName: () => Promise<String>;
+  centerCode: () => Promise<String>;
+  town: <T = TownPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+}
+
+export interface exanCenterSubscription
+  extends Promise<AsyncIterator<exanCenter>>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = exanCenterPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = exanCenterPreviousValuesPromise>() => T;
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  centerName: () => Promise<AsyncIterator<String>>;
+  centerCode: () => Promise<AsyncIterator<String>>;
+  town: <T = TownSubscription>() => T;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface exanCenterSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<exanCenterSubscriptionPayload>>,
+export interface exanCenterNullablePromise
+  extends Promise<exanCenter | null>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = exanCenterSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = exanCenterPreviousValuesSubscription>() => T;
+  id: () => Promise<ID_Output>;
+  centerName: () => Promise<String>;
+  centerCode: () => Promise<String>;
+  town: <T = TownPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface ExamEdge {
-  node: Exam;
-  cursor: String;
-}
-
-export interface ExamEdgePromise extends Promise<ExamEdge>, Fragmentable {
-  node: <T = ExamPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface ExamEdgeSubscription
-  extends Promise<AsyncIterator<ExamEdge>>,
-    Fragmentable {
-  node: <T = ExamSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
-    Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface TownSubscriptionPayload {
-  mutation: MutationType;
-  node: Town;
-  updatedFields: String[];
-  previousValues: TownPreviousValues;
-}
-
-export interface TownSubscriptionPayloadPromise
-  extends Promise<TownSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = TownPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = TownPreviousValuesPromise>() => T;
-}
-
-export interface TownSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<TownSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = TownSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = TownPreviousValuesSubscription>() => T;
-}
-
-export interface AggregateSubject {
+export interface AggregateGender {
   count: Int;
 }
 
-export interface AggregateSubjectPromise
-  extends Promise<AggregateSubject>,
+export interface AggregateGenderPromise
+  extends Promise<AggregateGender>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateSubjectSubscription
-  extends Promise<AsyncIterator<AggregateSubject>>,
+export interface AggregateGenderSubscription
+  extends Promise<AsyncIterator<AggregateGender>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface AggregatePresence {
+  count: Int;
+}
+
+export interface AggregatePresencePromise
+  extends Promise<AggregatePresence>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePresenceSubscription
+  extends Promise<AsyncIterator<AggregatePresence>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -3203,75 +4491,7 @@ export interface SubDivisionNullablePromise
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface UserPreviousValues {
-  id: ID_Output;
-  name: String;
-  email: String;
-}
-
-export interface UserPreviousValuesPromise
-  extends Promise<UserPreviousValues>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  name: () => Promise<String>;
-  email: () => Promise<String>;
-}
-
-export interface UserPreviousValuesSubscription
-  extends Promise<AsyncIterator<UserPreviousValues>>,
-    Fragmentable {
-  id: () => Promise<AsyncIterator<ID_Output>>;
-  name: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
-}
-
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
-    Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
-}
-
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
-    Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
-}
-
-export interface ExamConnection {
-  pageInfo: PageInfo;
-  edges: ExamEdge[];
-}
-
-export interface ExamConnectionPromise
-  extends Promise<ExamConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ExamEdge>>() => T;
-  aggregate: <T = AggregateExamPromise>() => T;
-}
-
-export interface ExamConnectionSubscription
-  extends Promise<AsyncIterator<ExamConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ExamEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateExamSubscription>() => T;
-}
-
-export interface TownPreviousValues {
+export interface Town {
   id: ID_Output;
   townName: String;
   townCode: String;
@@ -3279,98 +4499,35 @@ export interface TownPreviousValues {
   updatedAt: DateTimeOutput;
 }
 
-export interface TownPreviousValuesPromise
-  extends Promise<TownPreviousValues>,
-    Fragmentable {
+export interface TownPromise extends Promise<Town>, Fragmentable {
   id: () => Promise<ID_Output>;
   townName: () => Promise<String>;
   townCode: () => Promise<String>;
+  subDiv: <T = SubDivisionPromise>() => T;
   createdAt: () => Promise<DateTimeOutput>;
   updatedAt: () => Promise<DateTimeOutput>;
 }
 
-export interface TownPreviousValuesSubscription
-  extends Promise<AsyncIterator<TownPreviousValues>>,
+export interface TownSubscription
+  extends Promise<AsyncIterator<Town>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   townName: () => Promise<AsyncIterator<String>>;
   townCode: () => Promise<AsyncIterator<String>>;
+  subDiv: <T = SubDivisionSubscription>() => T;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface DivisionConnection {
-  pageInfo: PageInfo;
-  edges: DivisionEdge[];
-}
-
-export interface DivisionConnectionPromise
-  extends Promise<DivisionConnection>,
+export interface TownNullablePromise
+  extends Promise<Town | null>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<DivisionEdge>>() => T;
-  aggregate: <T = AggregateDivisionPromise>() => T;
-}
-
-export interface DivisionConnectionSubscription
-  extends Promise<AsyncIterator<DivisionConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<DivisionEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateDivisionSubscription>() => T;
-}
-
-export interface AggregateSubDivision {
-  count: Int;
-}
-
-export interface AggregateSubDivisionPromise
-  extends Promise<AggregateSubDivision>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateSubDivisionSubscription
-  extends Promise<AsyncIterator<AggregateSubDivision>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface AggregateTown {
-  count: Int;
-}
-
-export interface AggregateTownPromise
-  extends Promise<AggregateTown>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateTownSubscription
-  extends Promise<AsyncIterator<AggregateTown>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface examSessionConnection {
-  pageInfo: PageInfo;
-  edges: examSessionEdge[];
-}
-
-export interface examSessionConnectionPromise
-  extends Promise<examSessionConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<examSessionEdge>>() => T;
-  aggregate: <T = AggregateexamSessionPromise>() => T;
-}
-
-export interface examSessionConnectionSubscription
-  extends Promise<AsyncIterator<examSessionConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<examSessionEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateexamSessionSubscription>() => T;
+  id: () => Promise<ID_Output>;
+  townName: () => Promise<String>;
+  townCode: () => Promise<String>;
+  subDiv: <T = SubDivisionPromise>() => T;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export type Long = string;
@@ -3382,9 +4539,9 @@ export type ID_Input = string | number;
 export type ID_Output = string;
 
 /*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+The `Boolean` scalar type represents `true` or `false`.
 */
-export type String = string;
+export type Boolean = boolean;
 
 /*
 DateTime scalar input type, allowing Date
@@ -3402,9 +4559,9 @@ The `Int` scalar type represents non-fractional signed whole numeric values. Int
 export type Int = number;
 
 /*
-The `Boolean` scalar type represents `true` or `false`.
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
-export type Boolean = boolean;
+export type String = string;
 
 /**
  * Model Metadata
@@ -3413,6 +4570,10 @@ export type Boolean = boolean;
 export const models: Model[] = [
   {
     name: "User",
+    embedded: false
+  },
+  {
+    name: "Item",
     embedded: false
   },
   {
@@ -3452,7 +4613,15 @@ export const models: Model[] = [
     embedded: false
   },
   {
-    name: "examSession",
+    name: "ExamSession",
+    embedded: false
+  },
+  {
+    name: "Gender",
+    embedded: false
+  },
+  {
+    name: "Candidate",
     embedded: false
   }
 ];

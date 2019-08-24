@@ -3,7 +3,11 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateDivision {
+/* GraphQL */ `type AggregateCandidate {
+  count: Int!
+}
+
+type AggregateDivision {
   count: Int!
 }
 
@@ -11,11 +15,19 @@ type AggregateExam {
   count: Int!
 }
 
-type AggregateexamSession {
+type AggregateExamSession {
   count: Int!
 }
 
 type AggregateexanCenter {
+  count: Int!
+}
+
+type AggregateGender {
+  count: Int!
+}
+
+type AggregateItem {
   count: Int!
 }
 
@@ -49,6 +61,304 @@ type AggregateUser {
 
 type BatchPayload {
   count: Long!
+}
+
+type Candidate {
+  id: ID!
+  cand1stName: String
+  cand2ndName: String
+  cand3rdName: String
+  candCode: String
+  placeOfBirth: String
+  image: String
+  birthCertNumber: String
+  email: String
+  phoneNumb: Int
+  dateOfBirth: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type CandidateConnection {
+  pageInfo: PageInfo!
+  edges: [CandidateEdge]!
+  aggregate: AggregateCandidate!
+}
+
+input CandidateCreateInput {
+  id: ID
+  cand1stName: String
+  cand2ndName: String
+  cand3rdName: String
+  candCode: String
+  placeOfBirth: String
+  image: String
+  birthCertNumber: String
+  email: String
+  phoneNumb: Int
+  dateOfBirth: DateTime
+}
+
+type CandidateEdge {
+  node: Candidate!
+  cursor: String!
+}
+
+enum CandidateOrderByInput {
+  id_ASC
+  id_DESC
+  cand1stName_ASC
+  cand1stName_DESC
+  cand2ndName_ASC
+  cand2ndName_DESC
+  cand3rdName_ASC
+  cand3rdName_DESC
+  candCode_ASC
+  candCode_DESC
+  placeOfBirth_ASC
+  placeOfBirth_DESC
+  image_ASC
+  image_DESC
+  birthCertNumber_ASC
+  birthCertNumber_DESC
+  email_ASC
+  email_DESC
+  phoneNumb_ASC
+  phoneNumb_DESC
+  dateOfBirth_ASC
+  dateOfBirth_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type CandidatePreviousValues {
+  id: ID!
+  cand1stName: String
+  cand2ndName: String
+  cand3rdName: String
+  candCode: String
+  placeOfBirth: String
+  image: String
+  birthCertNumber: String
+  email: String
+  phoneNumb: Int
+  dateOfBirth: DateTime
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type CandidateSubscriptionPayload {
+  mutation: MutationType!
+  node: Candidate
+  updatedFields: [String!]
+  previousValues: CandidatePreviousValues
+}
+
+input CandidateSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CandidateWhereInput
+  AND: [CandidateSubscriptionWhereInput!]
+  OR: [CandidateSubscriptionWhereInput!]
+  NOT: [CandidateSubscriptionWhereInput!]
+}
+
+input CandidateUpdateInput {
+  cand1stName: String
+  cand2ndName: String
+  cand3rdName: String
+  candCode: String
+  placeOfBirth: String
+  image: String
+  birthCertNumber: String
+  email: String
+  phoneNumb: Int
+  dateOfBirth: DateTime
+}
+
+input CandidateUpdateManyMutationInput {
+  cand1stName: String
+  cand2ndName: String
+  cand3rdName: String
+  candCode: String
+  placeOfBirth: String
+  image: String
+  birthCertNumber: String
+  email: String
+  phoneNumb: Int
+  dateOfBirth: DateTime
+}
+
+input CandidateWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  cand1stName: String
+  cand1stName_not: String
+  cand1stName_in: [String!]
+  cand1stName_not_in: [String!]
+  cand1stName_lt: String
+  cand1stName_lte: String
+  cand1stName_gt: String
+  cand1stName_gte: String
+  cand1stName_contains: String
+  cand1stName_not_contains: String
+  cand1stName_starts_with: String
+  cand1stName_not_starts_with: String
+  cand1stName_ends_with: String
+  cand1stName_not_ends_with: String
+  cand2ndName: String
+  cand2ndName_not: String
+  cand2ndName_in: [String!]
+  cand2ndName_not_in: [String!]
+  cand2ndName_lt: String
+  cand2ndName_lte: String
+  cand2ndName_gt: String
+  cand2ndName_gte: String
+  cand2ndName_contains: String
+  cand2ndName_not_contains: String
+  cand2ndName_starts_with: String
+  cand2ndName_not_starts_with: String
+  cand2ndName_ends_with: String
+  cand2ndName_not_ends_with: String
+  cand3rdName: String
+  cand3rdName_not: String
+  cand3rdName_in: [String!]
+  cand3rdName_not_in: [String!]
+  cand3rdName_lt: String
+  cand3rdName_lte: String
+  cand3rdName_gt: String
+  cand3rdName_gte: String
+  cand3rdName_contains: String
+  cand3rdName_not_contains: String
+  cand3rdName_starts_with: String
+  cand3rdName_not_starts_with: String
+  cand3rdName_ends_with: String
+  cand3rdName_not_ends_with: String
+  candCode: String
+  candCode_not: String
+  candCode_in: [String!]
+  candCode_not_in: [String!]
+  candCode_lt: String
+  candCode_lte: String
+  candCode_gt: String
+  candCode_gte: String
+  candCode_contains: String
+  candCode_not_contains: String
+  candCode_starts_with: String
+  candCode_not_starts_with: String
+  candCode_ends_with: String
+  candCode_not_ends_with: String
+  placeOfBirth: String
+  placeOfBirth_not: String
+  placeOfBirth_in: [String!]
+  placeOfBirth_not_in: [String!]
+  placeOfBirth_lt: String
+  placeOfBirth_lte: String
+  placeOfBirth_gt: String
+  placeOfBirth_gte: String
+  placeOfBirth_contains: String
+  placeOfBirth_not_contains: String
+  placeOfBirth_starts_with: String
+  placeOfBirth_not_starts_with: String
+  placeOfBirth_ends_with: String
+  placeOfBirth_not_ends_with: String
+  image: String
+  image_not: String
+  image_in: [String!]
+  image_not_in: [String!]
+  image_lt: String
+  image_lte: String
+  image_gt: String
+  image_gte: String
+  image_contains: String
+  image_not_contains: String
+  image_starts_with: String
+  image_not_starts_with: String
+  image_ends_with: String
+  image_not_ends_with: String
+  birthCertNumber: String
+  birthCertNumber_not: String
+  birthCertNumber_in: [String!]
+  birthCertNumber_not_in: [String!]
+  birthCertNumber_lt: String
+  birthCertNumber_lte: String
+  birthCertNumber_gt: String
+  birthCertNumber_gte: String
+  birthCertNumber_contains: String
+  birthCertNumber_not_contains: String
+  birthCertNumber_starts_with: String
+  birthCertNumber_not_starts_with: String
+  birthCertNumber_ends_with: String
+  birthCertNumber_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  phoneNumb: Int
+  phoneNumb_not: Int
+  phoneNumb_in: [Int!]
+  phoneNumb_not_in: [Int!]
+  phoneNumb_lt: Int
+  phoneNumb_lte: Int
+  phoneNumb_gt: Int
+  phoneNumb_gte: Int
+  dateOfBirth: DateTime
+  dateOfBirth_not: DateTime
+  dateOfBirth_in: [DateTime!]
+  dateOfBirth_not_in: [DateTime!]
+  dateOfBirth_lt: DateTime
+  dateOfBirth_lte: DateTime
+  dateOfBirth_gt: DateTime
+  dateOfBirth_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [CandidateWhereInput!]
+  OR: [CandidateWhereInput!]
+  NOT: [CandidateWhereInput!]
+}
+
+input CandidateWhereUniqueInput {
+  id: ID
 }
 
 scalar DateTime
@@ -268,7 +578,7 @@ type ExamPreviousValues {
   updatedAt: DateTime!
 }
 
-type examSession {
+type ExamSession {
   id: ID!
   sessionName: String!
   sessionCode: String!
@@ -276,24 +586,24 @@ type examSession {
   updatedAt: DateTime!
 }
 
-type examSessionConnection {
+type ExamSessionConnection {
   pageInfo: PageInfo!
-  edges: [examSessionEdge]!
-  aggregate: AggregateexamSession!
+  edges: [ExamSessionEdge]!
+  aggregate: AggregateExamSession!
 }
 
-input examSessionCreateInput {
+input ExamSessionCreateInput {
   id: ID
   sessionName: String!
   sessionCode: String!
 }
 
-type examSessionEdge {
-  node: examSession!
+type ExamSessionEdge {
+  node: ExamSession!
   cursor: String!
 }
 
-enum examSessionOrderByInput {
+enum ExamSessionOrderByInput {
   id_ASC
   id_DESC
   sessionName_ASC
@@ -306,7 +616,7 @@ enum examSessionOrderByInput {
   updatedAt_DESC
 }
 
-type examSessionPreviousValues {
+type ExamSessionPreviousValues {
   id: ID!
   sessionName: String!
   sessionCode: String!
@@ -314,35 +624,35 @@ type examSessionPreviousValues {
   updatedAt: DateTime!
 }
 
-type examSessionSubscriptionPayload {
+type ExamSessionSubscriptionPayload {
   mutation: MutationType!
-  node: examSession
+  node: ExamSession
   updatedFields: [String!]
-  previousValues: examSessionPreviousValues
+  previousValues: ExamSessionPreviousValues
 }
 
-input examSessionSubscriptionWhereInput {
+input ExamSessionSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: examSessionWhereInput
-  AND: [examSessionSubscriptionWhereInput!]
-  OR: [examSessionSubscriptionWhereInput!]
-  NOT: [examSessionSubscriptionWhereInput!]
+  node: ExamSessionWhereInput
+  AND: [ExamSessionSubscriptionWhereInput!]
+  OR: [ExamSessionSubscriptionWhereInput!]
+  NOT: [ExamSessionSubscriptionWhereInput!]
 }
 
-input examSessionUpdateInput {
+input ExamSessionUpdateInput {
   sessionName: String
   sessionCode: String
 }
 
-input examSessionUpdateManyMutationInput {
+input ExamSessionUpdateManyMutationInput {
   sessionName: String
   sessionCode: String
 }
 
-input examSessionWhereInput {
+input ExamSessionWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -401,12 +711,12 @@ input examSessionWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  AND: [examSessionWhereInput!]
-  OR: [examSessionWhereInput!]
-  NOT: [examSessionWhereInput!]
+  AND: [ExamSessionWhereInput!]
+  OR: [ExamSessionWhereInput!]
+  NOT: [ExamSessionWhereInput!]
 }
 
-input examSessionWhereUniqueInput {
+input ExamSessionWhereUniqueInput {
   id: ID
 }
 
@@ -652,9 +962,341 @@ input exanCenterWhereUniqueInput {
   id: ID
 }
 
+type Gender {
+  id: ID!
+  genderName: String!
+  genderCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type GenderConnection {
+  pageInfo: PageInfo!
+  edges: [GenderEdge]!
+  aggregate: AggregateGender!
+}
+
+input GenderCreateInput {
+  id: ID
+  genderName: String!
+  genderCode: String!
+}
+
+type GenderEdge {
+  node: Gender!
+  cursor: String!
+}
+
+enum GenderOrderByInput {
+  id_ASC
+  id_DESC
+  genderName_ASC
+  genderName_DESC
+  genderCode_ASC
+  genderCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type GenderPreviousValues {
+  id: ID!
+  genderName: String!
+  genderCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type GenderSubscriptionPayload {
+  mutation: MutationType!
+  node: Gender
+  updatedFields: [String!]
+  previousValues: GenderPreviousValues
+}
+
+input GenderSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: GenderWhereInput
+  AND: [GenderSubscriptionWhereInput!]
+  OR: [GenderSubscriptionWhereInput!]
+  NOT: [GenderSubscriptionWhereInput!]
+}
+
+input GenderUpdateInput {
+  genderName: String
+  genderCode: String
+}
+
+input GenderUpdateManyMutationInput {
+  genderName: String
+  genderCode: String
+}
+
+input GenderWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  genderName: String
+  genderName_not: String
+  genderName_in: [String!]
+  genderName_not_in: [String!]
+  genderName_lt: String
+  genderName_lte: String
+  genderName_gt: String
+  genderName_gte: String
+  genderName_contains: String
+  genderName_not_contains: String
+  genderName_starts_with: String
+  genderName_not_starts_with: String
+  genderName_ends_with: String
+  genderName_not_ends_with: String
+  genderCode: String
+  genderCode_not: String
+  genderCode_in: [String!]
+  genderCode_not_in: [String!]
+  genderCode_lt: String
+  genderCode_lte: String
+  genderCode_gt: String
+  genderCode_gte: String
+  genderCode_contains: String
+  genderCode_not_contains: String
+  genderCode_starts_with: String
+  genderCode_not_starts_with: String
+  genderCode_ends_with: String
+  genderCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [GenderWhereInput!]
+  OR: [GenderWhereInput!]
+  NOT: [GenderWhereInput!]
+}
+
+input GenderWhereUniqueInput {
+  id: ID
+}
+
+type Item {
+  id: ID!
+  title: String!
+  descrption: String!
+  image: String
+  largeImage: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ItemConnection {
+  pageInfo: PageInfo!
+  edges: [ItemEdge]!
+  aggregate: AggregateItem!
+}
+
+input ItemCreateInput {
+  id: ID
+  title: String!
+  descrption: String!
+  image: String
+  largeImage: String
+}
+
+type ItemEdge {
+  node: Item!
+  cursor: String!
+}
+
+enum ItemOrderByInput {
+  id_ASC
+  id_DESC
+  title_ASC
+  title_DESC
+  descrption_ASC
+  descrption_DESC
+  image_ASC
+  image_DESC
+  largeImage_ASC
+  largeImage_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ItemPreviousValues {
+  id: ID!
+  title: String!
+  descrption: String!
+  image: String
+  largeImage: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ItemSubscriptionPayload {
+  mutation: MutationType!
+  node: Item
+  updatedFields: [String!]
+  previousValues: ItemPreviousValues
+}
+
+input ItemSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ItemWhereInput
+  AND: [ItemSubscriptionWhereInput!]
+  OR: [ItemSubscriptionWhereInput!]
+  NOT: [ItemSubscriptionWhereInput!]
+}
+
+input ItemUpdateInput {
+  title: String
+  descrption: String
+  image: String
+  largeImage: String
+}
+
+input ItemUpdateManyMutationInput {
+  title: String
+  descrption: String
+  image: String
+  largeImage: String
+}
+
+input ItemWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  descrption: String
+  descrption_not: String
+  descrption_in: [String!]
+  descrption_not_in: [String!]
+  descrption_lt: String
+  descrption_lte: String
+  descrption_gt: String
+  descrption_gte: String
+  descrption_contains: String
+  descrption_not_contains: String
+  descrption_starts_with: String
+  descrption_not_starts_with: String
+  descrption_ends_with: String
+  descrption_not_ends_with: String
+  image: String
+  image_not: String
+  image_in: [String!]
+  image_not_in: [String!]
+  image_lt: String
+  image_lte: String
+  image_gt: String
+  image_gte: String
+  image_contains: String
+  image_not_contains: String
+  image_starts_with: String
+  image_not_starts_with: String
+  image_ends_with: String
+  image_not_ends_with: String
+  largeImage: String
+  largeImage_not: String
+  largeImage_in: [String!]
+  largeImage_not_in: [String!]
+  largeImage_lt: String
+  largeImage_lte: String
+  largeImage_gt: String
+  largeImage_gte: String
+  largeImage_contains: String
+  largeImage_not_contains: String
+  largeImage_starts_with: String
+  largeImage_not_starts_with: String
+  largeImage_ends_with: String
+  largeImage_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ItemWhereInput!]
+  OR: [ItemWhereInput!]
+  NOT: [ItemWhereInput!]
+}
+
+input ItemWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createCandidate(data: CandidateCreateInput!): Candidate!
+  updateCandidate(data: CandidateUpdateInput!, where: CandidateWhereUniqueInput!): Candidate
+  updateManyCandidates(data: CandidateUpdateManyMutationInput!, where: CandidateWhereInput): BatchPayload!
+  upsertCandidate(where: CandidateWhereUniqueInput!, create: CandidateCreateInput!, update: CandidateUpdateInput!): Candidate!
+  deleteCandidate(where: CandidateWhereUniqueInput!): Candidate
+  deleteManyCandidates(where: CandidateWhereInput): BatchPayload!
   createDivision(data: DivisionCreateInput!): Division!
   updateDivision(data: DivisionUpdateInput!, where: DivisionWhereUniqueInput!): Division
   updateManyDivisions(data: DivisionUpdateManyMutationInput!, where: DivisionWhereInput): BatchPayload!
@@ -667,6 +1309,24 @@ type Mutation {
   upsertExam(where: ExamWhereUniqueInput!, create: ExamCreateInput!, update: ExamUpdateInput!): Exam!
   deleteExam(where: ExamWhereUniqueInput!): Exam
   deleteManyExams(where: ExamWhereInput): BatchPayload!
+  createExamSession(data: ExamSessionCreateInput!): ExamSession!
+  updateExamSession(data: ExamSessionUpdateInput!, where: ExamSessionWhereUniqueInput!): ExamSession
+  updateManyExamSessions(data: ExamSessionUpdateManyMutationInput!, where: ExamSessionWhereInput): BatchPayload!
+  upsertExamSession(where: ExamSessionWhereUniqueInput!, create: ExamSessionCreateInput!, update: ExamSessionUpdateInput!): ExamSession!
+  deleteExamSession(where: ExamSessionWhereUniqueInput!): ExamSession
+  deleteManyExamSessions(where: ExamSessionWhereInput): BatchPayload!
+  createGender(data: GenderCreateInput!): Gender!
+  updateGender(data: GenderUpdateInput!, where: GenderWhereUniqueInput!): Gender
+  updateManyGenders(data: GenderUpdateManyMutationInput!, where: GenderWhereInput): BatchPayload!
+  upsertGender(where: GenderWhereUniqueInput!, create: GenderCreateInput!, update: GenderUpdateInput!): Gender!
+  deleteGender(where: GenderWhereUniqueInput!): Gender
+  deleteManyGenders(where: GenderWhereInput): BatchPayload!
+  createItem(data: ItemCreateInput!): Item!
+  updateItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
+  updateManyItems(data: ItemUpdateManyMutationInput!, where: ItemWhereInput): BatchPayload!
+  upsertItem(where: ItemWhereUniqueInput!, create: ItemCreateInput!, update: ItemUpdateInput!): Item!
+  deleteItem(where: ItemWhereUniqueInput!): Item
+  deleteManyItems(where: ItemWhereInput): BatchPayload!
   createPresence(data: PresenceCreateInput!): Presence!
   updatePresence(data: PresenceUpdateInput!, where: PresenceWhereUniqueInput!): Presence
   updateManyPresences(data: PresenceUpdateManyMutationInput!, where: PresenceWhereInput): BatchPayload!
@@ -709,12 +1369,6 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  createexamSession(data: examSessionCreateInput!): examSession!
-  updateexamSession(data: examSessionUpdateInput!, where: examSessionWhereUniqueInput!): examSession
-  updateManyexamSessions(data: examSessionUpdateManyMutationInput!, where: examSessionWhereInput): BatchPayload!
-  upsertexamSession(where: examSessionWhereUniqueInput!, create: examSessionCreateInput!, update: examSessionUpdateInput!): examSession!
-  deleteexamSession(where: examSessionWhereUniqueInput!): examSession
-  deleteManyexamSessions(where: examSessionWhereInput): BatchPayload!
   createexanCenter(data: exanCenterCreateInput!): exanCenter!
   updateexanCenter(data: exanCenterUpdateInput!, where: exanCenterWhereUniqueInput!): exanCenter
   updateManyexanCenters(data: exanCenterUpdateManyMutationInput!, where: exanCenterWhereInput): BatchPayload!
@@ -850,12 +1504,24 @@ input PresenceWhereUniqueInput {
 }
 
 type Query {
+  candidate(where: CandidateWhereUniqueInput!): Candidate
+  candidates(where: CandidateWhereInput, orderBy: CandidateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Candidate]!
+  candidatesConnection(where: CandidateWhereInput, orderBy: CandidateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CandidateConnection!
   division(where: DivisionWhereUniqueInput!): Division
   divisions(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Division]!
   divisionsConnection(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DivisionConnection!
   exam(where: ExamWhereUniqueInput!): Exam
   exams(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Exam]!
   examsConnection(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExamConnection!
+  examSession(where: ExamSessionWhereUniqueInput!): ExamSession
+  examSessions(where: ExamSessionWhereInput, orderBy: ExamSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ExamSession]!
+  examSessionsConnection(where: ExamSessionWhereInput, orderBy: ExamSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExamSessionConnection!
+  gender(where: GenderWhereUniqueInput!): Gender
+  genders(where: GenderWhereInput, orderBy: GenderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Gender]!
+  gendersConnection(where: GenderWhereInput, orderBy: GenderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GenderConnection!
+  item(where: ItemWhereUniqueInput!): Item
+  items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Item]!
+  itemsConnection(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ItemConnection!
   presence(where: PresenceWhereUniqueInput!): Presence
   presences(where: PresenceWhereInput, orderBy: PresenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Presence]!
   presencesConnection(where: PresenceWhereInput, orderBy: PresenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PresenceConnection!
@@ -877,9 +1543,6 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  examSession(where: examSessionWhereUniqueInput!): examSession
-  examSessions(where: examSessionWhereInput, orderBy: examSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [examSession]!
-  examSessionsConnection(where: examSessionWhereInput, orderBy: examSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): examSessionConnection!
   exanCenter(where: exanCenterWhereUniqueInput!): exanCenter
   exanCenters(where: exanCenterWhereInput, orderBy: exanCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [exanCenter]!
   exanCentersConnection(where: exanCenterWhereInput, orderBy: exanCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): exanCenterConnection!
@@ -1504,8 +2167,12 @@ input SubjectWhereUniqueInput {
 }
 
 type Subscription {
+  candidate(where: CandidateSubscriptionWhereInput): CandidateSubscriptionPayload
   division(where: DivisionSubscriptionWhereInput): DivisionSubscriptionPayload
   exam(where: ExamSubscriptionWhereInput): ExamSubscriptionPayload
+  examSession(where: ExamSessionSubscriptionWhereInput): ExamSessionSubscriptionPayload
+  gender(where: GenderSubscriptionWhereInput): GenderSubscriptionPayload
+  item(where: ItemSubscriptionWhereInput): ItemSubscriptionPayload
   presence(where: PresenceSubscriptionWhereInput): PresenceSubscriptionPayload
   region(where: RegionSubscriptionWhereInput): RegionSubscriptionPayload
   series(where: SeriesSubscriptionWhereInput): SeriesSubscriptionPayload
@@ -1513,7 +2180,6 @@ type Subscription {
   subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
   town(where: TownSubscriptionWhereInput): TownSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  examSession(where: examSessionSubscriptionWhereInput): examSessionSubscriptionPayload
   exanCenter(where: exanCenterSubscriptionWhereInput): exanCenterSubscriptionPayload
 }
 
@@ -1690,6 +2356,8 @@ type User {
   id: ID!
   name: String!
   email: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserConnection {
@@ -1716,12 +2384,18 @@ enum UserOrderByInput {
   name_DESC
   email_ASC
   email_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   name: String!
   email: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type UserSubscriptionPayload {
@@ -1795,6 +2469,22 @@ input UserWhereInput {
   email_not_starts_with: String
   email_ends_with: String
   email_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
