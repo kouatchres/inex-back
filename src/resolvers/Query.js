@@ -23,7 +23,7 @@ const Query = {
               async divisions(parent, args, ctx, info){
  const allDivisions = await ctx.db.query.divisions();
  return allDivisions;
-              },
+              }
 };
 
 
