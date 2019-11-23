@@ -14,5 +14,5 @@ server.start({
         origin: 'http://localhost:7777'
     }
 }, deets => {
-    console.log(`server is now running on port http:/localhost:${deets.port}`);
+console.log(`server running on port http://localhost:${deets.port}`);
 });

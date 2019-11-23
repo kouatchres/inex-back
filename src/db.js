@@ -6,6 +6,6 @@ const db = new Prisma({
  endpoint:"https://eu1.prisma.sh/kouatchoua/inex-back/dev",
 //  endpoint: process.env.PRISMA_ENDPOINT,
 //  secret: process.env.PRISMA_SECRET,
- debug: false,
+ debug: true,
 });
 module.exports = db ;

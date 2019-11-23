@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/kouatchoua/inex-back/dev
-# timestamp: Thu Aug 22 2019 11:09:33 GMT+0100 (West Africa Standard Time)
+# timestamp: Fri Nov 22 2019 18:14:00 GMT+0100 (West Africa Standard Time)
 
 type AggregateCandidate {
   count: Int!
@@ -13,11 +13,11 @@ type AggregateExam {
   count: Int!
 }
 
-type AggregateExamSession {
+type AggregateexamCenter {
   count: Int!
 }
 
-type AggregateexanCenter {
+type AggregateExamSession {
   count: Int!
 }
 
@@ -67,8 +67,8 @@ type Candidate implements Node {
   cand1stName: String
   cand2ndName: String
   cand3rdName: String
-  candCode: String
   placeOfBirth: String
+  candCode: String
   image: String
   birthCertNumber: String
   email: String
@@ -93,8 +93,8 @@ input CandidateCreateInput {
   cand1stName: String
   cand2ndName: String
   cand3rdName: String
-  candCode: String
   placeOfBirth: String
+  candCode: String
   image: String
   birthCertNumber: String
   email: String
@@ -120,10 +120,10 @@ enum CandidateOrderByInput {
   cand2ndName_DESC
   cand3rdName_ASC
   cand3rdName_DESC
-  candCode_ASC
-  candCode_DESC
   placeOfBirth_ASC
   placeOfBirth_DESC
+  candCode_ASC
+  candCode_DESC
   image_ASC
   image_DESC
   birthCertNumber_ASC
@@ -145,8 +145,8 @@ type CandidatePreviousValues {
   cand1stName: String
   cand2ndName: String
   cand3rdName: String
-  candCode: String
   placeOfBirth: String
+  candCode: String
   image: String
   birthCertNumber: String
   email: String
@@ -199,8 +199,8 @@ input CandidateUpdateInput {
   cand1stName: String
   cand2ndName: String
   cand3rdName: String
-  candCode: String
   placeOfBirth: String
+  candCode: String
   image: String
   birthCertNumber: String
   email: String
@@ -212,8 +212,8 @@ input CandidateUpdateManyMutationInput {
   cand1stName: String
   cand2ndName: String
   cand3rdName: String
-  candCode: String
   placeOfBirth: String
+  candCode: String
   image: String
   birthCertNumber: String
   email: String
@@ -390,46 +390,6 @@ input CandidateWhereInput {
 
   """All values not ending with the given string."""
   cand3rdName_not_ends_with: String
-  candCode: String
-
-  """All values that are not equal to given value."""
-  candCode_not: String
-
-  """All values that are contained in given list."""
-  candCode_in: [String!]
-
-  """All values that are not contained in given list."""
-  candCode_not_in: [String!]
-
-  """All values less than the given value."""
-  candCode_lt: String
-
-  """All values less than or equal the given value."""
-  candCode_lte: String
-
-  """All values greater than the given value."""
-  candCode_gt: String
-
-  """All values greater than or equal the given value."""
-  candCode_gte: String
-
-  """All values containing the given string."""
-  candCode_contains: String
-
-  """All values not containing the given string."""
-  candCode_not_contains: String
-
-  """All values starting with the given string."""
-  candCode_starts_with: String
-
-  """All values not starting with the given string."""
-  candCode_not_starts_with: String
-
-  """All values ending with the given string."""
-  candCode_ends_with: String
-
-  """All values not ending with the given string."""
-  candCode_not_ends_with: String
   placeOfBirth: String
 
   """All values that are not equal to given value."""
@@ -470,6 +430,46 @@ input CandidateWhereInput {
 
   """All values not ending with the given string."""
   placeOfBirth_not_ends_with: String
+  candCode: String
+
+  """All values that are not equal to given value."""
+  candCode_not: String
+
+  """All values that are contained in given list."""
+  candCode_in: [String!]
+
+  """All values that are not contained in given list."""
+  candCode_not_in: [String!]
+
+  """All values less than the given value."""
+  candCode_lt: String
+
+  """All values less than or equal the given value."""
+  candCode_lte: String
+
+  """All values greater than the given value."""
+  candCode_gt: String
+
+  """All values greater than or equal the given value."""
+  candCode_gte: String
+
+  """All values containing the given string."""
+  candCode_contains: String
+
+  """All values not containing the given string."""
+  candCode_not_contains: String
+
+  """All values starting with the given string."""
+  candCode_starts_with: String
+
+  """All values not starting with the given string."""
+  candCode_not_starts_with: String
+
+  """All values ending with the given string."""
+  candCode_ends_with: String
+
+  """All values not ending with the given string."""
+  candCode_not_ends_with: String
   image: String
 
   """All values that are not equal to given value."""
@@ -709,12 +709,23 @@ input DivisionCreateInput {
   id: ID
   divName: String!
   divCode: String!
-  region: RegionCreateOneInput!
+  region: RegionCreateOneWithoutDivisionInput!
+}
+
+input DivisionCreateManyWithoutRegionInput {
+  create: [DivisionCreateWithoutRegionInput!]
+  connect: [DivisionWhereUniqueInput!]
 }
 
 input DivisionCreateOneInput {
   create: DivisionCreateInput
   connect: DivisionWhereUniqueInput
+}
+
+input DivisionCreateWithoutRegionInput {
+  id: ID
+  divName: String!
+  divCode: String!
 }
 
 """An edge in a connection."""
@@ -745,6 +756,181 @@ type DivisionPreviousValues {
   divCode: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+input DivisionScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DivisionScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DivisionScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DivisionScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  divName: String
+
+  """All values that are not equal to given value."""
+  divName_not: String
+
+  """All values that are contained in given list."""
+  divName_in: [String!]
+
+  """All values that are not contained in given list."""
+  divName_not_in: [String!]
+
+  """All values less than the given value."""
+  divName_lt: String
+
+  """All values less than or equal the given value."""
+  divName_lte: String
+
+  """All values greater than the given value."""
+  divName_gt: String
+
+  """All values greater than or equal the given value."""
+  divName_gte: String
+
+  """All values containing the given string."""
+  divName_contains: String
+
+  """All values not containing the given string."""
+  divName_not_contains: String
+
+  """All values starting with the given string."""
+  divName_starts_with: String
+
+  """All values not starting with the given string."""
+  divName_not_starts_with: String
+
+  """All values ending with the given string."""
+  divName_ends_with: String
+
+  """All values not ending with the given string."""
+  divName_not_ends_with: String
+  divCode: String
+
+  """All values that are not equal to given value."""
+  divCode_not: String
+
+  """All values that are contained in given list."""
+  divCode_in: [String!]
+
+  """All values that are not contained in given list."""
+  divCode_not_in: [String!]
+
+  """All values less than the given value."""
+  divCode_lt: String
+
+  """All values less than or equal the given value."""
+  divCode_lte: String
+
+  """All values greater than the given value."""
+  divCode_gt: String
+
+  """All values greater than or equal the given value."""
+  divCode_gte: String
+
+  """All values containing the given string."""
+  divCode_contains: String
+
+  """All values not containing the given string."""
+  divCode_not_contains: String
+
+  """All values starting with the given string."""
+  divCode_starts_with: String
+
+  """All values not starting with the given string."""
+  divCode_not_starts_with: String
+
+  """All values ending with the given string."""
+  divCode_ends_with: String
+
+  """All values not ending with the given string."""
+  divCode_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type DivisionSubscriptionPayload {
@@ -789,18 +975,40 @@ input DivisionSubscriptionWhereInput {
 input DivisionUpdateDataInput {
   divName: String
   divCode: String
-  region: RegionUpdateOneRequiredInput
+  region: RegionUpdateOneRequiredWithoutDivisionInput
 }
 
 input DivisionUpdateInput {
   divName: String
   divCode: String
-  region: RegionUpdateOneRequiredInput
+  region: RegionUpdateOneRequiredWithoutDivisionInput
+}
+
+input DivisionUpdateManyDataInput {
+  divName: String
+  divCode: String
 }
 
 input DivisionUpdateManyMutationInput {
   divName: String
   divCode: String
+}
+
+input DivisionUpdateManyWithoutRegionInput {
+  create: [DivisionCreateWithoutRegionInput!]
+  connect: [DivisionWhereUniqueInput!]
+  set: [DivisionWhereUniqueInput!]
+  disconnect: [DivisionWhereUniqueInput!]
+  delete: [DivisionWhereUniqueInput!]
+  update: [DivisionUpdateWithWhereUniqueWithoutRegionInput!]
+  updateMany: [DivisionUpdateManyWithWhereNestedInput!]
+  deleteMany: [DivisionScalarWhereInput!]
+  upsert: [DivisionUpsertWithWhereUniqueWithoutRegionInput!]
+}
+
+input DivisionUpdateManyWithWhereNestedInput {
+  where: DivisionScalarWhereInput!
+  data: DivisionUpdateManyDataInput!
 }
 
 input DivisionUpdateOneRequiredInput {
@@ -810,9 +1018,25 @@ input DivisionUpdateOneRequiredInput {
   upsert: DivisionUpsertNestedInput
 }
 
+input DivisionUpdateWithoutRegionDataInput {
+  divName: String
+  divCode: String
+}
+
+input DivisionUpdateWithWhereUniqueWithoutRegionInput {
+  where: DivisionWhereUniqueInput!
+  data: DivisionUpdateWithoutRegionDataInput!
+}
+
 input DivisionUpsertNestedInput {
   update: DivisionUpdateDataInput!
   create: DivisionCreateInput!
+}
+
+input DivisionUpsertWithWhereUniqueWithoutRegionInput {
+  where: DivisionWhereUniqueInput!
+  update: DivisionUpdateWithoutRegionDataInput!
+  create: DivisionCreateWithoutRegionInput!
 }
 
 input DivisionWhereInput {
@@ -1001,6 +1225,292 @@ type Exam implements Node {
   examCode: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+type examCenter implements Node {
+  id: ID!
+  centerName: String!
+  centerCode: String!
+  town: Town!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type examCenterConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [examCenterEdge]!
+  aggregate: AggregateexamCenter!
+}
+
+input examCenterCreateInput {
+  id: ID
+  centerName: String!
+  centerCode: String!
+  town: TownCreateOneInput!
+}
+
+"""An edge in a connection."""
+type examCenterEdge {
+  """The item at the end of the edge."""
+  node: examCenter!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum examCenterOrderByInput {
+  id_ASC
+  id_DESC
+  centerName_ASC
+  centerName_DESC
+  centerCode_ASC
+  centerCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type examCenterPreviousValues {
+  id: ID!
+  centerName: String!
+  centerCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type examCenterSubscriptionPayload {
+  mutation: MutationType!
+  node: examCenter
+  updatedFields: [String!]
+  previousValues: examCenterPreviousValues
+}
+
+input examCenterSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [examCenterSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [examCenterSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [examCenterSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: examCenterWhereInput
+}
+
+input examCenterUpdateInput {
+  centerName: String
+  centerCode: String
+  town: TownUpdateOneRequiredInput
+}
+
+input examCenterUpdateManyMutationInput {
+  centerName: String
+  centerCode: String
+}
+
+input examCenterWhereInput {
+  """Logical AND on all given filters."""
+  AND: [examCenterWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [examCenterWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [examCenterWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  centerName: String
+
+  """All values that are not equal to given value."""
+  centerName_not: String
+
+  """All values that are contained in given list."""
+  centerName_in: [String!]
+
+  """All values that are not contained in given list."""
+  centerName_not_in: [String!]
+
+  """All values less than the given value."""
+  centerName_lt: String
+
+  """All values less than or equal the given value."""
+  centerName_lte: String
+
+  """All values greater than the given value."""
+  centerName_gt: String
+
+  """All values greater than or equal the given value."""
+  centerName_gte: String
+
+  """All values containing the given string."""
+  centerName_contains: String
+
+  """All values not containing the given string."""
+  centerName_not_contains: String
+
+  """All values starting with the given string."""
+  centerName_starts_with: String
+
+  """All values not starting with the given string."""
+  centerName_not_starts_with: String
+
+  """All values ending with the given string."""
+  centerName_ends_with: String
+
+  """All values not ending with the given string."""
+  centerName_not_ends_with: String
+  centerCode: String
+
+  """All values that are not equal to given value."""
+  centerCode_not: String
+
+  """All values that are contained in given list."""
+  centerCode_in: [String!]
+
+  """All values that are not contained in given list."""
+  centerCode_not_in: [String!]
+
+  """All values less than the given value."""
+  centerCode_lt: String
+
+  """All values less than or equal the given value."""
+  centerCode_lte: String
+
+  """All values greater than the given value."""
+  centerCode_gt: String
+
+  """All values greater than or equal the given value."""
+  centerCode_gte: String
+
+  """All values containing the given string."""
+  centerCode_contains: String
+
+  """All values not containing the given string."""
+  centerCode_not_contains: String
+
+  """All values starting with the given string."""
+  centerCode_starts_with: String
+
+  """All values not starting with the given string."""
+  centerCode_not_starts_with: String
+
+  """All values ending with the given string."""
+  centerCode_ends_with: String
+
+  """All values not ending with the given string."""
+  centerCode_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  town: TownWhereInput
+}
+
+input examCenterWhereUniqueInput {
+  id: ID
 }
 
 """A connection to a list of items."""
@@ -1556,292 +2066,6 @@ input ExamWhereInput {
 }
 
 input ExamWhereUniqueInput {
-  id: ID
-}
-
-type exanCenter implements Node {
-  id: ID!
-  centerName: String!
-  centerCode: String!
-  town: Town!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-"""A connection to a list of items."""
-type exanCenterConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [exanCenterEdge]!
-  aggregate: AggregateexanCenter!
-}
-
-input exanCenterCreateInput {
-  id: ID
-  centerName: String!
-  centerCode: String!
-  town: TownCreateOneInput!
-}
-
-"""An edge in a connection."""
-type exanCenterEdge {
-  """The item at the end of the edge."""
-  node: exanCenter!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum exanCenterOrderByInput {
-  id_ASC
-  id_DESC
-  centerName_ASC
-  centerName_DESC
-  centerCode_ASC
-  centerCode_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type exanCenterPreviousValues {
-  id: ID!
-  centerName: String!
-  centerCode: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type exanCenterSubscriptionPayload {
-  mutation: MutationType!
-  node: exanCenter
-  updatedFields: [String!]
-  previousValues: exanCenterPreviousValues
-}
-
-input exanCenterSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [exanCenterSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [exanCenterSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [exanCenterSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: exanCenterWhereInput
-}
-
-input exanCenterUpdateInput {
-  centerName: String
-  centerCode: String
-  town: TownUpdateOneRequiredInput
-}
-
-input exanCenterUpdateManyMutationInput {
-  centerName: String
-  centerCode: String
-}
-
-input exanCenterWhereInput {
-  """Logical AND on all given filters."""
-  AND: [exanCenterWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [exanCenterWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [exanCenterWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  centerName: String
-
-  """All values that are not equal to given value."""
-  centerName_not: String
-
-  """All values that are contained in given list."""
-  centerName_in: [String!]
-
-  """All values that are not contained in given list."""
-  centerName_not_in: [String!]
-
-  """All values less than the given value."""
-  centerName_lt: String
-
-  """All values less than or equal the given value."""
-  centerName_lte: String
-
-  """All values greater than the given value."""
-  centerName_gt: String
-
-  """All values greater than or equal the given value."""
-  centerName_gte: String
-
-  """All values containing the given string."""
-  centerName_contains: String
-
-  """All values not containing the given string."""
-  centerName_not_contains: String
-
-  """All values starting with the given string."""
-  centerName_starts_with: String
-
-  """All values not starting with the given string."""
-  centerName_not_starts_with: String
-
-  """All values ending with the given string."""
-  centerName_ends_with: String
-
-  """All values not ending with the given string."""
-  centerName_not_ends_with: String
-  centerCode: String
-
-  """All values that are not equal to given value."""
-  centerCode_not: String
-
-  """All values that are contained in given list."""
-  centerCode_in: [String!]
-
-  """All values that are not contained in given list."""
-  centerCode_not_in: [String!]
-
-  """All values less than the given value."""
-  centerCode_lt: String
-
-  """All values less than or equal the given value."""
-  centerCode_lte: String
-
-  """All values greater than the given value."""
-  centerCode_gt: String
-
-  """All values greater than or equal the given value."""
-  centerCode_gte: String
-
-  """All values containing the given string."""
-  centerCode_contains: String
-
-  """All values not containing the given string."""
-  centerCode_not_contains: String
-
-  """All values starting with the given string."""
-  centerCode_starts_with: String
-
-  """All values not starting with the given string."""
-  centerCode_not_starts_with: String
-
-  """All values ending with the given string."""
-  centerCode_ends_with: String
-
-  """All values not ending with the given string."""
-  centerCode_not_ends_with: String
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-
-  """All values that are not equal to given value."""
-  updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-  town: TownWhereInput
-}
-
-input exanCenterWhereUniqueInput {
   id: ID
 }
 
@@ -2512,7 +2736,8 @@ scalar Long
 type Mutation {
   createUser(data: UserCreateInput!): User!
   createItem(data: ItemCreateInput!): Item!
-  createexanCenter(data: exanCenterCreateInput!): exanCenter!
+  createRegion(data: RegionCreateInput!): Region!
+  createexamCenter(data: examCenterCreateInput!): examCenter!
   createSeries(data: SeriesCreateInput!): Series!
   createExam(data: ExamCreateInput!): Exam!
   createSubject(data: SubjectCreateInput!): Subject!
@@ -2521,12 +2746,12 @@ type Mutation {
   createGender(data: GenderCreateInput!): Gender!
   createCandidate(data: CandidateCreateInput!): Candidate!
   createSubDivision(data: SubDivisionCreateInput!): SubDivision!
-  createDivision(data: DivisionCreateInput!): Division!
-  createRegion(data: RegionCreateInput!): Region!
   createTown(data: TownCreateInput!): Town!
+  createDivision(data: DivisionCreateInput!): Division!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateItem(data: ItemUpdateInput!, where: ItemWhereUniqueInput!): Item
-  updateexanCenter(data: exanCenterUpdateInput!, where: exanCenterWhereUniqueInput!): exanCenter
+  updateRegion(data: RegionUpdateInput!, where: RegionWhereUniqueInput!): Region
+  updateexamCenter(data: examCenterUpdateInput!, where: examCenterWhereUniqueInput!): examCenter
   updateSeries(data: SeriesUpdateInput!, where: SeriesWhereUniqueInput!): Series
   updateExam(data: ExamUpdateInput!, where: ExamWhereUniqueInput!): Exam
   updateSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
@@ -2535,12 +2760,12 @@ type Mutation {
   updateGender(data: GenderUpdateInput!, where: GenderWhereUniqueInput!): Gender
   updateCandidate(data: CandidateUpdateInput!, where: CandidateWhereUniqueInput!): Candidate
   updateSubDivision(data: SubDivisionUpdateInput!, where: SubDivisionWhereUniqueInput!): SubDivision
-  updateDivision(data: DivisionUpdateInput!, where: DivisionWhereUniqueInput!): Division
-  updateRegion(data: RegionUpdateInput!, where: RegionWhereUniqueInput!): Region
   updateTown(data: TownUpdateInput!, where: TownWhereUniqueInput!): Town
+  updateDivision(data: DivisionUpdateInput!, where: DivisionWhereUniqueInput!): Division
   deleteUser(where: UserWhereUniqueInput!): User
   deleteItem(where: ItemWhereUniqueInput!): Item
-  deleteexanCenter(where: exanCenterWhereUniqueInput!): exanCenter
+  deleteRegion(where: RegionWhereUniqueInput!): Region
+  deleteexamCenter(where: examCenterWhereUniqueInput!): examCenter
   deleteSeries(where: SeriesWhereUniqueInput!): Series
   deleteExam(where: ExamWhereUniqueInput!): Exam
   deleteSubject(where: SubjectWhereUniqueInput!): Subject
@@ -2549,12 +2774,12 @@ type Mutation {
   deleteGender(where: GenderWhereUniqueInput!): Gender
   deleteCandidate(where: CandidateWhereUniqueInput!): Candidate
   deleteSubDivision(where: SubDivisionWhereUniqueInput!): SubDivision
-  deleteDivision(where: DivisionWhereUniqueInput!): Division
-  deleteRegion(where: RegionWhereUniqueInput!): Region
   deleteTown(where: TownWhereUniqueInput!): Town
+  deleteDivision(where: DivisionWhereUniqueInput!): Division
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertItem(where: ItemWhereUniqueInput!, create: ItemCreateInput!, update: ItemUpdateInput!): Item!
-  upsertexanCenter(where: exanCenterWhereUniqueInput!, create: exanCenterCreateInput!, update: exanCenterUpdateInput!): exanCenter!
+  upsertRegion(where: RegionWhereUniqueInput!, create: RegionCreateInput!, update: RegionUpdateInput!): Region!
+  upsertexamCenter(where: examCenterWhereUniqueInput!, create: examCenterCreateInput!, update: examCenterUpdateInput!): examCenter!
   upsertSeries(where: SeriesWhereUniqueInput!, create: SeriesCreateInput!, update: SeriesUpdateInput!): Series!
   upsertExam(where: ExamWhereUniqueInput!, create: ExamCreateInput!, update: ExamUpdateInput!): Exam!
   upsertSubject(where: SubjectWhereUniqueInput!, create: SubjectCreateInput!, update: SubjectUpdateInput!): Subject!
@@ -2563,12 +2788,12 @@ type Mutation {
   upsertGender(where: GenderWhereUniqueInput!, create: GenderCreateInput!, update: GenderUpdateInput!): Gender!
   upsertCandidate(where: CandidateWhereUniqueInput!, create: CandidateCreateInput!, update: CandidateUpdateInput!): Candidate!
   upsertSubDivision(where: SubDivisionWhereUniqueInput!, create: SubDivisionCreateInput!, update: SubDivisionUpdateInput!): SubDivision!
-  upsertDivision(where: DivisionWhereUniqueInput!, create: DivisionCreateInput!, update: DivisionUpdateInput!): Division!
-  upsertRegion(where: RegionWhereUniqueInput!, create: RegionCreateInput!, update: RegionUpdateInput!): Region!
   upsertTown(where: TownWhereUniqueInput!, create: TownCreateInput!, update: TownUpdateInput!): Town!
+  upsertDivision(where: DivisionWhereUniqueInput!, create: DivisionCreateInput!, update: DivisionUpdateInput!): Division!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyItems(data: ItemUpdateManyMutationInput!, where: ItemWhereInput): BatchPayload!
-  updateManyExanCenters(data: exanCenterUpdateManyMutationInput!, where: exanCenterWhereInput): BatchPayload!
+  updateManyRegions(data: RegionUpdateManyMutationInput!, where: RegionWhereInput): BatchPayload!
+  updateManyExamCenters(data: examCenterUpdateManyMutationInput!, where: examCenterWhereInput): BatchPayload!
   updateManySerieses(data: SeriesUpdateManyMutationInput!, where: SeriesWhereInput): BatchPayload!
   updateManyExams(data: ExamUpdateManyMutationInput!, where: ExamWhereInput): BatchPayload!
   updateManySubjects(data: SubjectUpdateManyMutationInput!, where: SubjectWhereInput): BatchPayload!
@@ -2577,12 +2802,12 @@ type Mutation {
   updateManyGenders(data: GenderUpdateManyMutationInput!, where: GenderWhereInput): BatchPayload!
   updateManyCandidates(data: CandidateUpdateManyMutationInput!, where: CandidateWhereInput): BatchPayload!
   updateManySubDivisions(data: SubDivisionUpdateManyMutationInput!, where: SubDivisionWhereInput): BatchPayload!
-  updateManyDivisions(data: DivisionUpdateManyMutationInput!, where: DivisionWhereInput): BatchPayload!
-  updateManyRegions(data: RegionUpdateManyMutationInput!, where: RegionWhereInput): BatchPayload!
   updateManyTowns(data: TownUpdateManyMutationInput!, where: TownWhereInput): BatchPayload!
+  updateManyDivisions(data: DivisionUpdateManyMutationInput!, where: DivisionWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyItems(where: ItemWhereInput): BatchPayload!
-  deleteManyExanCenters(where: exanCenterWhereInput): BatchPayload!
+  deleteManyRegions(where: RegionWhereInput): BatchPayload!
+  deleteManyExamCenters(where: examCenterWhereInput): BatchPayload!
   deleteManySerieses(where: SeriesWhereInput): BatchPayload!
   deleteManyExams(where: ExamWhereInput): BatchPayload!
   deleteManySubjects(where: SubjectWhereInput): BatchPayload!
@@ -2591,9 +2816,8 @@ type Mutation {
   deleteManyGenders(where: GenderWhereInput): BatchPayload!
   deleteManyCandidates(where: CandidateWhereInput): BatchPayload!
   deleteManySubDivisions(where: SubDivisionWhereInput): BatchPayload!
-  deleteManyDivisions(where: DivisionWhereInput): BatchPayload!
-  deleteManyRegions(where: RegionWhereInput): BatchPayload!
   deleteManyTowns(where: TownWhereInput): BatchPayload!
+  deleteManyDivisions(where: DivisionWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -2625,7 +2849,7 @@ type PageInfo {
 
 type Presence implements Node {
   id: ID!
-  regName: Boolean!
+  presenceName: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -2642,7 +2866,7 @@ type PresenceConnection {
 
 input PresenceCreateInput {
   id: ID
-  regName: Boolean!
+  presenceName: Boolean!
 }
 
 """An edge in a connection."""
@@ -2657,8 +2881,8 @@ type PresenceEdge {
 enum PresenceOrderByInput {
   id_ASC
   id_DESC
-  regName_ASC
-  regName_DESC
+  presenceName_ASC
+  presenceName_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -2667,7 +2891,7 @@ enum PresenceOrderByInput {
 
 type PresencePreviousValues {
   id: ID!
-  regName: Boolean!
+  presenceName: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -2712,11 +2936,11 @@ input PresenceSubscriptionWhereInput {
 }
 
 input PresenceUpdateInput {
-  regName: Boolean
+  presenceName: Boolean
 }
 
 input PresenceUpdateManyMutationInput {
-  regName: Boolean
+  presenceName: Boolean
 }
 
 input PresenceWhereInput {
@@ -2768,10 +2992,10 @@ input PresenceWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  regName: Boolean
+  presenceName: Boolean
 
   """All values that are not equal to given value."""
-  regName_not: Boolean
+  presenceName_not: Boolean
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -2825,7 +3049,8 @@ input PresenceWhereUniqueInput {
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   items(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Item]!
-  exanCenters(where: exanCenterWhereInput, orderBy: exanCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [exanCenter]!
+  regions(where: RegionWhereInput, orderBy: RegionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Region]!
+  examCenters(where: examCenterWhereInput, orderBy: examCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [examCenter]!
   serieses(where: SeriesWhereInput, orderBy: SeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Series]!
   exams(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Exam]!
   subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
@@ -2834,12 +3059,12 @@ type Query {
   genders(where: GenderWhereInput, orderBy: GenderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Gender]!
   candidates(where: CandidateWhereInput, orderBy: CandidateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Candidate]!
   subDivisions(where: SubDivisionWhereInput, orderBy: SubDivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubDivision]!
-  divisions(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Division]!
-  regions(where: RegionWhereInput, orderBy: RegionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Region]!
   towns(where: TownWhereInput, orderBy: TownOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Town]!
+  divisions(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Division]!
   user(where: UserWhereUniqueInput!): User
   item(where: ItemWhereUniqueInput!): Item
-  exanCenter(where: exanCenterWhereUniqueInput!): exanCenter
+  region(where: RegionWhereUniqueInput!): Region
+  examCenter(where: examCenterWhereUniqueInput!): examCenter
   series(where: SeriesWhereUniqueInput!): Series
   exam(where: ExamWhereUniqueInput!): Exam
   subject(where: SubjectWhereUniqueInput!): Subject
@@ -2848,12 +3073,12 @@ type Query {
   gender(where: GenderWhereUniqueInput!): Gender
   candidate(where: CandidateWhereUniqueInput!): Candidate
   subDivision(where: SubDivisionWhereUniqueInput!): SubDivision
-  division(where: DivisionWhereUniqueInput!): Division
-  region(where: RegionWhereUniqueInput!): Region
   town(where: TownWhereUniqueInput!): Town
+  division(where: DivisionWhereUniqueInput!): Division
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   itemsConnection(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ItemConnection!
-  exanCentersConnection(where: exanCenterWhereInput, orderBy: exanCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): exanCenterConnection!
+  regionsConnection(where: RegionWhereInput, orderBy: RegionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RegionConnection!
+  examCentersConnection(where: examCenterWhereInput, orderBy: examCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): examCenterConnection!
   seriesesConnection(where: SeriesWhereInput, orderBy: SeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SeriesConnection!
   examsConnection(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExamConnection!
   subjectsConnection(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectConnection!
@@ -2862,9 +3087,8 @@ type Query {
   gendersConnection(where: GenderWhereInput, orderBy: GenderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GenderConnection!
   candidatesConnection(where: CandidateWhereInput, orderBy: CandidateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CandidateConnection!
   subDivisionsConnection(where: SubDivisionWhereInput, orderBy: SubDivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubDivisionConnection!
-  divisionsConnection(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DivisionConnection!
-  regionsConnection(where: RegionWhereInput, orderBy: RegionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RegionConnection!
   townsConnection(where: TownWhereInput, orderBy: TownOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TownConnection!
+  divisionsConnection(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DivisionConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -2879,6 +3103,7 @@ type Region implements Node {
   regCode: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  division(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Division!]
 }
 
 """A connection to a list of items."""
@@ -2895,11 +3120,18 @@ input RegionCreateInput {
   id: ID
   regName: String!
   regCode: String!
+  division: DivisionCreateManyWithoutRegionInput
 }
 
-input RegionCreateOneInput {
-  create: RegionCreateInput
+input RegionCreateOneWithoutDivisionInput {
+  create: RegionCreateWithoutDivisionInput
   connect: RegionWhereUniqueInput
+}
+
+input RegionCreateWithoutDivisionInput {
+  id: ID
+  regName: String!
+  regCode: String!
 }
 
 """An edge in a connection."""
@@ -2971,14 +3203,10 @@ input RegionSubscriptionWhereInput {
   node: RegionWhereInput
 }
 
-input RegionUpdateDataInput {
-  regName: String
-  regCode: String
-}
-
 input RegionUpdateInput {
   regName: String
   regCode: String
+  division: DivisionUpdateManyWithoutRegionInput
 }
 
 input RegionUpdateManyMutationInput {
@@ -2986,16 +3214,21 @@ input RegionUpdateManyMutationInput {
   regCode: String
 }
 
-input RegionUpdateOneRequiredInput {
-  create: RegionCreateInput
+input RegionUpdateOneRequiredWithoutDivisionInput {
+  create: RegionCreateWithoutDivisionInput
   connect: RegionWhereUniqueInput
-  update: RegionUpdateDataInput
-  upsert: RegionUpsertNestedInput
+  update: RegionUpdateWithoutDivisionDataInput
+  upsert: RegionUpsertWithoutDivisionInput
 }
 
-input RegionUpsertNestedInput {
-  update: RegionUpdateDataInput!
-  create: RegionCreateInput!
+input RegionUpdateWithoutDivisionDataInput {
+  regName: String
+  regCode: String
+}
+
+input RegionUpsertWithoutDivisionInput {
+  update: RegionUpdateWithoutDivisionDataInput!
+  create: RegionCreateWithoutDivisionInput!
 }
 
 input RegionWhereInput {
@@ -3171,6 +3404,9 @@ input RegionWhereInput {
 
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
+  division_every: DivisionWhereInput
+  division_some: DivisionWhereInput
+  division_none: DivisionWhereInput
 }
 
 input RegionWhereUniqueInput {
@@ -4053,7 +4289,8 @@ input SubjectWhereUniqueInput {
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   item(where: ItemSubscriptionWhereInput): ItemSubscriptionPayload
-  exanCenter(where: exanCenterSubscriptionWhereInput): exanCenterSubscriptionPayload
+  region(where: RegionSubscriptionWhereInput): RegionSubscriptionPayload
+  examCenter(where: examCenterSubscriptionWhereInput): examCenterSubscriptionPayload
   series(where: SeriesSubscriptionWhereInput): SeriesSubscriptionPayload
   exam(where: ExamSubscriptionWhereInput): ExamSubscriptionPayload
   subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
@@ -4062,9 +4299,8 @@ type Subscription {
   gender(where: GenderSubscriptionWhereInput): GenderSubscriptionPayload
   candidate(where: CandidateSubscriptionWhereInput): CandidateSubscriptionPayload
   subDivision(where: SubDivisionSubscriptionWhereInput): SubDivisionSubscriptionPayload
-  division(where: DivisionSubscriptionWhereInput): DivisionSubscriptionPayload
-  region(where: RegionSubscriptionWhereInput): RegionSubscriptionPayload
   town(where: TownSubscriptionWhereInput): TownSubscriptionPayload
+  division(where: DivisionSubscriptionWhereInput): DivisionSubscriptionPayload
 }
 
 type Town implements Node {

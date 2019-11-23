@@ -6,6 +6,7 @@ type Mutation {
    createCandidate(
    cand1stName:String,
     cand2ndName:String,
+
     cand3rdName:String,
     email: String,
     phoneNumb: Int,
@@ -13,23 +14,42 @@ type Mutation {
     candCode: String,
     placeOfBirth: String
        ):Candidate!
-       createRegion(regName: String!, regCode: String!):Region!
-       createItem(title: String! , description: String, image: String!):Item!
-       createDivision(divName: String!, divCode: String!, region: RegionCreateOneInput!):Division!
-       createGender(genderName: String! , genderCode: String!):Gender!
 
-      
+   updateCandidate(
+     id:ID!,
+   cand1stName:String,
+    cand2ndName:String,
+    cand3rdName:String,
+    email: String,
+    phoneNumb: Int,
+    image: String,
+    candCode: String,
+    placeOfBirth: String
+       ):Candidate!
+       
+       createRegion(regName: String!, regCode: String!):Region!
+       updateRegion(id:ID!, regName: String, regCode: String):Region!
+       createItem(title: String! , description: String, image: String!):Item!
+       
+       createDivision(divName: String!, divCode: String!, region: RegionCreateWithoutDivisionInput! ):Division!
+       createGender(genderName: String! , genderCode: String!):Gender!
+      deleteCandidate(id: ID! ): Candidate      
+      deleteRegion(id: ID! ): Region      
 
        }
 
 type Query {
         candidates:[Candidate]!  
+        candidate(id: ID!):Candidate!
         regions:[Region]! 
+        region(id: ID!):Region! 
+       division(where: DivisionWhereUniqueInput!): Division
+  divisions(where: RegionWhereUniqueInput, orderBy: DivisionOrderByInput): [Division]!
         items:[Item]! 
+        item(where:ItemWhereUniqueInput!):Item 
          users:[User]!
          genders:[Gender]!
-         divisions:[Division]!
-
+         gender(where: GenderWhereUniqueInput!):Gender!
           
            }
 

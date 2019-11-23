@@ -15,7 +15,7 @@ function createServer() {
         resolverValidationOptions: {
             requireResolversForResolveType: false
         },
-        // always get db fror eery request
+        // always get db from every request
         context: req => ({
             ...req,
             db
@@ -24,3 +24,4 @@ function createServer() {
 }
 
 module.exports = createServer;
+

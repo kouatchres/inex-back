@@ -29,7 +29,7 @@ var models = [
     embedded: false
   },
   {
-    name: "exanCenter",
+    name: "examCenter",
     embedded: false
   },
   {
