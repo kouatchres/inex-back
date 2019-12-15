@@ -3,7 +3,11 @@
                             "activityBar.background": "#1D2E48",
                             "titleBar.activeBackground": "#284164",
                             "titleBar.activeForeground": "#ffffff"
-              }
+            },
+            "editor.fontSize": 18,
+            "editor.tabSize": 5,
+            "editor.defaultFormatter": "vscode.emmet",
+            "markdown.preview.fontSize": 16,
 
               //  "workbench.colorCustomizations": {
               //               "activityBar.background": "#610317",
@@ -11,4 +15,6 @@
               //               "titleBar.activeForeground": "#FFFBFC"
               // }
 
+
+              "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
 }

@@ -1,126 +1,229 @@
 type User {
-  id: ID! @id @unique
-  name: String!
-  email: String!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-
+    id : ID! @id @unique
+    name : String !
+    email : String !
+    createdAt : DateTime! @createdAt
+    
+    updatedAt : DateTime! @updatedAt
+    item : [Item]!
 }
 type Item {
-  id: ID! @id @unique
-  title: String!
-  descrption: String!
-  image: String
-  largeImage: String
- createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
- 
+    id : ID  ! @id @unique
+    title : String !
+    descrption : String !
+    image : String
+    largeImage : String
+    createdAt : DateTime! @createdAt
+    
+    updatedAt : DateTime! @updatedAt  
+    user : User !
 }
 
 type Region {
-id: ID! @id @unique
-regName: String!
-regCode: String!
-createdAt: DateTime! @createdAt
-updatedAt: DateTime!@updatedAt
-division: [Division]!
+    id : ID  ! @id @unique
+    regName : String !
+    regCode : String ! @unique
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+    division : [Division]!
 }
 
-
 type Division {
-id: ID! @id @unique
-divName: String!
-divCode: String!
-region: Region!  
-createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
-
+    id : ID  ! @id @unique
+    divName : String !
+    divCode : String ! @unique
+    region : Region !
+    subDivision : [SubDivision]!
+    createdAt : DateTime! @createdAt
+    
+    updatedAt : DateTime! @updatedAt  
 }
 
 type SubDivision {
-id: ID! @id @unique
-subDivName: String!
-subDivCode: String!
-division: Division! 
-createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
+    id : ID  ! @id @unique
+    subDivName : String !
+    subDivCode : String ! @unique
+    division : Division !
+    createdAt : DateTime! @createdAt  
+    updatedAt : DateTime! @updatedAt  
+    town : [Town]!
 }
 
 type Town {
-id: ID! @id @unique
-townName: String!
-townCode: String!
-subDiv: SubDivision! 
-createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
+    id : ID  ! @id @unique
+    townName : String !
+    townCode : String ! @unique
+    subDiv : SubDivision !
+    createdAt : DateTime! @createdAt 
+    updatedAt : DateTime! @updatedAt  
+    center : [Center]!
 }
 
-type examCenter {
-id: ID! @id @unique
-centerName: String!
-centerCode: String!
-town: Town! 
-createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
+type Center {
+    id : ID  ! @id @unique
+    centerName : String !
+    centerCode : String ! @unique
+    town : Town !
+    centerNumber : Int ! @unique
+    createdAt : DateTime! @createdAt 
+    updatedAt : DateTime! @updatedAt
+  registration: [Registration]!
+  centerAdmin:[CenterAdmin]!
+
+
 }
 
 type Series {
-id: ID! @id @unique
-seriesName: String!
-seriesCode: String!
-createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
+    id : ID  ! @id @unique
+    seriesName : String !
+    seriesCode : String ! @unique
+    createdAt : DateTime! @createdAt 
+    updatedAt : DateTime! @updatedAt  
+    educationType : EducationType !
+    registration : [Registration]!
 }
+type EducationType {
+    id : ID  ! @id @unique
+    educationTypeName : String
+    educationTypeCode : String! @unique
+    createdAt : DateTime! @createdAt 
+    updatedAt : DateTime! @updatedAt  
+    series : [Series]!
+}
+
 type Exam {
-id: ID! @id @unique
-examName: String!
-examCode: String!
-createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
+    id : ID  ! @id @unique
+    examName : String !
+    examCode : String ! @unique
+    createdAt : DateTime! @createdAt 
+    updatedAt : DateTime! @updatedAt 
+    centerAdmin:[CenterAdmin]!
+    annExamSeriesSubj: [AnnualExamSubjectSeries]!
+    registration: [Registration]! 
 }
 type Subject {
-id: ID! @id @unique
-subjName: String!
-subjCode: String!
-createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
+    id : ID  ! @id @unique
+    subjectName : String ! @unique
+    subjectCode : String ! @unique
+    annExamSeriesSubj: [AnnualExamSubjectSeries]!
+    createdAt : DateTime! @createdAt 
+    updatedAt : DateTime! @updatedAt  
 }
 type Presence {
-id: ID! @id @unique
-presenceName: Boolean! 
-createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
+    id : ID  ! @id @unique
+    presenceName : Boolean !
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+    score: [Score]!
 }
-type ExamSession {
+type Session {
 
-id: ID! @id @unique
-sessionName: String!
-sessionCode: String!
-createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
+    id : ID  ! @id @unique
+    sessionName : String !
+    sessionCode : String ! @unique
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+    centerAdmin:[CenterAdmin]!
+     annExamSeriesSubj: [AnnualExamSubjectSeries]!
+  registration: [Registration]!
 }
 
 type Gender {
-id: ID! @id @unique
-genderName: String!
-genderCode: String!
-createdAt: DateTime! @createdAt
-updatedAt: DateTime! @updatedAt
+    id : ID  ! @id @unique
+    genderName : String !
+    genderCode : String ! @unique
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+    candidate : [Candidate]!
 }
 
-
 type Candidate {
-id: ID! @id @unique
-cand1stName: String
-cand2ndName: String
-cand3rdName: String
-placeOfBirth: String
-candCode: String
-image: String
-birthCertNumber: String
-email: String
-phoneNumb: Int
-dateOfBirth: DateTime @dateOfBirth
-createdAt: DateTime! @createdAt
-updatedAt: DateTime!  @updatedAt
+    id : ID  ! @id @unique
+    cand1stName : String
+    cand2ndName : String
+    cand3rdName : String
+    placeOfBirth : String
+    candCode : String
+    image : String
+    birthCertNumber : String
+    email : String! @unique
+    phoneNumb : Int
+    dateOfBirth : DateTime @dateOfBirth
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+    gender : Gender !
+    registration: [Registration]!
+
+}
+
+type Rank {
+    id : ID  ! @id @unique
+    rankName : String !
+    rankCode : String !
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+    centerAdmin : [CenterAdmin]!
+}
+type CenterAdmin {
+    id : ID  ! @id @unique
+    authName: String!
+    authInstitution: String!
+    authPhone: Int!
+    authMatricue: String!
+    rank : Rank !
+    exam: Exam!
+   session: Session!
+   center : Center!
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+    report : [Report]!
+}
+type Report {
+    id : ID  ! @id @unique
+    reportName : String !
+    reportCode : String !
+    centerAdmin : CenterAdmin !
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+
+}
+
+type Score {
+    id : ID! @id @unique
+    subjectAve : Float
+    subjectTotal : Float
+    registration : Registration !
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt
+    presence : Presence!
+    annExamSeriesSubj: AnnualExamSubjectSeries!
+}
+type Registration {
+    id : ID  ! @id @unique
+    candidate : Candidate !
+    createdAt : DateTime ! @createdAt
+    updatedAt : DateTime ! @updatedAt
+   exam: Exam!
+   series: Series!
+   session: Session!
+   center : Center!
+
+}
+type AnnualExamSubjectSeries {
+    id : ID! @id @unique
+    exam : Exam !
+    session : Session !
+    center : Center !
+    rankCode : String !
+    createdAt : DateTime ! @createdAt
+    updatedAt : DateTime ! @updatedAt
+    score : [Score]!
+
+}
+
+type AnotherType {
+    id : ID! @id @unique  
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+
 }

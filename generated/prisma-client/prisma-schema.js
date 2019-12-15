@@ -3,7 +3,19 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateCandidate {
+/* GraphQL */ `type AggregateAnnualExamSubjectSeries {
+  count: Int!
+}
+
+type AggregateAnotherType {
+  count: Int!
+}
+
+type AggregateCandidate {
+  count: Int!
+}
+
+type AggregateCenterAdmin {
   count: Int!
 }
 
@@ -11,15 +23,15 @@ type AggregateDivision {
   count: Int!
 }
 
+type AggregateEducationType {
+  count: Int!
+}
+
 type AggregateExam {
   count: Int!
 }
 
-type AggregateexamCenter {
-  count: Int!
-}
-
-type AggregateExamSession {
+type AggregateExamCenter {
   count: Int!
 }
 
@@ -35,11 +47,31 @@ type AggregatePresence {
   count: Int!
 }
 
+type AggregateRank {
+  count: Int!
+}
+
 type AggregateRegion {
   count: Int!
 }
 
+type AggregateRegistration {
+  count: Int!
+}
+
+type AggregateReport {
+  count: Int!
+}
+
+type AggregateScore {
+  count: Int!
+}
+
 type AggregateSeries {
+  count: Int!
+}
+
+type AggregateSession {
   count: Int!
 }
 
@@ -57,6 +89,452 @@ type AggregateTown {
 
 type AggregateUser {
   count: Int!
+}
+
+type AnnualExamSubjectSeries {
+  id: ID!
+  exam: Exam!
+  session: Session!
+  center: ExamCenter!
+  rankCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  score(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Score!]
+}
+
+type AnnualExamSubjectSeriesConnection {
+  pageInfo: PageInfo!
+  edges: [AnnualExamSubjectSeriesEdge]!
+  aggregate: AggregateAnnualExamSubjectSeries!
+}
+
+input AnnualExamSubjectSeriesCreateInput {
+  id: ID
+  exam: ExamCreateOneWithoutAnnExamSeriesSubjInput!
+  session: SessionCreateOneWithoutAnnExamSeriesSubjInput!
+  center: ExamCenterCreateOneInput!
+  rankCode: String!
+  score: ScoreCreateManyWithoutAnnExamSeriesSubjInput
+}
+
+input AnnualExamSubjectSeriesCreateManyInput {
+  create: [AnnualExamSubjectSeriesCreateInput!]
+  connect: [AnnualExamSubjectSeriesWhereUniqueInput!]
+}
+
+input AnnualExamSubjectSeriesCreateManyWithoutExamInput {
+  create: [AnnualExamSubjectSeriesCreateWithoutExamInput!]
+  connect: [AnnualExamSubjectSeriesWhereUniqueInput!]
+}
+
+input AnnualExamSubjectSeriesCreateManyWithoutSessionInput {
+  create: [AnnualExamSubjectSeriesCreateWithoutSessionInput!]
+  connect: [AnnualExamSubjectSeriesWhereUniqueInput!]
+}
+
+input AnnualExamSubjectSeriesCreateOneWithoutScoreInput {
+  create: AnnualExamSubjectSeriesCreateWithoutScoreInput
+  connect: AnnualExamSubjectSeriesWhereUniqueInput
+}
+
+input AnnualExamSubjectSeriesCreateWithoutExamInput {
+  id: ID
+  session: SessionCreateOneWithoutAnnExamSeriesSubjInput!
+  center: ExamCenterCreateOneInput!
+  rankCode: String!
+  score: ScoreCreateManyWithoutAnnExamSeriesSubjInput
+}
+
+input AnnualExamSubjectSeriesCreateWithoutScoreInput {
+  id: ID
+  exam: ExamCreateOneWithoutAnnExamSeriesSubjInput!
+  session: SessionCreateOneWithoutAnnExamSeriesSubjInput!
+  center: ExamCenterCreateOneInput!
+  rankCode: String!
+}
+
+input AnnualExamSubjectSeriesCreateWithoutSessionInput {
+  id: ID
+  exam: ExamCreateOneWithoutAnnExamSeriesSubjInput!
+  center: ExamCenterCreateOneInput!
+  rankCode: String!
+  score: ScoreCreateManyWithoutAnnExamSeriesSubjInput
+}
+
+type AnnualExamSubjectSeriesEdge {
+  node: AnnualExamSubjectSeries!
+  cursor: String!
+}
+
+enum AnnualExamSubjectSeriesOrderByInput {
+  id_ASC
+  id_DESC
+  rankCode_ASC
+  rankCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type AnnualExamSubjectSeriesPreviousValues {
+  id: ID!
+  rankCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input AnnualExamSubjectSeriesScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  rankCode: String
+  rankCode_not: String
+  rankCode_in: [String!]
+  rankCode_not_in: [String!]
+  rankCode_lt: String
+  rankCode_lte: String
+  rankCode_gt: String
+  rankCode_gte: String
+  rankCode_contains: String
+  rankCode_not_contains: String
+  rankCode_starts_with: String
+  rankCode_not_starts_with: String
+  rankCode_ends_with: String
+  rankCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [AnnualExamSubjectSeriesScalarWhereInput!]
+  OR: [AnnualExamSubjectSeriesScalarWhereInput!]
+  NOT: [AnnualExamSubjectSeriesScalarWhereInput!]
+}
+
+type AnnualExamSubjectSeriesSubscriptionPayload {
+  mutation: MutationType!
+  node: AnnualExamSubjectSeries
+  updatedFields: [String!]
+  previousValues: AnnualExamSubjectSeriesPreviousValues
+}
+
+input AnnualExamSubjectSeriesSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AnnualExamSubjectSeriesWhereInput
+  AND: [AnnualExamSubjectSeriesSubscriptionWhereInput!]
+  OR: [AnnualExamSubjectSeriesSubscriptionWhereInput!]
+  NOT: [AnnualExamSubjectSeriesSubscriptionWhereInput!]
+}
+
+input AnnualExamSubjectSeriesUpdateDataInput {
+  exam: ExamUpdateOneRequiredWithoutAnnExamSeriesSubjInput
+  session: SessionUpdateOneRequiredWithoutAnnExamSeriesSubjInput
+  center: ExamCenterUpdateOneRequiredInput
+  rankCode: String
+  score: ScoreUpdateManyWithoutAnnExamSeriesSubjInput
+}
+
+input AnnualExamSubjectSeriesUpdateInput {
+  exam: ExamUpdateOneRequiredWithoutAnnExamSeriesSubjInput
+  session: SessionUpdateOneRequiredWithoutAnnExamSeriesSubjInput
+  center: ExamCenterUpdateOneRequiredInput
+  rankCode: String
+  score: ScoreUpdateManyWithoutAnnExamSeriesSubjInput
+}
+
+input AnnualExamSubjectSeriesUpdateManyDataInput {
+  rankCode: String
+}
+
+input AnnualExamSubjectSeriesUpdateManyInput {
+  create: [AnnualExamSubjectSeriesCreateInput!]
+  update: [AnnualExamSubjectSeriesUpdateWithWhereUniqueNestedInput!]
+  upsert: [AnnualExamSubjectSeriesUpsertWithWhereUniqueNestedInput!]
+  delete: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  connect: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  set: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  disconnect: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  deleteMany: [AnnualExamSubjectSeriesScalarWhereInput!]
+  updateMany: [AnnualExamSubjectSeriesUpdateManyWithWhereNestedInput!]
+}
+
+input AnnualExamSubjectSeriesUpdateManyMutationInput {
+  rankCode: String
+}
+
+input AnnualExamSubjectSeriesUpdateManyWithoutExamInput {
+  create: [AnnualExamSubjectSeriesCreateWithoutExamInput!]
+  delete: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  connect: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  set: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  disconnect: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  update: [AnnualExamSubjectSeriesUpdateWithWhereUniqueWithoutExamInput!]
+  upsert: [AnnualExamSubjectSeriesUpsertWithWhereUniqueWithoutExamInput!]
+  deleteMany: [AnnualExamSubjectSeriesScalarWhereInput!]
+  updateMany: [AnnualExamSubjectSeriesUpdateManyWithWhereNestedInput!]
+}
+
+input AnnualExamSubjectSeriesUpdateManyWithoutSessionInput {
+  create: [AnnualExamSubjectSeriesCreateWithoutSessionInput!]
+  delete: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  connect: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  set: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  disconnect: [AnnualExamSubjectSeriesWhereUniqueInput!]
+  update: [AnnualExamSubjectSeriesUpdateWithWhereUniqueWithoutSessionInput!]
+  upsert: [AnnualExamSubjectSeriesUpsertWithWhereUniqueWithoutSessionInput!]
+  deleteMany: [AnnualExamSubjectSeriesScalarWhereInput!]
+  updateMany: [AnnualExamSubjectSeriesUpdateManyWithWhereNestedInput!]
+}
+
+input AnnualExamSubjectSeriesUpdateManyWithWhereNestedInput {
+  where: AnnualExamSubjectSeriesScalarWhereInput!
+  data: AnnualExamSubjectSeriesUpdateManyDataInput!
+}
+
+input AnnualExamSubjectSeriesUpdateOneRequiredWithoutScoreInput {
+  create: AnnualExamSubjectSeriesCreateWithoutScoreInput
+  update: AnnualExamSubjectSeriesUpdateWithoutScoreDataInput
+  upsert: AnnualExamSubjectSeriesUpsertWithoutScoreInput
+  connect: AnnualExamSubjectSeriesWhereUniqueInput
+}
+
+input AnnualExamSubjectSeriesUpdateWithoutExamDataInput {
+  session: SessionUpdateOneRequiredWithoutAnnExamSeriesSubjInput
+  center: ExamCenterUpdateOneRequiredInput
+  rankCode: String
+  score: ScoreUpdateManyWithoutAnnExamSeriesSubjInput
+}
+
+input AnnualExamSubjectSeriesUpdateWithoutScoreDataInput {
+  exam: ExamUpdateOneRequiredWithoutAnnExamSeriesSubjInput
+  session: SessionUpdateOneRequiredWithoutAnnExamSeriesSubjInput
+  center: ExamCenterUpdateOneRequiredInput
+  rankCode: String
+}
+
+input AnnualExamSubjectSeriesUpdateWithoutSessionDataInput {
+  exam: ExamUpdateOneRequiredWithoutAnnExamSeriesSubjInput
+  center: ExamCenterUpdateOneRequiredInput
+  rankCode: String
+  score: ScoreUpdateManyWithoutAnnExamSeriesSubjInput
+}
+
+input AnnualExamSubjectSeriesUpdateWithWhereUniqueNestedInput {
+  where: AnnualExamSubjectSeriesWhereUniqueInput!
+  data: AnnualExamSubjectSeriesUpdateDataInput!
+}
+
+input AnnualExamSubjectSeriesUpdateWithWhereUniqueWithoutExamInput {
+  where: AnnualExamSubjectSeriesWhereUniqueInput!
+  data: AnnualExamSubjectSeriesUpdateWithoutExamDataInput!
+}
+
+input AnnualExamSubjectSeriesUpdateWithWhereUniqueWithoutSessionInput {
+  where: AnnualExamSubjectSeriesWhereUniqueInput!
+  data: AnnualExamSubjectSeriesUpdateWithoutSessionDataInput!
+}
+
+input AnnualExamSubjectSeriesUpsertWithoutScoreInput {
+  update: AnnualExamSubjectSeriesUpdateWithoutScoreDataInput!
+  create: AnnualExamSubjectSeriesCreateWithoutScoreInput!
+}
+
+input AnnualExamSubjectSeriesUpsertWithWhereUniqueNestedInput {
+  where: AnnualExamSubjectSeriesWhereUniqueInput!
+  update: AnnualExamSubjectSeriesUpdateDataInput!
+  create: AnnualExamSubjectSeriesCreateInput!
+}
+
+input AnnualExamSubjectSeriesUpsertWithWhereUniqueWithoutExamInput {
+  where: AnnualExamSubjectSeriesWhereUniqueInput!
+  update: AnnualExamSubjectSeriesUpdateWithoutExamDataInput!
+  create: AnnualExamSubjectSeriesCreateWithoutExamInput!
+}
+
+input AnnualExamSubjectSeriesUpsertWithWhereUniqueWithoutSessionInput {
+  where: AnnualExamSubjectSeriesWhereUniqueInput!
+  update: AnnualExamSubjectSeriesUpdateWithoutSessionDataInput!
+  create: AnnualExamSubjectSeriesCreateWithoutSessionInput!
+}
+
+input AnnualExamSubjectSeriesWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  exam: ExamWhereInput
+  session: SessionWhereInput
+  center: ExamCenterWhereInput
+  rankCode: String
+  rankCode_not: String
+  rankCode_in: [String!]
+  rankCode_not_in: [String!]
+  rankCode_lt: String
+  rankCode_lte: String
+  rankCode_gt: String
+  rankCode_gte: String
+  rankCode_contains: String
+  rankCode_not_contains: String
+  rankCode_starts_with: String
+  rankCode_not_starts_with: String
+  rankCode_ends_with: String
+  rankCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  score_every: ScoreWhereInput
+  score_some: ScoreWhereInput
+  score_none: ScoreWhereInput
+  AND: [AnnualExamSubjectSeriesWhereInput!]
+  OR: [AnnualExamSubjectSeriesWhereInput!]
+  NOT: [AnnualExamSubjectSeriesWhereInput!]
+}
+
+input AnnualExamSubjectSeriesWhereUniqueInput {
+  id: ID
+}
+
+type AnotherType {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type AnotherTypeConnection {
+  pageInfo: PageInfo!
+  edges: [AnotherTypeEdge]!
+  aggregate: AggregateAnotherType!
+}
+
+input AnotherTypeCreateInput {
+  id: ID
+}
+
+type AnotherTypeEdge {
+  node: AnotherType!
+  cursor: String!
+}
+
+enum AnotherTypeOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type AnotherTypePreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type AnotherTypeSubscriptionPayload {
+  mutation: MutationType!
+  node: AnotherType
+  updatedFields: [String!]
+  previousValues: AnotherTypePreviousValues
+}
+
+input AnotherTypeSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AnotherTypeWhereInput
+  AND: [AnotherTypeSubscriptionWhereInput!]
+  OR: [AnotherTypeSubscriptionWhereInput!]
+  NOT: [AnotherTypeSubscriptionWhereInput!]
+}
+
+input AnotherTypeWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [AnotherTypeWhereInput!]
+  OR: [AnotherTypeWhereInput!]
+  NOT: [AnotherTypeWhereInput!]
+}
+
+input AnotherTypeWhereUniqueInput {
+  id: ID
 }
 
 type BatchPayload {
@@ -77,6 +555,8 @@ type Candidate {
   dateOfBirth: DateTime
   createdAt: DateTime!
   updatedAt: DateTime!
+  gender: Gender!
+  registration(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
 }
 
 type CandidateConnection {
@@ -97,6 +577,48 @@ input CandidateCreateInput {
   email: String
   phoneNumb: Int
   dateOfBirth: DateTime
+  gender: GenderCreateOneWithoutCandidateInput!
+  registration: RegistrationCreateManyWithoutCandidateInput
+}
+
+input CandidateCreateManyWithoutGenderInput {
+  create: [CandidateCreateWithoutGenderInput!]
+  connect: [CandidateWhereUniqueInput!]
+}
+
+input CandidateCreateOneWithoutRegistrationInput {
+  create: CandidateCreateWithoutRegistrationInput
+  connect: CandidateWhereUniqueInput
+}
+
+input CandidateCreateWithoutGenderInput {
+  id: ID
+  cand1stName: String
+  cand2ndName: String
+  cand3rdName: String
+  placeOfBirth: String
+  candCode: String
+  image: String
+  birthCertNumber: String
+  email: String
+  phoneNumb: Int
+  dateOfBirth: DateTime
+  registration: RegistrationCreateManyWithoutCandidateInput
+}
+
+input CandidateCreateWithoutRegistrationInput {
+  id: ID
+  cand1stName: String
+  cand2ndName: String
+  cand3rdName: String
+  placeOfBirth: String
+  candCode: String
+  image: String
+  birthCertNumber: String
+  email: String
+  phoneNumb: Int
+  dateOfBirth: DateTime
+  gender: GenderCreateOneWithoutCandidateInput!
 }
 
 type CandidateEdge {
@@ -149,6 +671,170 @@ type CandidatePreviousValues {
   updatedAt: DateTime!
 }
 
+input CandidateScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  cand1stName: String
+  cand1stName_not: String
+  cand1stName_in: [String!]
+  cand1stName_not_in: [String!]
+  cand1stName_lt: String
+  cand1stName_lte: String
+  cand1stName_gt: String
+  cand1stName_gte: String
+  cand1stName_contains: String
+  cand1stName_not_contains: String
+  cand1stName_starts_with: String
+  cand1stName_not_starts_with: String
+  cand1stName_ends_with: String
+  cand1stName_not_ends_with: String
+  cand2ndName: String
+  cand2ndName_not: String
+  cand2ndName_in: [String!]
+  cand2ndName_not_in: [String!]
+  cand2ndName_lt: String
+  cand2ndName_lte: String
+  cand2ndName_gt: String
+  cand2ndName_gte: String
+  cand2ndName_contains: String
+  cand2ndName_not_contains: String
+  cand2ndName_starts_with: String
+  cand2ndName_not_starts_with: String
+  cand2ndName_ends_with: String
+  cand2ndName_not_ends_with: String
+  cand3rdName: String
+  cand3rdName_not: String
+  cand3rdName_in: [String!]
+  cand3rdName_not_in: [String!]
+  cand3rdName_lt: String
+  cand3rdName_lte: String
+  cand3rdName_gt: String
+  cand3rdName_gte: String
+  cand3rdName_contains: String
+  cand3rdName_not_contains: String
+  cand3rdName_starts_with: String
+  cand3rdName_not_starts_with: String
+  cand3rdName_ends_with: String
+  cand3rdName_not_ends_with: String
+  placeOfBirth: String
+  placeOfBirth_not: String
+  placeOfBirth_in: [String!]
+  placeOfBirth_not_in: [String!]
+  placeOfBirth_lt: String
+  placeOfBirth_lte: String
+  placeOfBirth_gt: String
+  placeOfBirth_gte: String
+  placeOfBirth_contains: String
+  placeOfBirth_not_contains: String
+  placeOfBirth_starts_with: String
+  placeOfBirth_not_starts_with: String
+  placeOfBirth_ends_with: String
+  placeOfBirth_not_ends_with: String
+  candCode: String
+  candCode_not: String
+  candCode_in: [String!]
+  candCode_not_in: [String!]
+  candCode_lt: String
+  candCode_lte: String
+  candCode_gt: String
+  candCode_gte: String
+  candCode_contains: String
+  candCode_not_contains: String
+  candCode_starts_with: String
+  candCode_not_starts_with: String
+  candCode_ends_with: String
+  candCode_not_ends_with: String
+  image: String
+  image_not: String
+  image_in: [String!]
+  image_not_in: [String!]
+  image_lt: String
+  image_lte: String
+  image_gt: String
+  image_gte: String
+  image_contains: String
+  image_not_contains: String
+  image_starts_with: String
+  image_not_starts_with: String
+  image_ends_with: String
+  image_not_ends_with: String
+  birthCertNumber: String
+  birthCertNumber_not: String
+  birthCertNumber_in: [String!]
+  birthCertNumber_not_in: [String!]
+  birthCertNumber_lt: String
+  birthCertNumber_lte: String
+  birthCertNumber_gt: String
+  birthCertNumber_gte: String
+  birthCertNumber_contains: String
+  birthCertNumber_not_contains: String
+  birthCertNumber_starts_with: String
+  birthCertNumber_not_starts_with: String
+  birthCertNumber_ends_with: String
+  birthCertNumber_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  phoneNumb: Int
+  phoneNumb_not: Int
+  phoneNumb_in: [Int!]
+  phoneNumb_not_in: [Int!]
+  phoneNumb_lt: Int
+  phoneNumb_lte: Int
+  phoneNumb_gt: Int
+  phoneNumb_gte: Int
+  dateOfBirth: DateTime
+  dateOfBirth_not: DateTime
+  dateOfBirth_in: [DateTime!]
+  dateOfBirth_not_in: [DateTime!]
+  dateOfBirth_lt: DateTime
+  dateOfBirth_lte: DateTime
+  dateOfBirth_gt: DateTime
+  dateOfBirth_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [CandidateScalarWhereInput!]
+  OR: [CandidateScalarWhereInput!]
+  NOT: [CandidateScalarWhereInput!]
+}
+
 type CandidateSubscriptionPayload {
   mutation: MutationType!
   node: Candidate
@@ -178,6 +864,21 @@ input CandidateUpdateInput {
   email: String
   phoneNumb: Int
   dateOfBirth: DateTime
+  gender: GenderUpdateOneRequiredWithoutCandidateInput
+  registration: RegistrationUpdateManyWithoutCandidateInput
+}
+
+input CandidateUpdateManyDataInput {
+  cand1stName: String
+  cand2ndName: String
+  cand3rdName: String
+  placeOfBirth: String
+  candCode: String
+  image: String
+  birthCertNumber: String
+  email: String
+  phoneNumb: Int
+  dateOfBirth: DateTime
 }
 
 input CandidateUpdateManyMutationInput {
@@ -191,6 +892,74 @@ input CandidateUpdateManyMutationInput {
   email: String
   phoneNumb: Int
   dateOfBirth: DateTime
+}
+
+input CandidateUpdateManyWithoutGenderInput {
+  create: [CandidateCreateWithoutGenderInput!]
+  delete: [CandidateWhereUniqueInput!]
+  connect: [CandidateWhereUniqueInput!]
+  set: [CandidateWhereUniqueInput!]
+  disconnect: [CandidateWhereUniqueInput!]
+  update: [CandidateUpdateWithWhereUniqueWithoutGenderInput!]
+  upsert: [CandidateUpsertWithWhereUniqueWithoutGenderInput!]
+  deleteMany: [CandidateScalarWhereInput!]
+  updateMany: [CandidateUpdateManyWithWhereNestedInput!]
+}
+
+input CandidateUpdateManyWithWhereNestedInput {
+  where: CandidateScalarWhereInput!
+  data: CandidateUpdateManyDataInput!
+}
+
+input CandidateUpdateOneRequiredWithoutRegistrationInput {
+  create: CandidateCreateWithoutRegistrationInput
+  update: CandidateUpdateWithoutRegistrationDataInput
+  upsert: CandidateUpsertWithoutRegistrationInput
+  connect: CandidateWhereUniqueInput
+}
+
+input CandidateUpdateWithoutGenderDataInput {
+  cand1stName: String
+  cand2ndName: String
+  cand3rdName: String
+  placeOfBirth: String
+  candCode: String
+  image: String
+  birthCertNumber: String
+  email: String
+  phoneNumb: Int
+  dateOfBirth: DateTime
+  registration: RegistrationUpdateManyWithoutCandidateInput
+}
+
+input CandidateUpdateWithoutRegistrationDataInput {
+  cand1stName: String
+  cand2ndName: String
+  cand3rdName: String
+  placeOfBirth: String
+  candCode: String
+  image: String
+  birthCertNumber: String
+  email: String
+  phoneNumb: Int
+  dateOfBirth: DateTime
+  gender: GenderUpdateOneRequiredWithoutCandidateInput
+}
+
+input CandidateUpdateWithWhereUniqueWithoutGenderInput {
+  where: CandidateWhereUniqueInput!
+  data: CandidateUpdateWithoutGenderDataInput!
+}
+
+input CandidateUpsertWithoutRegistrationInput {
+  update: CandidateUpdateWithoutRegistrationDataInput!
+  create: CandidateCreateWithoutRegistrationInput!
+}
+
+input CandidateUpsertWithWhereUniqueWithoutGenderInput {
+  where: CandidateWhereUniqueInput!
+  update: CandidateUpdateWithoutGenderDataInput!
+  create: CandidateCreateWithoutGenderInput!
 }
 
 input CandidateWhereInput {
@@ -352,12 +1121,558 @@ input CandidateWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  gender: GenderWhereInput
+  registration_every: RegistrationWhereInput
+  registration_some: RegistrationWhereInput
+  registration_none: RegistrationWhereInput
   AND: [CandidateWhereInput!]
   OR: [CandidateWhereInput!]
   NOT: [CandidateWhereInput!]
 }
 
 input CandidateWhereUniqueInput {
+  id: ID
+}
+
+type CenterAdmin {
+  id: ID!
+  authName: String!
+  authInstitution: String!
+  authPhone: Int!
+  authMatricue: String!
+  rank: Rank!
+  exam: Exam!
+  session: Session!
+  center: ExamCenter!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  report(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Report!]
+}
+
+type CenterAdminConnection {
+  pageInfo: PageInfo!
+  edges: [CenterAdminEdge]!
+  aggregate: AggregateCenterAdmin!
+}
+
+input CenterAdminCreateInput {
+  id: ID
+  authName: String!
+  authInstitution: String!
+  authPhone: Int!
+  authMatricue: String!
+  rank: RankCreateOneWithoutCenterAdminInput!
+  exam: ExamCreateOneWithoutCenterAdminInput!
+  session: SessionCreateOneWithoutCenterAdminInput!
+  center: ExamCenterCreateOneWithoutCenterAdminInput!
+  report: ReportCreateManyWithoutCenterAdminInput
+}
+
+input CenterAdminCreateManyWithoutCenterInput {
+  create: [CenterAdminCreateWithoutCenterInput!]
+  connect: [CenterAdminWhereUniqueInput!]
+}
+
+input CenterAdminCreateManyWithoutExamInput {
+  create: [CenterAdminCreateWithoutExamInput!]
+  connect: [CenterAdminWhereUniqueInput!]
+}
+
+input CenterAdminCreateManyWithoutRankInput {
+  create: [CenterAdminCreateWithoutRankInput!]
+  connect: [CenterAdminWhereUniqueInput!]
+}
+
+input CenterAdminCreateManyWithoutSessionInput {
+  create: [CenterAdminCreateWithoutSessionInput!]
+  connect: [CenterAdminWhereUniqueInput!]
+}
+
+input CenterAdminCreateOneWithoutReportInput {
+  create: CenterAdminCreateWithoutReportInput
+  connect: CenterAdminWhereUniqueInput
+}
+
+input CenterAdminCreateWithoutCenterInput {
+  id: ID
+  authName: String!
+  authInstitution: String!
+  authPhone: Int!
+  authMatricue: String!
+  rank: RankCreateOneWithoutCenterAdminInput!
+  exam: ExamCreateOneWithoutCenterAdminInput!
+  session: SessionCreateOneWithoutCenterAdminInput!
+  report: ReportCreateManyWithoutCenterAdminInput
+}
+
+input CenterAdminCreateWithoutExamInput {
+  id: ID
+  authName: String!
+  authInstitution: String!
+  authPhone: Int!
+  authMatricue: String!
+  rank: RankCreateOneWithoutCenterAdminInput!
+  session: SessionCreateOneWithoutCenterAdminInput!
+  center: ExamCenterCreateOneWithoutCenterAdminInput!
+  report: ReportCreateManyWithoutCenterAdminInput
+}
+
+input CenterAdminCreateWithoutRankInput {
+  id: ID
+  authName: String!
+  authInstitution: String!
+  authPhone: Int!
+  authMatricue: String!
+  exam: ExamCreateOneWithoutCenterAdminInput!
+  session: SessionCreateOneWithoutCenterAdminInput!
+  center: ExamCenterCreateOneWithoutCenterAdminInput!
+  report: ReportCreateManyWithoutCenterAdminInput
+}
+
+input CenterAdminCreateWithoutReportInput {
+  id: ID
+  authName: String!
+  authInstitution: String!
+  authPhone: Int!
+  authMatricue: String!
+  rank: RankCreateOneWithoutCenterAdminInput!
+  exam: ExamCreateOneWithoutCenterAdminInput!
+  session: SessionCreateOneWithoutCenterAdminInput!
+  center: ExamCenterCreateOneWithoutCenterAdminInput!
+}
+
+input CenterAdminCreateWithoutSessionInput {
+  id: ID
+  authName: String!
+  authInstitution: String!
+  authPhone: Int!
+  authMatricue: String!
+  rank: RankCreateOneWithoutCenterAdminInput!
+  exam: ExamCreateOneWithoutCenterAdminInput!
+  center: ExamCenterCreateOneWithoutCenterAdminInput!
+  report: ReportCreateManyWithoutCenterAdminInput
+}
+
+type CenterAdminEdge {
+  node: CenterAdmin!
+  cursor: String!
+}
+
+enum CenterAdminOrderByInput {
+  id_ASC
+  id_DESC
+  authName_ASC
+  authName_DESC
+  authInstitution_ASC
+  authInstitution_DESC
+  authPhone_ASC
+  authPhone_DESC
+  authMatricue_ASC
+  authMatricue_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type CenterAdminPreviousValues {
+  id: ID!
+  authName: String!
+  authInstitution: String!
+  authPhone: Int!
+  authMatricue: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input CenterAdminScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  authName: String
+  authName_not: String
+  authName_in: [String!]
+  authName_not_in: [String!]
+  authName_lt: String
+  authName_lte: String
+  authName_gt: String
+  authName_gte: String
+  authName_contains: String
+  authName_not_contains: String
+  authName_starts_with: String
+  authName_not_starts_with: String
+  authName_ends_with: String
+  authName_not_ends_with: String
+  authInstitution: String
+  authInstitution_not: String
+  authInstitution_in: [String!]
+  authInstitution_not_in: [String!]
+  authInstitution_lt: String
+  authInstitution_lte: String
+  authInstitution_gt: String
+  authInstitution_gte: String
+  authInstitution_contains: String
+  authInstitution_not_contains: String
+  authInstitution_starts_with: String
+  authInstitution_not_starts_with: String
+  authInstitution_ends_with: String
+  authInstitution_not_ends_with: String
+  authPhone: Int
+  authPhone_not: Int
+  authPhone_in: [Int!]
+  authPhone_not_in: [Int!]
+  authPhone_lt: Int
+  authPhone_lte: Int
+  authPhone_gt: Int
+  authPhone_gte: Int
+  authMatricue: String
+  authMatricue_not: String
+  authMatricue_in: [String!]
+  authMatricue_not_in: [String!]
+  authMatricue_lt: String
+  authMatricue_lte: String
+  authMatricue_gt: String
+  authMatricue_gte: String
+  authMatricue_contains: String
+  authMatricue_not_contains: String
+  authMatricue_starts_with: String
+  authMatricue_not_starts_with: String
+  authMatricue_ends_with: String
+  authMatricue_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [CenterAdminScalarWhereInput!]
+  OR: [CenterAdminScalarWhereInput!]
+  NOT: [CenterAdminScalarWhereInput!]
+}
+
+type CenterAdminSubscriptionPayload {
+  mutation: MutationType!
+  node: CenterAdmin
+  updatedFields: [String!]
+  previousValues: CenterAdminPreviousValues
+}
+
+input CenterAdminSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CenterAdminWhereInput
+  AND: [CenterAdminSubscriptionWhereInput!]
+  OR: [CenterAdminSubscriptionWhereInput!]
+  NOT: [CenterAdminSubscriptionWhereInput!]
+}
+
+input CenterAdminUpdateInput {
+  authName: String
+  authInstitution: String
+  authPhone: Int
+  authMatricue: String
+  rank: RankUpdateOneRequiredWithoutCenterAdminInput
+  exam: ExamUpdateOneRequiredWithoutCenterAdminInput
+  session: SessionUpdateOneRequiredWithoutCenterAdminInput
+  center: ExamCenterUpdateOneRequiredWithoutCenterAdminInput
+  report: ReportUpdateManyWithoutCenterAdminInput
+}
+
+input CenterAdminUpdateManyDataInput {
+  authName: String
+  authInstitution: String
+  authPhone: Int
+  authMatricue: String
+}
+
+input CenterAdminUpdateManyMutationInput {
+  authName: String
+  authInstitution: String
+  authPhone: Int
+  authMatricue: String
+}
+
+input CenterAdminUpdateManyWithoutCenterInput {
+  create: [CenterAdminCreateWithoutCenterInput!]
+  delete: [CenterAdminWhereUniqueInput!]
+  connect: [CenterAdminWhereUniqueInput!]
+  set: [CenterAdminWhereUniqueInput!]
+  disconnect: [CenterAdminWhereUniqueInput!]
+  update: [CenterAdminUpdateWithWhereUniqueWithoutCenterInput!]
+  upsert: [CenterAdminUpsertWithWhereUniqueWithoutCenterInput!]
+  deleteMany: [CenterAdminScalarWhereInput!]
+  updateMany: [CenterAdminUpdateManyWithWhereNestedInput!]
+}
+
+input CenterAdminUpdateManyWithoutExamInput {
+  create: [CenterAdminCreateWithoutExamInput!]
+  delete: [CenterAdminWhereUniqueInput!]
+  connect: [CenterAdminWhereUniqueInput!]
+  set: [CenterAdminWhereUniqueInput!]
+  disconnect: [CenterAdminWhereUniqueInput!]
+  update: [CenterAdminUpdateWithWhereUniqueWithoutExamInput!]
+  upsert: [CenterAdminUpsertWithWhereUniqueWithoutExamInput!]
+  deleteMany: [CenterAdminScalarWhereInput!]
+  updateMany: [CenterAdminUpdateManyWithWhereNestedInput!]
+}
+
+input CenterAdminUpdateManyWithoutRankInput {
+  create: [CenterAdminCreateWithoutRankInput!]
+  delete: [CenterAdminWhereUniqueInput!]
+  connect: [CenterAdminWhereUniqueInput!]
+  set: [CenterAdminWhereUniqueInput!]
+  disconnect: [CenterAdminWhereUniqueInput!]
+  update: [CenterAdminUpdateWithWhereUniqueWithoutRankInput!]
+  upsert: [CenterAdminUpsertWithWhereUniqueWithoutRankInput!]
+  deleteMany: [CenterAdminScalarWhereInput!]
+  updateMany: [CenterAdminUpdateManyWithWhereNestedInput!]
+}
+
+input CenterAdminUpdateManyWithoutSessionInput {
+  create: [CenterAdminCreateWithoutSessionInput!]
+  delete: [CenterAdminWhereUniqueInput!]
+  connect: [CenterAdminWhereUniqueInput!]
+  set: [CenterAdminWhereUniqueInput!]
+  disconnect: [CenterAdminWhereUniqueInput!]
+  update: [CenterAdminUpdateWithWhereUniqueWithoutSessionInput!]
+  upsert: [CenterAdminUpsertWithWhereUniqueWithoutSessionInput!]
+  deleteMany: [CenterAdminScalarWhereInput!]
+  updateMany: [CenterAdminUpdateManyWithWhereNestedInput!]
+}
+
+input CenterAdminUpdateManyWithWhereNestedInput {
+  where: CenterAdminScalarWhereInput!
+  data: CenterAdminUpdateManyDataInput!
+}
+
+input CenterAdminUpdateOneRequiredWithoutReportInput {
+  create: CenterAdminCreateWithoutReportInput
+  update: CenterAdminUpdateWithoutReportDataInput
+  upsert: CenterAdminUpsertWithoutReportInput
+  connect: CenterAdminWhereUniqueInput
+}
+
+input CenterAdminUpdateWithoutCenterDataInput {
+  authName: String
+  authInstitution: String
+  authPhone: Int
+  authMatricue: String
+  rank: RankUpdateOneRequiredWithoutCenterAdminInput
+  exam: ExamUpdateOneRequiredWithoutCenterAdminInput
+  session: SessionUpdateOneRequiredWithoutCenterAdminInput
+  report: ReportUpdateManyWithoutCenterAdminInput
+}
+
+input CenterAdminUpdateWithoutExamDataInput {
+  authName: String
+  authInstitution: String
+  authPhone: Int
+  authMatricue: String
+  rank: RankUpdateOneRequiredWithoutCenterAdminInput
+  session: SessionUpdateOneRequiredWithoutCenterAdminInput
+  center: ExamCenterUpdateOneRequiredWithoutCenterAdminInput
+  report: ReportUpdateManyWithoutCenterAdminInput
+}
+
+input CenterAdminUpdateWithoutRankDataInput {
+  authName: String
+  authInstitution: String
+  authPhone: Int
+  authMatricue: String
+  exam: ExamUpdateOneRequiredWithoutCenterAdminInput
+  session: SessionUpdateOneRequiredWithoutCenterAdminInput
+  center: ExamCenterUpdateOneRequiredWithoutCenterAdminInput
+  report: ReportUpdateManyWithoutCenterAdminInput
+}
+
+input CenterAdminUpdateWithoutReportDataInput {
+  authName: String
+  authInstitution: String
+  authPhone: Int
+  authMatricue: String
+  rank: RankUpdateOneRequiredWithoutCenterAdminInput
+  exam: ExamUpdateOneRequiredWithoutCenterAdminInput
+  session: SessionUpdateOneRequiredWithoutCenterAdminInput
+  center: ExamCenterUpdateOneRequiredWithoutCenterAdminInput
+}
+
+input CenterAdminUpdateWithoutSessionDataInput {
+  authName: String
+  authInstitution: String
+  authPhone: Int
+  authMatricue: String
+  rank: RankUpdateOneRequiredWithoutCenterAdminInput
+  exam: ExamUpdateOneRequiredWithoutCenterAdminInput
+  center: ExamCenterUpdateOneRequiredWithoutCenterAdminInput
+  report: ReportUpdateManyWithoutCenterAdminInput
+}
+
+input CenterAdminUpdateWithWhereUniqueWithoutCenterInput {
+  where: CenterAdminWhereUniqueInput!
+  data: CenterAdminUpdateWithoutCenterDataInput!
+}
+
+input CenterAdminUpdateWithWhereUniqueWithoutExamInput {
+  where: CenterAdminWhereUniqueInput!
+  data: CenterAdminUpdateWithoutExamDataInput!
+}
+
+input CenterAdminUpdateWithWhereUniqueWithoutRankInput {
+  where: CenterAdminWhereUniqueInput!
+  data: CenterAdminUpdateWithoutRankDataInput!
+}
+
+input CenterAdminUpdateWithWhereUniqueWithoutSessionInput {
+  where: CenterAdminWhereUniqueInput!
+  data: CenterAdminUpdateWithoutSessionDataInput!
+}
+
+input CenterAdminUpsertWithoutReportInput {
+  update: CenterAdminUpdateWithoutReportDataInput!
+  create: CenterAdminCreateWithoutReportInput!
+}
+
+input CenterAdminUpsertWithWhereUniqueWithoutCenterInput {
+  where: CenterAdminWhereUniqueInput!
+  update: CenterAdminUpdateWithoutCenterDataInput!
+  create: CenterAdminCreateWithoutCenterInput!
+}
+
+input CenterAdminUpsertWithWhereUniqueWithoutExamInput {
+  where: CenterAdminWhereUniqueInput!
+  update: CenterAdminUpdateWithoutExamDataInput!
+  create: CenterAdminCreateWithoutExamInput!
+}
+
+input CenterAdminUpsertWithWhereUniqueWithoutRankInput {
+  where: CenterAdminWhereUniqueInput!
+  update: CenterAdminUpdateWithoutRankDataInput!
+  create: CenterAdminCreateWithoutRankInput!
+}
+
+input CenterAdminUpsertWithWhereUniqueWithoutSessionInput {
+  where: CenterAdminWhereUniqueInput!
+  update: CenterAdminUpdateWithoutSessionDataInput!
+  create: CenterAdminCreateWithoutSessionInput!
+}
+
+input CenterAdminWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  authName: String
+  authName_not: String
+  authName_in: [String!]
+  authName_not_in: [String!]
+  authName_lt: String
+  authName_lte: String
+  authName_gt: String
+  authName_gte: String
+  authName_contains: String
+  authName_not_contains: String
+  authName_starts_with: String
+  authName_not_starts_with: String
+  authName_ends_with: String
+  authName_not_ends_with: String
+  authInstitution: String
+  authInstitution_not: String
+  authInstitution_in: [String!]
+  authInstitution_not_in: [String!]
+  authInstitution_lt: String
+  authInstitution_lte: String
+  authInstitution_gt: String
+  authInstitution_gte: String
+  authInstitution_contains: String
+  authInstitution_not_contains: String
+  authInstitution_starts_with: String
+  authInstitution_not_starts_with: String
+  authInstitution_ends_with: String
+  authInstitution_not_ends_with: String
+  authPhone: Int
+  authPhone_not: Int
+  authPhone_in: [Int!]
+  authPhone_not_in: [Int!]
+  authPhone_lt: Int
+  authPhone_lte: Int
+  authPhone_gt: Int
+  authPhone_gte: Int
+  authMatricue: String
+  authMatricue_not: String
+  authMatricue_in: [String!]
+  authMatricue_not_in: [String!]
+  authMatricue_lt: String
+  authMatricue_lte: String
+  authMatricue_gt: String
+  authMatricue_gte: String
+  authMatricue_contains: String
+  authMatricue_not_contains: String
+  authMatricue_starts_with: String
+  authMatricue_not_starts_with: String
+  authMatricue_ends_with: String
+  authMatricue_not_ends_with: String
+  rank: RankWhereInput
+  exam: ExamWhereInput
+  session: SessionWhereInput
+  center: ExamCenterWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  report_every: ReportWhereInput
+  report_some: ReportWhereInput
+  report_none: ReportWhereInput
+  AND: [CenterAdminWhereInput!]
+  OR: [CenterAdminWhereInput!]
+  NOT: [CenterAdminWhereInput!]
+}
+
+input CenterAdminWhereUniqueInput {
   id: ID
 }
 
@@ -368,6 +1683,7 @@ type Division {
   divName: String!
   divCode: String!
   region: Region!
+  subDivision(where: SubDivisionWhereInput, orderBy: SubDivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubDivision!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -383,6 +1699,7 @@ input DivisionCreateInput {
   divName: String!
   divCode: String!
   region: RegionCreateOneWithoutDivisionInput!
+  subDivision: SubDivisionCreateManyWithoutDivisionInput
 }
 
 input DivisionCreateManyWithoutRegionInput {
@@ -390,8 +1707,8 @@ input DivisionCreateManyWithoutRegionInput {
   connect: [DivisionWhereUniqueInput!]
 }
 
-input DivisionCreateOneInput {
-  create: DivisionCreateInput
+input DivisionCreateOneWithoutSubDivisionInput {
+  create: DivisionCreateWithoutSubDivisionInput
   connect: DivisionWhereUniqueInput
 }
 
@@ -399,6 +1716,14 @@ input DivisionCreateWithoutRegionInput {
   id: ID
   divName: String!
   divCode: String!
+  subDivision: SubDivisionCreateManyWithoutDivisionInput
+}
+
+input DivisionCreateWithoutSubDivisionInput {
+  id: ID
+  divName: String!
+  divCode: String!
+  region: RegionCreateOneWithoutDivisionInput!
 }
 
 type DivisionEdge {
@@ -509,16 +1834,11 @@ input DivisionSubscriptionWhereInput {
   NOT: [DivisionSubscriptionWhereInput!]
 }
 
-input DivisionUpdateDataInput {
-  divName: String
-  divCode: String
-  region: RegionUpdateOneRequiredWithoutDivisionInput
-}
-
 input DivisionUpdateInput {
   divName: String
   divCode: String
   region: RegionUpdateOneRequiredWithoutDivisionInput
+  subDivision: SubDivisionUpdateManyWithoutDivisionInput
 }
 
 input DivisionUpdateManyDataInput {
@@ -548,16 +1868,23 @@ input DivisionUpdateManyWithWhereNestedInput {
   data: DivisionUpdateManyDataInput!
 }
 
-input DivisionUpdateOneRequiredInput {
-  create: DivisionCreateInput
-  update: DivisionUpdateDataInput
-  upsert: DivisionUpsertNestedInput
+input DivisionUpdateOneRequiredWithoutSubDivisionInput {
+  create: DivisionCreateWithoutSubDivisionInput
+  update: DivisionUpdateWithoutSubDivisionDataInput
+  upsert: DivisionUpsertWithoutSubDivisionInput
   connect: DivisionWhereUniqueInput
 }
 
 input DivisionUpdateWithoutRegionDataInput {
   divName: String
   divCode: String
+  subDivision: SubDivisionUpdateManyWithoutDivisionInput
+}
+
+input DivisionUpdateWithoutSubDivisionDataInput {
+  divName: String
+  divCode: String
+  region: RegionUpdateOneRequiredWithoutDivisionInput
 }
 
 input DivisionUpdateWithWhereUniqueWithoutRegionInput {
@@ -565,9 +1892,9 @@ input DivisionUpdateWithWhereUniqueWithoutRegionInput {
   data: DivisionUpdateWithoutRegionDataInput!
 }
 
-input DivisionUpsertNestedInput {
-  update: DivisionUpdateDataInput!
-  create: DivisionCreateInput!
+input DivisionUpsertWithoutSubDivisionInput {
+  update: DivisionUpdateWithoutSubDivisionDataInput!
+  create: DivisionCreateWithoutSubDivisionInput!
 }
 
 input DivisionUpsertWithWhereUniqueWithoutRegionInput {
@@ -620,6 +1947,9 @@ input DivisionWhereInput {
   divCode_ends_with: String
   divCode_not_ends_with: String
   region: RegionWhereInput
+  subDivision_every: SubDivisionWhereInput
+  subDivision_some: SubDivisionWhereInput
+  subDivision_none: SubDivisionWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -645,92 +1975,506 @@ input DivisionWhereUniqueInput {
   id: ID
 }
 
-type Exam {
+type EducationType {
   id: ID!
-  examName: String!
-  examCode: String!
+  educationTypeName: String
+  educationTypeCode: String
   createdAt: DateTime!
   updatedAt: DateTime!
+  series(where: SeriesWhereInput, orderBy: SeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Series!]
 }
 
-type examCenter {
-  id: ID!
-  centerName: String!
-  centerCode: String!
-  town: Town!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type examCenterConnection {
+type EducationTypeConnection {
   pageInfo: PageInfo!
-  edges: [examCenterEdge]!
-  aggregate: AggregateexamCenter!
+  edges: [EducationTypeEdge]!
+  aggregate: AggregateEducationType!
 }
 
-input examCenterCreateInput {
+input EducationTypeCreateInput {
   id: ID
-  centerName: String!
-  centerCode: String!
-  town: TownCreateOneInput!
+  educationTypeName: String
+  educationTypeCode: String
+  series: SeriesCreateManyWithoutEducationTypeInput
 }
 
-type examCenterEdge {
-  node: examCenter!
+input EducationTypeCreateOneWithoutSeriesInput {
+  create: EducationTypeCreateWithoutSeriesInput
+  connect: EducationTypeWhereUniqueInput
+}
+
+input EducationTypeCreateWithoutSeriesInput {
+  id: ID
+  educationTypeName: String
+  educationTypeCode: String
+}
+
+type EducationTypeEdge {
+  node: EducationType!
   cursor: String!
 }
 
-enum examCenterOrderByInput {
+enum EducationTypeOrderByInput {
   id_ASC
   id_DESC
-  centerName_ASC
-  centerName_DESC
-  centerCode_ASC
-  centerCode_DESC
+  educationTypeName_ASC
+  educationTypeName_DESC
+  educationTypeCode_ASC
+  educationTypeCode_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
   updatedAt_DESC
 }
 
-type examCenterPreviousValues {
+type EducationTypePreviousValues {
   id: ID!
-  centerName: String!
-  centerCode: String!
+  educationTypeName: String
+  educationTypeCode: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
 
-type examCenterSubscriptionPayload {
+type EducationTypeSubscriptionPayload {
   mutation: MutationType!
-  node: examCenter
+  node: EducationType
   updatedFields: [String!]
-  previousValues: examCenterPreviousValues
+  previousValues: EducationTypePreviousValues
 }
 
-input examCenterSubscriptionWhereInput {
+input EducationTypeSubscriptionWhereInput {
   mutation_in: [MutationType!]
   updatedFields_contains: String
   updatedFields_contains_every: [String!]
   updatedFields_contains_some: [String!]
-  node: examCenterWhereInput
-  AND: [examCenterSubscriptionWhereInput!]
-  OR: [examCenterSubscriptionWhereInput!]
-  NOT: [examCenterSubscriptionWhereInput!]
+  node: EducationTypeWhereInput
+  AND: [EducationTypeSubscriptionWhereInput!]
+  OR: [EducationTypeSubscriptionWhereInput!]
+  NOT: [EducationTypeSubscriptionWhereInput!]
 }
 
-input examCenterUpdateInput {
+input EducationTypeUpdateInput {
+  educationTypeName: String
+  educationTypeCode: String
+  series: SeriesUpdateManyWithoutEducationTypeInput
+}
+
+input EducationTypeUpdateManyMutationInput {
+  educationTypeName: String
+  educationTypeCode: String
+}
+
+input EducationTypeUpdateOneRequiredWithoutSeriesInput {
+  create: EducationTypeCreateWithoutSeriesInput
+  update: EducationTypeUpdateWithoutSeriesDataInput
+  upsert: EducationTypeUpsertWithoutSeriesInput
+  connect: EducationTypeWhereUniqueInput
+}
+
+input EducationTypeUpdateWithoutSeriesDataInput {
+  educationTypeName: String
+  educationTypeCode: String
+}
+
+input EducationTypeUpsertWithoutSeriesInput {
+  update: EducationTypeUpdateWithoutSeriesDataInput!
+  create: EducationTypeCreateWithoutSeriesInput!
+}
+
+input EducationTypeWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  educationTypeName: String
+  educationTypeName_not: String
+  educationTypeName_in: [String!]
+  educationTypeName_not_in: [String!]
+  educationTypeName_lt: String
+  educationTypeName_lte: String
+  educationTypeName_gt: String
+  educationTypeName_gte: String
+  educationTypeName_contains: String
+  educationTypeName_not_contains: String
+  educationTypeName_starts_with: String
+  educationTypeName_not_starts_with: String
+  educationTypeName_ends_with: String
+  educationTypeName_not_ends_with: String
+  educationTypeCode: String
+  educationTypeCode_not: String
+  educationTypeCode_in: [String!]
+  educationTypeCode_not_in: [String!]
+  educationTypeCode_lt: String
+  educationTypeCode_lte: String
+  educationTypeCode_gt: String
+  educationTypeCode_gte: String
+  educationTypeCode_contains: String
+  educationTypeCode_not_contains: String
+  educationTypeCode_starts_with: String
+  educationTypeCode_not_starts_with: String
+  educationTypeCode_ends_with: String
+  educationTypeCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  series_every: SeriesWhereInput
+  series_some: SeriesWhereInput
+  series_none: SeriesWhereInput
+  AND: [EducationTypeWhereInput!]
+  OR: [EducationTypeWhereInput!]
+  NOT: [EducationTypeWhereInput!]
+}
+
+input EducationTypeWhereUniqueInput {
+  id: ID
+}
+
+type Exam {
+  id: ID!
+  examName: String!
+  examCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  centerAdmin(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterAdmin!]
+  annExamSeriesSubj(where: AnnualExamSubjectSeriesWhereInput, orderBy: AnnualExamSubjectSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AnnualExamSubjectSeries!]
+  registration(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
+}
+
+type ExamCenter {
+  id: ID!
+  centerName: String!
+  centerCode: String!
+  town: Town!
+  centerNumber: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  registration(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
+  centerAdmin(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterAdmin!]
+}
+
+type ExamCenterConnection {
+  pageInfo: PageInfo!
+  edges: [ExamCenterEdge]!
+  aggregate: AggregateExamCenter!
+}
+
+input ExamCenterCreateInput {
+  id: ID
+  centerName: String!
+  centerCode: String!
+  town: TownCreateOneWithoutCenterInput!
+  centerNumber: Int!
+  registration: RegistrationCreateManyWithoutCenterInput
+  centerAdmin: CenterAdminCreateManyWithoutCenterInput
+}
+
+input ExamCenterCreateManyWithoutTownInput {
+  create: [ExamCenterCreateWithoutTownInput!]
+  connect: [ExamCenterWhereUniqueInput!]
+}
+
+input ExamCenterCreateOneInput {
+  create: ExamCenterCreateInput
+  connect: ExamCenterWhereUniqueInput
+}
+
+input ExamCenterCreateOneWithoutCenterAdminInput {
+  create: ExamCenterCreateWithoutCenterAdminInput
+  connect: ExamCenterWhereUniqueInput
+}
+
+input ExamCenterCreateOneWithoutRegistrationInput {
+  create: ExamCenterCreateWithoutRegistrationInput
+  connect: ExamCenterWhereUniqueInput
+}
+
+input ExamCenterCreateWithoutCenterAdminInput {
+  id: ID
+  centerName: String!
+  centerCode: String!
+  town: TownCreateOneWithoutCenterInput!
+  centerNumber: Int!
+  registration: RegistrationCreateManyWithoutCenterInput
+}
+
+input ExamCenterCreateWithoutRegistrationInput {
+  id: ID
+  centerName: String!
+  centerCode: String!
+  town: TownCreateOneWithoutCenterInput!
+  centerNumber: Int!
+  centerAdmin: CenterAdminCreateManyWithoutCenterInput
+}
+
+input ExamCenterCreateWithoutTownInput {
+  id: ID
+  centerName: String!
+  centerCode: String!
+  centerNumber: Int!
+  registration: RegistrationCreateManyWithoutCenterInput
+  centerAdmin: CenterAdminCreateManyWithoutCenterInput
+}
+
+type ExamCenterEdge {
+  node: ExamCenter!
+  cursor: String!
+}
+
+enum ExamCenterOrderByInput {
+  id_ASC
+  id_DESC
+  centerName_ASC
+  centerName_DESC
+  centerCode_ASC
+  centerCode_DESC
+  centerNumber_ASC
+  centerNumber_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ExamCenterPreviousValues {
+  id: ID!
+  centerName: String!
+  centerCode: String!
+  centerNumber: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input ExamCenterScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  centerName: String
+  centerName_not: String
+  centerName_in: [String!]
+  centerName_not_in: [String!]
+  centerName_lt: String
+  centerName_lte: String
+  centerName_gt: String
+  centerName_gte: String
+  centerName_contains: String
+  centerName_not_contains: String
+  centerName_starts_with: String
+  centerName_not_starts_with: String
+  centerName_ends_with: String
+  centerName_not_ends_with: String
+  centerCode: String
+  centerCode_not: String
+  centerCode_in: [String!]
+  centerCode_not_in: [String!]
+  centerCode_lt: String
+  centerCode_lte: String
+  centerCode_gt: String
+  centerCode_gte: String
+  centerCode_contains: String
+  centerCode_not_contains: String
+  centerCode_starts_with: String
+  centerCode_not_starts_with: String
+  centerCode_ends_with: String
+  centerCode_not_ends_with: String
+  centerNumber: Int
+  centerNumber_not: Int
+  centerNumber_in: [Int!]
+  centerNumber_not_in: [Int!]
+  centerNumber_lt: Int
+  centerNumber_lte: Int
+  centerNumber_gt: Int
+  centerNumber_gte: Int
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ExamCenterScalarWhereInput!]
+  OR: [ExamCenterScalarWhereInput!]
+  NOT: [ExamCenterScalarWhereInput!]
+}
+
+type ExamCenterSubscriptionPayload {
+  mutation: MutationType!
+  node: ExamCenter
+  updatedFields: [String!]
+  previousValues: ExamCenterPreviousValues
+}
+
+input ExamCenterSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ExamCenterWhereInput
+  AND: [ExamCenterSubscriptionWhereInput!]
+  OR: [ExamCenterSubscriptionWhereInput!]
+  NOT: [ExamCenterSubscriptionWhereInput!]
+}
+
+input ExamCenterUpdateDataInput {
   centerName: String
   centerCode: String
-  town: TownUpdateOneRequiredInput
+  town: TownUpdateOneRequiredWithoutCenterInput
+  centerNumber: Int
+  registration: RegistrationUpdateManyWithoutCenterInput
+  centerAdmin: CenterAdminUpdateManyWithoutCenterInput
 }
 
-input examCenterUpdateManyMutationInput {
+input ExamCenterUpdateInput {
   centerName: String
   centerCode: String
+  town: TownUpdateOneRequiredWithoutCenterInput
+  centerNumber: Int
+  registration: RegistrationUpdateManyWithoutCenterInput
+  centerAdmin: CenterAdminUpdateManyWithoutCenterInput
 }
 
-input examCenterWhereInput {
+input ExamCenterUpdateManyDataInput {
+  centerName: String
+  centerCode: String
+  centerNumber: Int
+}
+
+input ExamCenterUpdateManyMutationInput {
+  centerName: String
+  centerCode: String
+  centerNumber: Int
+}
+
+input ExamCenterUpdateManyWithoutTownInput {
+  create: [ExamCenterCreateWithoutTownInput!]
+  delete: [ExamCenterWhereUniqueInput!]
+  connect: [ExamCenterWhereUniqueInput!]
+  set: [ExamCenterWhereUniqueInput!]
+  disconnect: [ExamCenterWhereUniqueInput!]
+  update: [ExamCenterUpdateWithWhereUniqueWithoutTownInput!]
+  upsert: [ExamCenterUpsertWithWhereUniqueWithoutTownInput!]
+  deleteMany: [ExamCenterScalarWhereInput!]
+  updateMany: [ExamCenterUpdateManyWithWhereNestedInput!]
+}
+
+input ExamCenterUpdateManyWithWhereNestedInput {
+  where: ExamCenterScalarWhereInput!
+  data: ExamCenterUpdateManyDataInput!
+}
+
+input ExamCenterUpdateOneRequiredInput {
+  create: ExamCenterCreateInput
+  update: ExamCenterUpdateDataInput
+  upsert: ExamCenterUpsertNestedInput
+  connect: ExamCenterWhereUniqueInput
+}
+
+input ExamCenterUpdateOneRequiredWithoutCenterAdminInput {
+  create: ExamCenterCreateWithoutCenterAdminInput
+  update: ExamCenterUpdateWithoutCenterAdminDataInput
+  upsert: ExamCenterUpsertWithoutCenterAdminInput
+  connect: ExamCenterWhereUniqueInput
+}
+
+input ExamCenterUpdateOneRequiredWithoutRegistrationInput {
+  create: ExamCenterCreateWithoutRegistrationInput
+  update: ExamCenterUpdateWithoutRegistrationDataInput
+  upsert: ExamCenterUpsertWithoutRegistrationInput
+  connect: ExamCenterWhereUniqueInput
+}
+
+input ExamCenterUpdateWithoutCenterAdminDataInput {
+  centerName: String
+  centerCode: String
+  town: TownUpdateOneRequiredWithoutCenterInput
+  centerNumber: Int
+  registration: RegistrationUpdateManyWithoutCenterInput
+}
+
+input ExamCenterUpdateWithoutRegistrationDataInput {
+  centerName: String
+  centerCode: String
+  town: TownUpdateOneRequiredWithoutCenterInput
+  centerNumber: Int
+  centerAdmin: CenterAdminUpdateManyWithoutCenterInput
+}
+
+input ExamCenterUpdateWithoutTownDataInput {
+  centerName: String
+  centerCode: String
+  centerNumber: Int
+  registration: RegistrationUpdateManyWithoutCenterInput
+  centerAdmin: CenterAdminUpdateManyWithoutCenterInput
+}
+
+input ExamCenterUpdateWithWhereUniqueWithoutTownInput {
+  where: ExamCenterWhereUniqueInput!
+  data: ExamCenterUpdateWithoutTownDataInput!
+}
+
+input ExamCenterUpsertNestedInput {
+  update: ExamCenterUpdateDataInput!
+  create: ExamCenterCreateInput!
+}
+
+input ExamCenterUpsertWithoutCenterAdminInput {
+  update: ExamCenterUpdateWithoutCenterAdminDataInput!
+  create: ExamCenterCreateWithoutCenterAdminInput!
+}
+
+input ExamCenterUpsertWithoutRegistrationInput {
+  update: ExamCenterUpdateWithoutRegistrationDataInput!
+  create: ExamCenterCreateWithoutRegistrationInput!
+}
+
+input ExamCenterUpsertWithWhereUniqueWithoutTownInput {
+  where: ExamCenterWhereUniqueInput!
+  update: ExamCenterUpdateWithoutTownDataInput!
+  create: ExamCenterCreateWithoutTownInput!
+}
+
+input ExamCenterWhereInput {
   id: ID
   id_not: ID
   id_in: [ID!]
@@ -774,6 +2518,14 @@ input examCenterWhereInput {
   centerCode_ends_with: String
   centerCode_not_ends_with: String
   town: TownWhereInput
+  centerNumber: Int
+  centerNumber_not: Int
+  centerNumber_in: [Int!]
+  centerNumber_not_in: [Int!]
+  centerNumber_lt: Int
+  centerNumber_lte: Int
+  centerNumber_gt: Int
+  centerNumber_gte: Int
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -790,13 +2542,20 @@ input examCenterWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
-  AND: [examCenterWhereInput!]
-  OR: [examCenterWhereInput!]
-  NOT: [examCenterWhereInput!]
+  registration_every: RegistrationWhereInput
+  registration_some: RegistrationWhereInput
+  registration_none: RegistrationWhereInput
+  centerAdmin_every: CenterAdminWhereInput
+  centerAdmin_some: CenterAdminWhereInput
+  centerAdmin_none: CenterAdminWhereInput
+  AND: [ExamCenterWhereInput!]
+  OR: [ExamCenterWhereInput!]
+  NOT: [ExamCenterWhereInput!]
 }
 
-input examCenterWhereUniqueInput {
+input ExamCenterWhereUniqueInput {
   id: ID
+  centerNumber: Int
 }
 
 type ExamConnection {
@@ -809,6 +2568,48 @@ input ExamCreateInput {
   id: ID
   examName: String!
   examCode: String!
+  centerAdmin: CenterAdminCreateManyWithoutExamInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesCreateManyWithoutExamInput
+  registration: RegistrationCreateManyWithoutExamInput
+}
+
+input ExamCreateOneWithoutAnnExamSeriesSubjInput {
+  create: ExamCreateWithoutAnnExamSeriesSubjInput
+  connect: ExamWhereUniqueInput
+}
+
+input ExamCreateOneWithoutCenterAdminInput {
+  create: ExamCreateWithoutCenterAdminInput
+  connect: ExamWhereUniqueInput
+}
+
+input ExamCreateOneWithoutRegistrationInput {
+  create: ExamCreateWithoutRegistrationInput
+  connect: ExamWhereUniqueInput
+}
+
+input ExamCreateWithoutAnnExamSeriesSubjInput {
+  id: ID
+  examName: String!
+  examCode: String!
+  centerAdmin: CenterAdminCreateManyWithoutExamInput
+  registration: RegistrationCreateManyWithoutExamInput
+}
+
+input ExamCreateWithoutCenterAdminInput {
+  id: ID
+  examName: String!
+  examCode: String!
+  annExamSeriesSubj: AnnualExamSubjectSeriesCreateManyWithoutExamInput
+  registration: RegistrationCreateManyWithoutExamInput
+}
+
+input ExamCreateWithoutRegistrationInput {
+  id: ID
+  examName: String!
+  examCode: String!
+  centerAdmin: CenterAdminCreateManyWithoutExamInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesCreateManyWithoutExamInput
 }
 
 type ExamEdge {
@@ -837,148 +2638,6 @@ type ExamPreviousValues {
   updatedAt: DateTime!
 }
 
-type ExamSession {
-  id: ID!
-  sessionName: String!
-  sessionCode: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type ExamSessionConnection {
-  pageInfo: PageInfo!
-  edges: [ExamSessionEdge]!
-  aggregate: AggregateExamSession!
-}
-
-input ExamSessionCreateInput {
-  id: ID
-  sessionName: String!
-  sessionCode: String!
-}
-
-type ExamSessionEdge {
-  node: ExamSession!
-  cursor: String!
-}
-
-enum ExamSessionOrderByInput {
-  id_ASC
-  id_DESC
-  sessionName_ASC
-  sessionName_DESC
-  sessionCode_ASC
-  sessionCode_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type ExamSessionPreviousValues {
-  id: ID!
-  sessionName: String!
-  sessionCode: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type ExamSessionSubscriptionPayload {
-  mutation: MutationType!
-  node: ExamSession
-  updatedFields: [String!]
-  previousValues: ExamSessionPreviousValues
-}
-
-input ExamSessionSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: ExamSessionWhereInput
-  AND: [ExamSessionSubscriptionWhereInput!]
-  OR: [ExamSessionSubscriptionWhereInput!]
-  NOT: [ExamSessionSubscriptionWhereInput!]
-}
-
-input ExamSessionUpdateInput {
-  sessionName: String
-  sessionCode: String
-}
-
-input ExamSessionUpdateManyMutationInput {
-  sessionName: String
-  sessionCode: String
-}
-
-input ExamSessionWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  sessionName: String
-  sessionName_not: String
-  sessionName_in: [String!]
-  sessionName_not_in: [String!]
-  sessionName_lt: String
-  sessionName_lte: String
-  sessionName_gt: String
-  sessionName_gte: String
-  sessionName_contains: String
-  sessionName_not_contains: String
-  sessionName_starts_with: String
-  sessionName_not_starts_with: String
-  sessionName_ends_with: String
-  sessionName_not_ends_with: String
-  sessionCode: String
-  sessionCode_not: String
-  sessionCode_in: [String!]
-  sessionCode_not_in: [String!]
-  sessionCode_lt: String
-  sessionCode_lte: String
-  sessionCode_gt: String
-  sessionCode_gte: String
-  sessionCode_contains: String
-  sessionCode_not_contains: String
-  sessionCode_starts_with: String
-  sessionCode_not_starts_with: String
-  sessionCode_ends_with: String
-  sessionCode_not_ends_with: String
-  createdAt: DateTime
-  createdAt_not: DateTime
-  createdAt_in: [DateTime!]
-  createdAt_not_in: [DateTime!]
-  createdAt_lt: DateTime
-  createdAt_lte: DateTime
-  createdAt_gt: DateTime
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-  updatedAt_not: DateTime
-  updatedAt_in: [DateTime!]
-  updatedAt_not_in: [DateTime!]
-  updatedAt_lt: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gt: DateTime
-  updatedAt_gte: DateTime
-  AND: [ExamSessionWhereInput!]
-  OR: [ExamSessionWhereInput!]
-  NOT: [ExamSessionWhereInput!]
-}
-
-input ExamSessionWhereUniqueInput {
-  id: ID
-}
-
 type ExamSubscriptionPayload {
   mutation: MutationType!
   node: Exam
@@ -1000,11 +2659,71 @@ input ExamSubscriptionWhereInput {
 input ExamUpdateInput {
   examName: String
   examCode: String
+  centerAdmin: CenterAdminUpdateManyWithoutExamInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesUpdateManyWithoutExamInput
+  registration: RegistrationUpdateManyWithoutExamInput
 }
 
 input ExamUpdateManyMutationInput {
   examName: String
   examCode: String
+}
+
+input ExamUpdateOneRequiredWithoutAnnExamSeriesSubjInput {
+  create: ExamCreateWithoutAnnExamSeriesSubjInput
+  update: ExamUpdateWithoutAnnExamSeriesSubjDataInput
+  upsert: ExamUpsertWithoutAnnExamSeriesSubjInput
+  connect: ExamWhereUniqueInput
+}
+
+input ExamUpdateOneRequiredWithoutCenterAdminInput {
+  create: ExamCreateWithoutCenterAdminInput
+  update: ExamUpdateWithoutCenterAdminDataInput
+  upsert: ExamUpsertWithoutCenterAdminInput
+  connect: ExamWhereUniqueInput
+}
+
+input ExamUpdateOneRequiredWithoutRegistrationInput {
+  create: ExamCreateWithoutRegistrationInput
+  update: ExamUpdateWithoutRegistrationDataInput
+  upsert: ExamUpsertWithoutRegistrationInput
+  connect: ExamWhereUniqueInput
+}
+
+input ExamUpdateWithoutAnnExamSeriesSubjDataInput {
+  examName: String
+  examCode: String
+  centerAdmin: CenterAdminUpdateManyWithoutExamInput
+  registration: RegistrationUpdateManyWithoutExamInput
+}
+
+input ExamUpdateWithoutCenterAdminDataInput {
+  examName: String
+  examCode: String
+  annExamSeriesSubj: AnnualExamSubjectSeriesUpdateManyWithoutExamInput
+  registration: RegistrationUpdateManyWithoutExamInput
+}
+
+input ExamUpdateWithoutRegistrationDataInput {
+  examName: String
+  examCode: String
+  centerAdmin: CenterAdminUpdateManyWithoutExamInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesUpdateManyWithoutExamInput
+}
+
+input ExamUpsertWithoutAnnExamSeriesSubjInput {
+  update: ExamUpdateWithoutAnnExamSeriesSubjDataInput!
+  create: ExamCreateWithoutAnnExamSeriesSubjInput!
+}
+
+input ExamUpsertWithoutCenterAdminInput {
+  update: ExamUpdateWithoutCenterAdminDataInput!
+  create: ExamCreateWithoutCenterAdminInput!
+}
+
+input ExamUpsertWithoutRegistrationInput {
+  update: ExamUpdateWithoutRegistrationDataInput!
+  create: ExamCreateWithoutRegistrationInput!
 }
 
 input ExamWhereInput {
@@ -1066,6 +2785,15 @@ input ExamWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  centerAdmin_every: CenterAdminWhereInput
+  centerAdmin_some: CenterAdminWhereInput
+  centerAdmin_none: CenterAdminWhereInput
+  annExamSeriesSubj_every: AnnualExamSubjectSeriesWhereInput
+  annExamSeriesSubj_some: AnnualExamSubjectSeriesWhereInput
+  annExamSeriesSubj_none: AnnualExamSubjectSeriesWhereInput
+  registration_every: RegistrationWhereInput
+  registration_some: RegistrationWhereInput
+  registration_none: RegistrationWhereInput
   AND: [ExamWhereInput!]
   OR: [ExamWhereInput!]
   NOT: [ExamWhereInput!]
@@ -1081,6 +2809,7 @@ type Gender {
   genderCode: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  candidate(where: CandidateWhereInput, orderBy: CandidateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Candidate!]
 }
 
 type GenderConnection {
@@ -1090,6 +2819,18 @@ type GenderConnection {
 }
 
 input GenderCreateInput {
+  id: ID
+  genderName: String!
+  genderCode: String!
+  candidate: CandidateCreateManyWithoutGenderInput
+}
+
+input GenderCreateOneWithoutCandidateInput {
+  create: GenderCreateWithoutCandidateInput
+  connect: GenderWhereUniqueInput
+}
+
+input GenderCreateWithoutCandidateInput {
   id: ID
   genderName: String!
   genderCode: String!
@@ -1142,11 +2883,29 @@ input GenderSubscriptionWhereInput {
 input GenderUpdateInput {
   genderName: String
   genderCode: String
+  candidate: CandidateUpdateManyWithoutGenderInput
 }
 
 input GenderUpdateManyMutationInput {
   genderName: String
   genderCode: String
+}
+
+input GenderUpdateOneRequiredWithoutCandidateInput {
+  create: GenderCreateWithoutCandidateInput
+  update: GenderUpdateWithoutCandidateDataInput
+  upsert: GenderUpsertWithoutCandidateInput
+  connect: GenderWhereUniqueInput
+}
+
+input GenderUpdateWithoutCandidateDataInput {
+  genderName: String
+  genderCode: String
+}
+
+input GenderUpsertWithoutCandidateInput {
+  update: GenderUpdateWithoutCandidateDataInput!
+  create: GenderCreateWithoutCandidateInput!
 }
 
 input GenderWhereInput {
@@ -1208,6 +2967,9 @@ input GenderWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  candidate_every: CandidateWhereInput
+  candidate_some: CandidateWhereInput
+  candidate_none: CandidateWhereInput
   AND: [GenderWhereInput!]
   OR: [GenderWhereInput!]
   NOT: [GenderWhereInput!]
@@ -1225,6 +2987,7 @@ type Item {
   largeImage: String
   createdAt: DateTime!
   updatedAt: DateTime!
+  user: User!
 }
 
 type ItemConnection {
@@ -1234,6 +2997,20 @@ type ItemConnection {
 }
 
 input ItemCreateInput {
+  id: ID
+  title: String!
+  descrption: String!
+  image: String
+  largeImage: String
+  user: UserCreateOneWithoutItemInput!
+}
+
+input ItemCreateManyWithoutUserInput {
+  create: [ItemCreateWithoutUserInput!]
+  connect: [ItemWhereUniqueInput!]
+}
+
+input ItemCreateWithoutUserInput {
   id: ID
   title: String!
   descrption: String!
@@ -1273,6 +3050,98 @@ type ItemPreviousValues {
   updatedAt: DateTime!
 }
 
+input ItemScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  descrption: String
+  descrption_not: String
+  descrption_in: [String!]
+  descrption_not_in: [String!]
+  descrption_lt: String
+  descrption_lte: String
+  descrption_gt: String
+  descrption_gte: String
+  descrption_contains: String
+  descrption_not_contains: String
+  descrption_starts_with: String
+  descrption_not_starts_with: String
+  descrption_ends_with: String
+  descrption_not_ends_with: String
+  image: String
+  image_not: String
+  image_in: [String!]
+  image_not_in: [String!]
+  image_lt: String
+  image_lte: String
+  image_gt: String
+  image_gte: String
+  image_contains: String
+  image_not_contains: String
+  image_starts_with: String
+  image_not_starts_with: String
+  image_ends_with: String
+  image_not_ends_with: String
+  largeImage: String
+  largeImage_not: String
+  largeImage_in: [String!]
+  largeImage_not_in: [String!]
+  largeImage_lt: String
+  largeImage_lte: String
+  largeImage_gt: String
+  largeImage_gte: String
+  largeImage_contains: String
+  largeImage_not_contains: String
+  largeImage_starts_with: String
+  largeImage_not_starts_with: String
+  largeImage_ends_with: String
+  largeImage_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ItemScalarWhereInput!]
+  OR: [ItemScalarWhereInput!]
+  NOT: [ItemScalarWhereInput!]
+}
+
 type ItemSubscriptionPayload {
   mutation: MutationType!
   node: Item
@@ -1296,6 +3165,14 @@ input ItemUpdateInput {
   descrption: String
   image: String
   largeImage: String
+  user: UserUpdateOneRequiredWithoutItemInput
+}
+
+input ItemUpdateManyDataInput {
+  title: String
+  descrption: String
+  image: String
+  largeImage: String
 }
 
 input ItemUpdateManyMutationInput {
@@ -1303,6 +3180,41 @@ input ItemUpdateManyMutationInput {
   descrption: String
   image: String
   largeImage: String
+}
+
+input ItemUpdateManyWithoutUserInput {
+  create: [ItemCreateWithoutUserInput!]
+  delete: [ItemWhereUniqueInput!]
+  connect: [ItemWhereUniqueInput!]
+  set: [ItemWhereUniqueInput!]
+  disconnect: [ItemWhereUniqueInput!]
+  update: [ItemUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [ItemUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [ItemScalarWhereInput!]
+  updateMany: [ItemUpdateManyWithWhereNestedInput!]
+}
+
+input ItemUpdateManyWithWhereNestedInput {
+  where: ItemScalarWhereInput!
+  data: ItemUpdateManyDataInput!
+}
+
+input ItemUpdateWithoutUserDataInput {
+  title: String
+  descrption: String
+  image: String
+  largeImage: String
+}
+
+input ItemUpdateWithWhereUniqueWithoutUserInput {
+  where: ItemWhereUniqueInput!
+  data: ItemUpdateWithoutUserDataInput!
+}
+
+input ItemUpsertWithWhereUniqueWithoutUserInput {
+  where: ItemWhereUniqueInput!
+  update: ItemUpdateWithoutUserDataInput!
+  create: ItemCreateWithoutUserInput!
 }
 
 input ItemWhereInput {
@@ -1392,6 +3304,7 @@ input ItemWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  user: UserWhereInput
   AND: [ItemWhereInput!]
   OR: [ItemWhereInput!]
   NOT: [ItemWhereInput!]
@@ -1404,30 +3317,51 @@ input ItemWhereUniqueInput {
 scalar Long
 
 type Mutation {
+  createAnnualExamSubjectSeries(data: AnnualExamSubjectSeriesCreateInput!): AnnualExamSubjectSeries!
+  updateAnnualExamSubjectSeries(data: AnnualExamSubjectSeriesUpdateInput!, where: AnnualExamSubjectSeriesWhereUniqueInput!): AnnualExamSubjectSeries
+  updateManyAnnualExamSubjectSerieses(data: AnnualExamSubjectSeriesUpdateManyMutationInput!, where: AnnualExamSubjectSeriesWhereInput): BatchPayload!
+  upsertAnnualExamSubjectSeries(where: AnnualExamSubjectSeriesWhereUniqueInput!, create: AnnualExamSubjectSeriesCreateInput!, update: AnnualExamSubjectSeriesUpdateInput!): AnnualExamSubjectSeries!
+  deleteAnnualExamSubjectSeries(where: AnnualExamSubjectSeriesWhereUniqueInput!): AnnualExamSubjectSeries
+  deleteManyAnnualExamSubjectSerieses(where: AnnualExamSubjectSeriesWhereInput): BatchPayload!
+  createAnotherType(data: AnotherTypeCreateInput!): AnotherType!
+  deleteAnotherType(where: AnotherTypeWhereUniqueInput!): AnotherType
+  deleteManyAnotherTypes(where: AnotherTypeWhereInput): BatchPayload!
   createCandidate(data: CandidateCreateInput!): Candidate!
   updateCandidate(data: CandidateUpdateInput!, where: CandidateWhereUniqueInput!): Candidate
   updateManyCandidates(data: CandidateUpdateManyMutationInput!, where: CandidateWhereInput): BatchPayload!
   upsertCandidate(where: CandidateWhereUniqueInput!, create: CandidateCreateInput!, update: CandidateUpdateInput!): Candidate!
   deleteCandidate(where: CandidateWhereUniqueInput!): Candidate
   deleteManyCandidates(where: CandidateWhereInput): BatchPayload!
+  createCenterAdmin(data: CenterAdminCreateInput!): CenterAdmin!
+  updateCenterAdmin(data: CenterAdminUpdateInput!, where: CenterAdminWhereUniqueInput!): CenterAdmin
+  updateManyCenterAdmins(data: CenterAdminUpdateManyMutationInput!, where: CenterAdminWhereInput): BatchPayload!
+  upsertCenterAdmin(where: CenterAdminWhereUniqueInput!, create: CenterAdminCreateInput!, update: CenterAdminUpdateInput!): CenterAdmin!
+  deleteCenterAdmin(where: CenterAdminWhereUniqueInput!): CenterAdmin
+  deleteManyCenterAdmins(where: CenterAdminWhereInput): BatchPayload!
   createDivision(data: DivisionCreateInput!): Division!
   updateDivision(data: DivisionUpdateInput!, where: DivisionWhereUniqueInput!): Division
   updateManyDivisions(data: DivisionUpdateManyMutationInput!, where: DivisionWhereInput): BatchPayload!
   upsertDivision(where: DivisionWhereUniqueInput!, create: DivisionCreateInput!, update: DivisionUpdateInput!): Division!
   deleteDivision(where: DivisionWhereUniqueInput!): Division
   deleteManyDivisions(where: DivisionWhereInput): BatchPayload!
+  createEducationType(data: EducationTypeCreateInput!): EducationType!
+  updateEducationType(data: EducationTypeUpdateInput!, where: EducationTypeWhereUniqueInput!): EducationType
+  updateManyEducationTypes(data: EducationTypeUpdateManyMutationInput!, where: EducationTypeWhereInput): BatchPayload!
+  upsertEducationType(where: EducationTypeWhereUniqueInput!, create: EducationTypeCreateInput!, update: EducationTypeUpdateInput!): EducationType!
+  deleteEducationType(where: EducationTypeWhereUniqueInput!): EducationType
+  deleteManyEducationTypes(where: EducationTypeWhereInput): BatchPayload!
   createExam(data: ExamCreateInput!): Exam!
   updateExam(data: ExamUpdateInput!, where: ExamWhereUniqueInput!): Exam
   updateManyExams(data: ExamUpdateManyMutationInput!, where: ExamWhereInput): BatchPayload!
   upsertExam(where: ExamWhereUniqueInput!, create: ExamCreateInput!, update: ExamUpdateInput!): Exam!
   deleteExam(where: ExamWhereUniqueInput!): Exam
   deleteManyExams(where: ExamWhereInput): BatchPayload!
-  createExamSession(data: ExamSessionCreateInput!): ExamSession!
-  updateExamSession(data: ExamSessionUpdateInput!, where: ExamSessionWhereUniqueInput!): ExamSession
-  updateManyExamSessions(data: ExamSessionUpdateManyMutationInput!, where: ExamSessionWhereInput): BatchPayload!
-  upsertExamSession(where: ExamSessionWhereUniqueInput!, create: ExamSessionCreateInput!, update: ExamSessionUpdateInput!): ExamSession!
-  deleteExamSession(where: ExamSessionWhereUniqueInput!): ExamSession
-  deleteManyExamSessions(where: ExamSessionWhereInput): BatchPayload!
+  createExamCenter(data: ExamCenterCreateInput!): ExamCenter!
+  updateExamCenter(data: ExamCenterUpdateInput!, where: ExamCenterWhereUniqueInput!): ExamCenter
+  updateManyExamCenters(data: ExamCenterUpdateManyMutationInput!, where: ExamCenterWhereInput): BatchPayload!
+  upsertExamCenter(where: ExamCenterWhereUniqueInput!, create: ExamCenterCreateInput!, update: ExamCenterUpdateInput!): ExamCenter!
+  deleteExamCenter(where: ExamCenterWhereUniqueInput!): ExamCenter
+  deleteManyExamCenters(where: ExamCenterWhereInput): BatchPayload!
   createGender(data: GenderCreateInput!): Gender!
   updateGender(data: GenderUpdateInput!, where: GenderWhereUniqueInput!): Gender
   updateManyGenders(data: GenderUpdateManyMutationInput!, where: GenderWhereInput): BatchPayload!
@@ -1446,18 +3380,47 @@ type Mutation {
   upsertPresence(where: PresenceWhereUniqueInput!, create: PresenceCreateInput!, update: PresenceUpdateInput!): Presence!
   deletePresence(where: PresenceWhereUniqueInput!): Presence
   deleteManyPresences(where: PresenceWhereInput): BatchPayload!
+  createRank(data: RankCreateInput!): Rank!
+  updateRank(data: RankUpdateInput!, where: RankWhereUniqueInput!): Rank
+  updateManyRanks(data: RankUpdateManyMutationInput!, where: RankWhereInput): BatchPayload!
+  upsertRank(where: RankWhereUniqueInput!, create: RankCreateInput!, update: RankUpdateInput!): Rank!
+  deleteRank(where: RankWhereUniqueInput!): Rank
+  deleteManyRanks(where: RankWhereInput): BatchPayload!
   createRegion(data: RegionCreateInput!): Region!
   updateRegion(data: RegionUpdateInput!, where: RegionWhereUniqueInput!): Region
   updateManyRegions(data: RegionUpdateManyMutationInput!, where: RegionWhereInput): BatchPayload!
   upsertRegion(where: RegionWhereUniqueInput!, create: RegionCreateInput!, update: RegionUpdateInput!): Region!
   deleteRegion(where: RegionWhereUniqueInput!): Region
   deleteManyRegions(where: RegionWhereInput): BatchPayload!
+  createRegistration(data: RegistrationCreateInput!): Registration!
+  updateRegistration(data: RegistrationUpdateInput!, where: RegistrationWhereUniqueInput!): Registration
+  upsertRegistration(where: RegistrationWhereUniqueInput!, create: RegistrationCreateInput!, update: RegistrationUpdateInput!): Registration!
+  deleteRegistration(where: RegistrationWhereUniqueInput!): Registration
+  deleteManyRegistrations(where: RegistrationWhereInput): BatchPayload!
+  createReport(data: ReportCreateInput!): Report!
+  updateReport(data: ReportUpdateInput!, where: ReportWhereUniqueInput!): Report
+  updateManyReports(data: ReportUpdateManyMutationInput!, where: ReportWhereInput): BatchPayload!
+  upsertReport(where: ReportWhereUniqueInput!, create: ReportCreateInput!, update: ReportUpdateInput!): Report!
+  deleteReport(where: ReportWhereUniqueInput!): Report
+  deleteManyReports(where: ReportWhereInput): BatchPayload!
+  createScore(data: ScoreCreateInput!): Score!
+  updateScore(data: ScoreUpdateInput!, where: ScoreWhereUniqueInput!): Score
+  updateManyScores(data: ScoreUpdateManyMutationInput!, where: ScoreWhereInput): BatchPayload!
+  upsertScore(where: ScoreWhereUniqueInput!, create: ScoreCreateInput!, update: ScoreUpdateInput!): Score!
+  deleteScore(where: ScoreWhereUniqueInput!): Score
+  deleteManyScores(where: ScoreWhereInput): BatchPayload!
   createSeries(data: SeriesCreateInput!): Series!
   updateSeries(data: SeriesUpdateInput!, where: SeriesWhereUniqueInput!): Series
   updateManySerieses(data: SeriesUpdateManyMutationInput!, where: SeriesWhereInput): BatchPayload!
   upsertSeries(where: SeriesWhereUniqueInput!, create: SeriesCreateInput!, update: SeriesUpdateInput!): Series!
   deleteSeries(where: SeriesWhereUniqueInput!): Series
   deleteManySerieses(where: SeriesWhereInput): BatchPayload!
+  createSession(data: SessionCreateInput!): Session!
+  updateSession(data: SessionUpdateInput!, where: SessionWhereUniqueInput!): Session
+  updateManySessions(data: SessionUpdateManyMutationInput!, where: SessionWhereInput): BatchPayload!
+  upsertSession(where: SessionWhereUniqueInput!, create: SessionCreateInput!, update: SessionUpdateInput!): Session!
+  deleteSession(where: SessionWhereUniqueInput!): Session
+  deleteManySessions(where: SessionWhereInput): BatchPayload!
   createSubDivision(data: SubDivisionCreateInput!): SubDivision!
   updateSubDivision(data: SubDivisionUpdateInput!, where: SubDivisionWhereUniqueInput!): SubDivision
   updateManySubDivisions(data: SubDivisionUpdateManyMutationInput!, where: SubDivisionWhereInput): BatchPayload!
@@ -1482,12 +3445,6 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
-  createexamCenter(data: examCenterCreateInput!): examCenter!
-  updateexamCenter(data: examCenterUpdateInput!, where: examCenterWhereUniqueInput!): examCenter
-  updateManyexamCenters(data: examCenterUpdateManyMutationInput!, where: examCenterWhereInput): BatchPayload!
-  upsertexamCenter(where: examCenterWhereUniqueInput!, create: examCenterCreateInput!, update: examCenterUpdateInput!): examCenter!
-  deleteexamCenter(where: examCenterWhereUniqueInput!): examCenter
-  deleteManyexamCenters(where: examCenterWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -1512,6 +3469,7 @@ type Presence {
   presenceName: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
+  score(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Score!]
 }
 
 type PresenceConnection {
@@ -1521,6 +3479,17 @@ type PresenceConnection {
 }
 
 input PresenceCreateInput {
+  id: ID
+  presenceName: Boolean!
+  score: ScoreCreateManyWithoutPresenceInput
+}
+
+input PresenceCreateOneWithoutScoreInput {
+  create: PresenceCreateWithoutScoreInput
+  connect: PresenceWhereUniqueInput
+}
+
+input PresenceCreateWithoutScoreInput {
   id: ID
   presenceName: Boolean!
 }
@@ -1568,10 +3537,27 @@ input PresenceSubscriptionWhereInput {
 
 input PresenceUpdateInput {
   presenceName: Boolean
+  score: ScoreUpdateManyWithoutPresenceInput
 }
 
 input PresenceUpdateManyMutationInput {
   presenceName: Boolean
+}
+
+input PresenceUpdateOneRequiredWithoutScoreInput {
+  create: PresenceCreateWithoutScoreInput
+  update: PresenceUpdateWithoutScoreDataInput
+  upsert: PresenceUpsertWithoutScoreInput
+  connect: PresenceWhereUniqueInput
+}
+
+input PresenceUpdateWithoutScoreDataInput {
+  presenceName: Boolean
+}
+
+input PresenceUpsertWithoutScoreInput {
+  update: PresenceUpdateWithoutScoreDataInput!
+  create: PresenceCreateWithoutScoreInput!
 }
 
 input PresenceWhereInput {
@@ -1607,6 +3593,9 @@ input PresenceWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  score_every: ScoreWhereInput
+  score_some: ScoreWhereInput
+  score_none: ScoreWhereInput
   AND: [PresenceWhereInput!]
   OR: [PresenceWhereInput!]
   NOT: [PresenceWhereInput!]
@@ -1617,18 +3606,30 @@ input PresenceWhereUniqueInput {
 }
 
 type Query {
+  annualExamSubjectSeries(where: AnnualExamSubjectSeriesWhereUniqueInput!): AnnualExamSubjectSeries
+  annualExamSubjectSerieses(where: AnnualExamSubjectSeriesWhereInput, orderBy: AnnualExamSubjectSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AnnualExamSubjectSeries]!
+  annualExamSubjectSeriesesConnection(where: AnnualExamSubjectSeriesWhereInput, orderBy: AnnualExamSubjectSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AnnualExamSubjectSeriesConnection!
+  anotherType(where: AnotherTypeWhereUniqueInput!): AnotherType
+  anotherTypes(where: AnotherTypeWhereInput, orderBy: AnotherTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AnotherType]!
+  anotherTypesConnection(where: AnotherTypeWhereInput, orderBy: AnotherTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AnotherTypeConnection!
   candidate(where: CandidateWhereUniqueInput!): Candidate
   candidates(where: CandidateWhereInput, orderBy: CandidateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Candidate]!
   candidatesConnection(where: CandidateWhereInput, orderBy: CandidateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CandidateConnection!
+  centerAdmin(where: CenterAdminWhereUniqueInput!): CenterAdmin
+  centerAdmins(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterAdmin]!
+  centerAdminsConnection(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CenterAdminConnection!
   division(where: DivisionWhereUniqueInput!): Division
   divisions(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Division]!
   divisionsConnection(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DivisionConnection!
+  educationType(where: EducationTypeWhereUniqueInput!): EducationType
+  educationTypes(where: EducationTypeWhereInput, orderBy: EducationTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EducationType]!
+  educationTypesConnection(where: EducationTypeWhereInput, orderBy: EducationTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EducationTypeConnection!
   exam(where: ExamWhereUniqueInput!): Exam
   exams(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Exam]!
   examsConnection(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExamConnection!
-  examSession(where: ExamSessionWhereUniqueInput!): ExamSession
-  examSessions(where: ExamSessionWhereInput, orderBy: ExamSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ExamSession]!
-  examSessionsConnection(where: ExamSessionWhereInput, orderBy: ExamSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExamSessionConnection!
+  examCenter(where: ExamCenterWhereUniqueInput!): ExamCenter
+  examCenters(where: ExamCenterWhereInput, orderBy: ExamCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ExamCenter]!
+  examCentersConnection(where: ExamCenterWhereInput, orderBy: ExamCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExamCenterConnection!
   gender(where: GenderWhereUniqueInput!): Gender
   genders(where: GenderWhereInput, orderBy: GenderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Gender]!
   gendersConnection(where: GenderWhereInput, orderBy: GenderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GenderConnection!
@@ -1638,12 +3639,27 @@ type Query {
   presence(where: PresenceWhereUniqueInput!): Presence
   presences(where: PresenceWhereInput, orderBy: PresenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Presence]!
   presencesConnection(where: PresenceWhereInput, orderBy: PresenceOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PresenceConnection!
+  rank(where: RankWhereUniqueInput!): Rank
+  ranks(where: RankWhereInput, orderBy: RankOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rank]!
+  ranksConnection(where: RankWhereInput, orderBy: RankOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RankConnection!
   region(where: RegionWhereUniqueInput!): Region
   regions(where: RegionWhereInput, orderBy: RegionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Region]!
   regionsConnection(where: RegionWhereInput, orderBy: RegionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RegionConnection!
+  registration(where: RegistrationWhereUniqueInput!): Registration
+  registrations(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration]!
+  registrationsConnection(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RegistrationConnection!
+  report(where: ReportWhereUniqueInput!): Report
+  reports(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Report]!
+  reportsConnection(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ReportConnection!
+  score(where: ScoreWhereUniqueInput!): Score
+  scores(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Score]!
+  scoresConnection(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ScoreConnection!
   series(where: SeriesWhereUniqueInput!): Series
   serieses(where: SeriesWhereInput, orderBy: SeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Series]!
   seriesesConnection(where: SeriesWhereInput, orderBy: SeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SeriesConnection!
+  session(where: SessionWhereUniqueInput!): Session
+  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session]!
+  sessionsConnection(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SessionConnection!
   subDivision(where: SubDivisionWhereUniqueInput!): SubDivision
   subDivisions(where: SubDivisionWhereInput, orderBy: SubDivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubDivision]!
   subDivisionsConnection(where: SubDivisionWhereInput, orderBy: SubDivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubDivisionConnection!
@@ -1656,10 +3672,183 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  examCenter(where: examCenterWhereUniqueInput!): examCenter
-  examCenters(where: examCenterWhereInput, orderBy: examCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [examCenter]!
-  examCentersConnection(where: examCenterWhereInput, orderBy: examCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): examCenterConnection!
   node(id: ID!): Node
+}
+
+type Rank {
+  id: ID!
+  rankName: String!
+  rankCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  centerAdmin(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterAdmin!]
+}
+
+type RankConnection {
+  pageInfo: PageInfo!
+  edges: [RankEdge]!
+  aggregate: AggregateRank!
+}
+
+input RankCreateInput {
+  id: ID
+  rankName: String!
+  rankCode: String!
+  centerAdmin: CenterAdminCreateManyWithoutRankInput
+}
+
+input RankCreateOneWithoutCenterAdminInput {
+  create: RankCreateWithoutCenterAdminInput
+  connect: RankWhereUniqueInput
+}
+
+input RankCreateWithoutCenterAdminInput {
+  id: ID
+  rankName: String!
+  rankCode: String!
+}
+
+type RankEdge {
+  node: Rank!
+  cursor: String!
+}
+
+enum RankOrderByInput {
+  id_ASC
+  id_DESC
+  rankName_ASC
+  rankName_DESC
+  rankCode_ASC
+  rankCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type RankPreviousValues {
+  id: ID!
+  rankName: String!
+  rankCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type RankSubscriptionPayload {
+  mutation: MutationType!
+  node: Rank
+  updatedFields: [String!]
+  previousValues: RankPreviousValues
+}
+
+input RankSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: RankWhereInput
+  AND: [RankSubscriptionWhereInput!]
+  OR: [RankSubscriptionWhereInput!]
+  NOT: [RankSubscriptionWhereInput!]
+}
+
+input RankUpdateInput {
+  rankName: String
+  rankCode: String
+  centerAdmin: CenterAdminUpdateManyWithoutRankInput
+}
+
+input RankUpdateManyMutationInput {
+  rankName: String
+  rankCode: String
+}
+
+input RankUpdateOneRequiredWithoutCenterAdminInput {
+  create: RankCreateWithoutCenterAdminInput
+  update: RankUpdateWithoutCenterAdminDataInput
+  upsert: RankUpsertWithoutCenterAdminInput
+  connect: RankWhereUniqueInput
+}
+
+input RankUpdateWithoutCenterAdminDataInput {
+  rankName: String
+  rankCode: String
+}
+
+input RankUpsertWithoutCenterAdminInput {
+  update: RankUpdateWithoutCenterAdminDataInput!
+  create: RankCreateWithoutCenterAdminInput!
+}
+
+input RankWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  rankName: String
+  rankName_not: String
+  rankName_in: [String!]
+  rankName_not_in: [String!]
+  rankName_lt: String
+  rankName_lte: String
+  rankName_gt: String
+  rankName_gte: String
+  rankName_contains: String
+  rankName_not_contains: String
+  rankName_starts_with: String
+  rankName_not_starts_with: String
+  rankName_ends_with: String
+  rankName_not_ends_with: String
+  rankCode: String
+  rankCode_not: String
+  rankCode_in: [String!]
+  rankCode_not_in: [String!]
+  rankCode_lt: String
+  rankCode_lte: String
+  rankCode_gt: String
+  rankCode_gte: String
+  rankCode_contains: String
+  rankCode_not_contains: String
+  rankCode_starts_with: String
+  rankCode_not_starts_with: String
+  rankCode_ends_with: String
+  rankCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  centerAdmin_every: CenterAdminWhereInput
+  centerAdmin_some: CenterAdminWhereInput
+  centerAdmin_none: CenterAdminWhereInput
+  AND: [RankWhereInput!]
+  OR: [RankWhereInput!]
+  NOT: [RankWhereInput!]
+}
+
+input RankWhereUniqueInput {
+  id: ID
 }
 
 type Region {
@@ -1838,12 +4027,951 @@ input RegionWhereUniqueInput {
   id: ID
 }
 
+type Registration {
+  id: ID!
+  candidate: Candidate!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  exam: Exam!
+  series: Series!
+  session: Session!
+  center: ExamCenter!
+}
+
+type RegistrationConnection {
+  pageInfo: PageInfo!
+  edges: [RegistrationEdge]!
+  aggregate: AggregateRegistration!
+}
+
+input RegistrationCreateInput {
+  id: ID
+  candidate: CandidateCreateOneWithoutRegistrationInput!
+  exam: ExamCreateOneWithoutRegistrationInput!
+  series: SeriesCreateOneWithoutRegistrationInput!
+  session: SessionCreateOneWithoutRegistrationInput!
+  center: ExamCenterCreateOneWithoutRegistrationInput!
+}
+
+input RegistrationCreateManyWithoutCandidateInput {
+  create: [RegistrationCreateWithoutCandidateInput!]
+  connect: [RegistrationWhereUniqueInput!]
+}
+
+input RegistrationCreateManyWithoutCenterInput {
+  create: [RegistrationCreateWithoutCenterInput!]
+  connect: [RegistrationWhereUniqueInput!]
+}
+
+input RegistrationCreateManyWithoutExamInput {
+  create: [RegistrationCreateWithoutExamInput!]
+  connect: [RegistrationWhereUniqueInput!]
+}
+
+input RegistrationCreateManyWithoutSeriesInput {
+  create: [RegistrationCreateWithoutSeriesInput!]
+  connect: [RegistrationWhereUniqueInput!]
+}
+
+input RegistrationCreateManyWithoutSessionInput {
+  create: [RegistrationCreateWithoutSessionInput!]
+  connect: [RegistrationWhereUniqueInput!]
+}
+
+input RegistrationCreateOneInput {
+  create: RegistrationCreateInput
+  connect: RegistrationWhereUniqueInput
+}
+
+input RegistrationCreateWithoutCandidateInput {
+  id: ID
+  exam: ExamCreateOneWithoutRegistrationInput!
+  series: SeriesCreateOneWithoutRegistrationInput!
+  session: SessionCreateOneWithoutRegistrationInput!
+  center: ExamCenterCreateOneWithoutRegistrationInput!
+}
+
+input RegistrationCreateWithoutCenterInput {
+  id: ID
+  candidate: CandidateCreateOneWithoutRegistrationInput!
+  exam: ExamCreateOneWithoutRegistrationInput!
+  series: SeriesCreateOneWithoutRegistrationInput!
+  session: SessionCreateOneWithoutRegistrationInput!
+}
+
+input RegistrationCreateWithoutExamInput {
+  id: ID
+  candidate: CandidateCreateOneWithoutRegistrationInput!
+  series: SeriesCreateOneWithoutRegistrationInput!
+  session: SessionCreateOneWithoutRegistrationInput!
+  center: ExamCenterCreateOneWithoutRegistrationInput!
+}
+
+input RegistrationCreateWithoutSeriesInput {
+  id: ID
+  candidate: CandidateCreateOneWithoutRegistrationInput!
+  exam: ExamCreateOneWithoutRegistrationInput!
+  session: SessionCreateOneWithoutRegistrationInput!
+  center: ExamCenterCreateOneWithoutRegistrationInput!
+}
+
+input RegistrationCreateWithoutSessionInput {
+  id: ID
+  candidate: CandidateCreateOneWithoutRegistrationInput!
+  exam: ExamCreateOneWithoutRegistrationInput!
+  series: SeriesCreateOneWithoutRegistrationInput!
+  center: ExamCenterCreateOneWithoutRegistrationInput!
+}
+
+type RegistrationEdge {
+  node: Registration!
+  cursor: String!
+}
+
+enum RegistrationOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type RegistrationPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input RegistrationScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [RegistrationScalarWhereInput!]
+  OR: [RegistrationScalarWhereInput!]
+  NOT: [RegistrationScalarWhereInput!]
+}
+
+type RegistrationSubscriptionPayload {
+  mutation: MutationType!
+  node: Registration
+  updatedFields: [String!]
+  previousValues: RegistrationPreviousValues
+}
+
+input RegistrationSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: RegistrationWhereInput
+  AND: [RegistrationSubscriptionWhereInput!]
+  OR: [RegistrationSubscriptionWhereInput!]
+  NOT: [RegistrationSubscriptionWhereInput!]
+}
+
+input RegistrationUpdateDataInput {
+  candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
+  exam: ExamUpdateOneRequiredWithoutRegistrationInput
+  series: SeriesUpdateOneRequiredWithoutRegistrationInput
+  session: SessionUpdateOneRequiredWithoutRegistrationInput
+  center: ExamCenterUpdateOneRequiredWithoutRegistrationInput
+}
+
+input RegistrationUpdateInput {
+  candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
+  exam: ExamUpdateOneRequiredWithoutRegistrationInput
+  series: SeriesUpdateOneRequiredWithoutRegistrationInput
+  session: SessionUpdateOneRequiredWithoutRegistrationInput
+  center: ExamCenterUpdateOneRequiredWithoutRegistrationInput
+}
+
+input RegistrationUpdateManyWithoutCandidateInput {
+  create: [RegistrationCreateWithoutCandidateInput!]
+  delete: [RegistrationWhereUniqueInput!]
+  connect: [RegistrationWhereUniqueInput!]
+  set: [RegistrationWhereUniqueInput!]
+  disconnect: [RegistrationWhereUniqueInput!]
+  update: [RegistrationUpdateWithWhereUniqueWithoutCandidateInput!]
+  upsert: [RegistrationUpsertWithWhereUniqueWithoutCandidateInput!]
+  deleteMany: [RegistrationScalarWhereInput!]
+}
+
+input RegistrationUpdateManyWithoutCenterInput {
+  create: [RegistrationCreateWithoutCenterInput!]
+  delete: [RegistrationWhereUniqueInput!]
+  connect: [RegistrationWhereUniqueInput!]
+  set: [RegistrationWhereUniqueInput!]
+  disconnect: [RegistrationWhereUniqueInput!]
+  update: [RegistrationUpdateWithWhereUniqueWithoutCenterInput!]
+  upsert: [RegistrationUpsertWithWhereUniqueWithoutCenterInput!]
+  deleteMany: [RegistrationScalarWhereInput!]
+}
+
+input RegistrationUpdateManyWithoutExamInput {
+  create: [RegistrationCreateWithoutExamInput!]
+  delete: [RegistrationWhereUniqueInput!]
+  connect: [RegistrationWhereUniqueInput!]
+  set: [RegistrationWhereUniqueInput!]
+  disconnect: [RegistrationWhereUniqueInput!]
+  update: [RegistrationUpdateWithWhereUniqueWithoutExamInput!]
+  upsert: [RegistrationUpsertWithWhereUniqueWithoutExamInput!]
+  deleteMany: [RegistrationScalarWhereInput!]
+}
+
+input RegistrationUpdateManyWithoutSeriesInput {
+  create: [RegistrationCreateWithoutSeriesInput!]
+  delete: [RegistrationWhereUniqueInput!]
+  connect: [RegistrationWhereUniqueInput!]
+  set: [RegistrationWhereUniqueInput!]
+  disconnect: [RegistrationWhereUniqueInput!]
+  update: [RegistrationUpdateWithWhereUniqueWithoutSeriesInput!]
+  upsert: [RegistrationUpsertWithWhereUniqueWithoutSeriesInput!]
+  deleteMany: [RegistrationScalarWhereInput!]
+}
+
+input RegistrationUpdateManyWithoutSessionInput {
+  create: [RegistrationCreateWithoutSessionInput!]
+  delete: [RegistrationWhereUniqueInput!]
+  connect: [RegistrationWhereUniqueInput!]
+  set: [RegistrationWhereUniqueInput!]
+  disconnect: [RegistrationWhereUniqueInput!]
+  update: [RegistrationUpdateWithWhereUniqueWithoutSessionInput!]
+  upsert: [RegistrationUpsertWithWhereUniqueWithoutSessionInput!]
+  deleteMany: [RegistrationScalarWhereInput!]
+}
+
+input RegistrationUpdateOneRequiredInput {
+  create: RegistrationCreateInput
+  update: RegistrationUpdateDataInput
+  upsert: RegistrationUpsertNestedInput
+  connect: RegistrationWhereUniqueInput
+}
+
+input RegistrationUpdateWithoutCandidateDataInput {
+  exam: ExamUpdateOneRequiredWithoutRegistrationInput
+  series: SeriesUpdateOneRequiredWithoutRegistrationInput
+  session: SessionUpdateOneRequiredWithoutRegistrationInput
+  center: ExamCenterUpdateOneRequiredWithoutRegistrationInput
+}
+
+input RegistrationUpdateWithoutCenterDataInput {
+  candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
+  exam: ExamUpdateOneRequiredWithoutRegistrationInput
+  series: SeriesUpdateOneRequiredWithoutRegistrationInput
+  session: SessionUpdateOneRequiredWithoutRegistrationInput
+}
+
+input RegistrationUpdateWithoutExamDataInput {
+  candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
+  series: SeriesUpdateOneRequiredWithoutRegistrationInput
+  session: SessionUpdateOneRequiredWithoutRegistrationInput
+  center: ExamCenterUpdateOneRequiredWithoutRegistrationInput
+}
+
+input RegistrationUpdateWithoutSeriesDataInput {
+  candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
+  exam: ExamUpdateOneRequiredWithoutRegistrationInput
+  session: SessionUpdateOneRequiredWithoutRegistrationInput
+  center: ExamCenterUpdateOneRequiredWithoutRegistrationInput
+}
+
+input RegistrationUpdateWithoutSessionDataInput {
+  candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
+  exam: ExamUpdateOneRequiredWithoutRegistrationInput
+  series: SeriesUpdateOneRequiredWithoutRegistrationInput
+  center: ExamCenterUpdateOneRequiredWithoutRegistrationInput
+}
+
+input RegistrationUpdateWithWhereUniqueWithoutCandidateInput {
+  where: RegistrationWhereUniqueInput!
+  data: RegistrationUpdateWithoutCandidateDataInput!
+}
+
+input RegistrationUpdateWithWhereUniqueWithoutCenterInput {
+  where: RegistrationWhereUniqueInput!
+  data: RegistrationUpdateWithoutCenterDataInput!
+}
+
+input RegistrationUpdateWithWhereUniqueWithoutExamInput {
+  where: RegistrationWhereUniqueInput!
+  data: RegistrationUpdateWithoutExamDataInput!
+}
+
+input RegistrationUpdateWithWhereUniqueWithoutSeriesInput {
+  where: RegistrationWhereUniqueInput!
+  data: RegistrationUpdateWithoutSeriesDataInput!
+}
+
+input RegistrationUpdateWithWhereUniqueWithoutSessionInput {
+  where: RegistrationWhereUniqueInput!
+  data: RegistrationUpdateWithoutSessionDataInput!
+}
+
+input RegistrationUpsertNestedInput {
+  update: RegistrationUpdateDataInput!
+  create: RegistrationCreateInput!
+}
+
+input RegistrationUpsertWithWhereUniqueWithoutCandidateInput {
+  where: RegistrationWhereUniqueInput!
+  update: RegistrationUpdateWithoutCandidateDataInput!
+  create: RegistrationCreateWithoutCandidateInput!
+}
+
+input RegistrationUpsertWithWhereUniqueWithoutCenterInput {
+  where: RegistrationWhereUniqueInput!
+  update: RegistrationUpdateWithoutCenterDataInput!
+  create: RegistrationCreateWithoutCenterInput!
+}
+
+input RegistrationUpsertWithWhereUniqueWithoutExamInput {
+  where: RegistrationWhereUniqueInput!
+  update: RegistrationUpdateWithoutExamDataInput!
+  create: RegistrationCreateWithoutExamInput!
+}
+
+input RegistrationUpsertWithWhereUniqueWithoutSeriesInput {
+  where: RegistrationWhereUniqueInput!
+  update: RegistrationUpdateWithoutSeriesDataInput!
+  create: RegistrationCreateWithoutSeriesInput!
+}
+
+input RegistrationUpsertWithWhereUniqueWithoutSessionInput {
+  where: RegistrationWhereUniqueInput!
+  update: RegistrationUpdateWithoutSessionDataInput!
+  create: RegistrationCreateWithoutSessionInput!
+}
+
+input RegistrationWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  candidate: CandidateWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  exam: ExamWhereInput
+  series: SeriesWhereInput
+  session: SessionWhereInput
+  center: ExamCenterWhereInput
+  AND: [RegistrationWhereInput!]
+  OR: [RegistrationWhereInput!]
+  NOT: [RegistrationWhereInput!]
+}
+
+input RegistrationWhereUniqueInput {
+  id: ID
+}
+
+type Report {
+  id: ID!
+  reportName: String!
+  reportCode: String!
+  centerAdmin: CenterAdmin!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ReportConnection {
+  pageInfo: PageInfo!
+  edges: [ReportEdge]!
+  aggregate: AggregateReport!
+}
+
+input ReportCreateInput {
+  id: ID
+  reportName: String!
+  reportCode: String!
+  centerAdmin: CenterAdminCreateOneWithoutReportInput!
+}
+
+input ReportCreateManyWithoutCenterAdminInput {
+  create: [ReportCreateWithoutCenterAdminInput!]
+  connect: [ReportWhereUniqueInput!]
+}
+
+input ReportCreateWithoutCenterAdminInput {
+  id: ID
+  reportName: String!
+  reportCode: String!
+}
+
+type ReportEdge {
+  node: Report!
+  cursor: String!
+}
+
+enum ReportOrderByInput {
+  id_ASC
+  id_DESC
+  reportName_ASC
+  reportName_DESC
+  reportCode_ASC
+  reportCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ReportPreviousValues {
+  id: ID!
+  reportName: String!
+  reportCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input ReportScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  reportName: String
+  reportName_not: String
+  reportName_in: [String!]
+  reportName_not_in: [String!]
+  reportName_lt: String
+  reportName_lte: String
+  reportName_gt: String
+  reportName_gte: String
+  reportName_contains: String
+  reportName_not_contains: String
+  reportName_starts_with: String
+  reportName_not_starts_with: String
+  reportName_ends_with: String
+  reportName_not_ends_with: String
+  reportCode: String
+  reportCode_not: String
+  reportCode_in: [String!]
+  reportCode_not_in: [String!]
+  reportCode_lt: String
+  reportCode_lte: String
+  reportCode_gt: String
+  reportCode_gte: String
+  reportCode_contains: String
+  reportCode_not_contains: String
+  reportCode_starts_with: String
+  reportCode_not_starts_with: String
+  reportCode_ends_with: String
+  reportCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ReportScalarWhereInput!]
+  OR: [ReportScalarWhereInput!]
+  NOT: [ReportScalarWhereInput!]
+}
+
+type ReportSubscriptionPayload {
+  mutation: MutationType!
+  node: Report
+  updatedFields: [String!]
+  previousValues: ReportPreviousValues
+}
+
+input ReportSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ReportWhereInput
+  AND: [ReportSubscriptionWhereInput!]
+  OR: [ReportSubscriptionWhereInput!]
+  NOT: [ReportSubscriptionWhereInput!]
+}
+
+input ReportUpdateInput {
+  reportName: String
+  reportCode: String
+  centerAdmin: CenterAdminUpdateOneRequiredWithoutReportInput
+}
+
+input ReportUpdateManyDataInput {
+  reportName: String
+  reportCode: String
+}
+
+input ReportUpdateManyMutationInput {
+  reportName: String
+  reportCode: String
+}
+
+input ReportUpdateManyWithoutCenterAdminInput {
+  create: [ReportCreateWithoutCenterAdminInput!]
+  delete: [ReportWhereUniqueInput!]
+  connect: [ReportWhereUniqueInput!]
+  set: [ReportWhereUniqueInput!]
+  disconnect: [ReportWhereUniqueInput!]
+  update: [ReportUpdateWithWhereUniqueWithoutCenterAdminInput!]
+  upsert: [ReportUpsertWithWhereUniqueWithoutCenterAdminInput!]
+  deleteMany: [ReportScalarWhereInput!]
+  updateMany: [ReportUpdateManyWithWhereNestedInput!]
+}
+
+input ReportUpdateManyWithWhereNestedInput {
+  where: ReportScalarWhereInput!
+  data: ReportUpdateManyDataInput!
+}
+
+input ReportUpdateWithoutCenterAdminDataInput {
+  reportName: String
+  reportCode: String
+}
+
+input ReportUpdateWithWhereUniqueWithoutCenterAdminInput {
+  where: ReportWhereUniqueInput!
+  data: ReportUpdateWithoutCenterAdminDataInput!
+}
+
+input ReportUpsertWithWhereUniqueWithoutCenterAdminInput {
+  where: ReportWhereUniqueInput!
+  update: ReportUpdateWithoutCenterAdminDataInput!
+  create: ReportCreateWithoutCenterAdminInput!
+}
+
+input ReportWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  reportName: String
+  reportName_not: String
+  reportName_in: [String!]
+  reportName_not_in: [String!]
+  reportName_lt: String
+  reportName_lte: String
+  reportName_gt: String
+  reportName_gte: String
+  reportName_contains: String
+  reportName_not_contains: String
+  reportName_starts_with: String
+  reportName_not_starts_with: String
+  reportName_ends_with: String
+  reportName_not_ends_with: String
+  reportCode: String
+  reportCode_not: String
+  reportCode_in: [String!]
+  reportCode_not_in: [String!]
+  reportCode_lt: String
+  reportCode_lte: String
+  reportCode_gt: String
+  reportCode_gte: String
+  reportCode_contains: String
+  reportCode_not_contains: String
+  reportCode_starts_with: String
+  reportCode_not_starts_with: String
+  reportCode_ends_with: String
+  reportCode_not_ends_with: String
+  centerAdmin: CenterAdminWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ReportWhereInput!]
+  OR: [ReportWhereInput!]
+  NOT: [ReportWhereInput!]
+}
+
+input ReportWhereUniqueInput {
+  id: ID
+}
+
+type Score {
+  id: ID!
+  subjectAve: Float
+  subjectTotal: Float
+  registration: Registration!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  presence: Presence!
+  annExamSeriesSubj: AnnualExamSubjectSeries!
+}
+
+type ScoreConnection {
+  pageInfo: PageInfo!
+  edges: [ScoreEdge]!
+  aggregate: AggregateScore!
+}
+
+input ScoreCreateInput {
+  id: ID
+  subjectAve: Float
+  subjectTotal: Float
+  registration: RegistrationCreateOneInput!
+  presence: PresenceCreateOneWithoutScoreInput!
+  annExamSeriesSubj: AnnualExamSubjectSeriesCreateOneWithoutScoreInput!
+}
+
+input ScoreCreateManyWithoutAnnExamSeriesSubjInput {
+  create: [ScoreCreateWithoutAnnExamSeriesSubjInput!]
+  connect: [ScoreWhereUniqueInput!]
+}
+
+input ScoreCreateManyWithoutPresenceInput {
+  create: [ScoreCreateWithoutPresenceInput!]
+  connect: [ScoreWhereUniqueInput!]
+}
+
+input ScoreCreateWithoutAnnExamSeriesSubjInput {
+  id: ID
+  subjectAve: Float
+  subjectTotal: Float
+  registration: RegistrationCreateOneInput!
+  presence: PresenceCreateOneWithoutScoreInput!
+}
+
+input ScoreCreateWithoutPresenceInput {
+  id: ID
+  subjectAve: Float
+  subjectTotal: Float
+  registration: RegistrationCreateOneInput!
+  annExamSeriesSubj: AnnualExamSubjectSeriesCreateOneWithoutScoreInput!
+}
+
+type ScoreEdge {
+  node: Score!
+  cursor: String!
+}
+
+enum ScoreOrderByInput {
+  id_ASC
+  id_DESC
+  subjectAve_ASC
+  subjectAve_DESC
+  subjectTotal_ASC
+  subjectTotal_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type ScorePreviousValues {
+  id: ID!
+  subjectAve: Float
+  subjectTotal: Float
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input ScoreScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  subjectAve: Float
+  subjectAve_not: Float
+  subjectAve_in: [Float!]
+  subjectAve_not_in: [Float!]
+  subjectAve_lt: Float
+  subjectAve_lte: Float
+  subjectAve_gt: Float
+  subjectAve_gte: Float
+  subjectTotal: Float
+  subjectTotal_not: Float
+  subjectTotal_in: [Float!]
+  subjectTotal_not_in: [Float!]
+  subjectTotal_lt: Float
+  subjectTotal_lte: Float
+  subjectTotal_gt: Float
+  subjectTotal_gte: Float
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [ScoreScalarWhereInput!]
+  OR: [ScoreScalarWhereInput!]
+  NOT: [ScoreScalarWhereInput!]
+}
+
+type ScoreSubscriptionPayload {
+  mutation: MutationType!
+  node: Score
+  updatedFields: [String!]
+  previousValues: ScorePreviousValues
+}
+
+input ScoreSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ScoreWhereInput
+  AND: [ScoreSubscriptionWhereInput!]
+  OR: [ScoreSubscriptionWhereInput!]
+  NOT: [ScoreSubscriptionWhereInput!]
+}
+
+input ScoreUpdateInput {
+  subjectAve: Float
+  subjectTotal: Float
+  registration: RegistrationUpdateOneRequiredInput
+  presence: PresenceUpdateOneRequiredWithoutScoreInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesUpdateOneRequiredWithoutScoreInput
+}
+
+input ScoreUpdateManyDataInput {
+  subjectAve: Float
+  subjectTotal: Float
+}
+
+input ScoreUpdateManyMutationInput {
+  subjectAve: Float
+  subjectTotal: Float
+}
+
+input ScoreUpdateManyWithoutAnnExamSeriesSubjInput {
+  create: [ScoreCreateWithoutAnnExamSeriesSubjInput!]
+  delete: [ScoreWhereUniqueInput!]
+  connect: [ScoreWhereUniqueInput!]
+  set: [ScoreWhereUniqueInput!]
+  disconnect: [ScoreWhereUniqueInput!]
+  update: [ScoreUpdateWithWhereUniqueWithoutAnnExamSeriesSubjInput!]
+  upsert: [ScoreUpsertWithWhereUniqueWithoutAnnExamSeriesSubjInput!]
+  deleteMany: [ScoreScalarWhereInput!]
+  updateMany: [ScoreUpdateManyWithWhereNestedInput!]
+}
+
+input ScoreUpdateManyWithoutPresenceInput {
+  create: [ScoreCreateWithoutPresenceInput!]
+  delete: [ScoreWhereUniqueInput!]
+  connect: [ScoreWhereUniqueInput!]
+  set: [ScoreWhereUniqueInput!]
+  disconnect: [ScoreWhereUniqueInput!]
+  update: [ScoreUpdateWithWhereUniqueWithoutPresenceInput!]
+  upsert: [ScoreUpsertWithWhereUniqueWithoutPresenceInput!]
+  deleteMany: [ScoreScalarWhereInput!]
+  updateMany: [ScoreUpdateManyWithWhereNestedInput!]
+}
+
+input ScoreUpdateManyWithWhereNestedInput {
+  where: ScoreScalarWhereInput!
+  data: ScoreUpdateManyDataInput!
+}
+
+input ScoreUpdateWithoutAnnExamSeriesSubjDataInput {
+  subjectAve: Float
+  subjectTotal: Float
+  registration: RegistrationUpdateOneRequiredInput
+  presence: PresenceUpdateOneRequiredWithoutScoreInput
+}
+
+input ScoreUpdateWithoutPresenceDataInput {
+  subjectAve: Float
+  subjectTotal: Float
+  registration: RegistrationUpdateOneRequiredInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesUpdateOneRequiredWithoutScoreInput
+}
+
+input ScoreUpdateWithWhereUniqueWithoutAnnExamSeriesSubjInput {
+  where: ScoreWhereUniqueInput!
+  data: ScoreUpdateWithoutAnnExamSeriesSubjDataInput!
+}
+
+input ScoreUpdateWithWhereUniqueWithoutPresenceInput {
+  where: ScoreWhereUniqueInput!
+  data: ScoreUpdateWithoutPresenceDataInput!
+}
+
+input ScoreUpsertWithWhereUniqueWithoutAnnExamSeriesSubjInput {
+  where: ScoreWhereUniqueInput!
+  update: ScoreUpdateWithoutAnnExamSeriesSubjDataInput!
+  create: ScoreCreateWithoutAnnExamSeriesSubjInput!
+}
+
+input ScoreUpsertWithWhereUniqueWithoutPresenceInput {
+  where: ScoreWhereUniqueInput!
+  update: ScoreUpdateWithoutPresenceDataInput!
+  create: ScoreCreateWithoutPresenceInput!
+}
+
+input ScoreWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  subjectAve: Float
+  subjectAve_not: Float
+  subjectAve_in: [Float!]
+  subjectAve_not_in: [Float!]
+  subjectAve_lt: Float
+  subjectAve_lte: Float
+  subjectAve_gt: Float
+  subjectAve_gte: Float
+  subjectTotal: Float
+  subjectTotal_not: Float
+  subjectTotal_in: [Float!]
+  subjectTotal_not_in: [Float!]
+  subjectTotal_lt: Float
+  subjectTotal_lte: Float
+  subjectTotal_gt: Float
+  subjectTotal_gte: Float
+  registration: RegistrationWhereInput
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  presence: PresenceWhereInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesWhereInput
+  AND: [ScoreWhereInput!]
+  OR: [ScoreWhereInput!]
+  NOT: [ScoreWhereInput!]
+}
+
+input ScoreWhereUniqueInput {
+  id: ID
+}
+
 type Series {
   id: ID!
   seriesName: String!
   seriesCode: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  educationType: EducationType!
+  registration(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
 }
 
 type SeriesConnection {
@@ -1856,6 +4984,32 @@ input SeriesCreateInput {
   id: ID
   seriesName: String!
   seriesCode: String!
+  educationType: EducationTypeCreateOneWithoutSeriesInput!
+  registration: RegistrationCreateManyWithoutSeriesInput
+}
+
+input SeriesCreateManyWithoutEducationTypeInput {
+  create: [SeriesCreateWithoutEducationTypeInput!]
+  connect: [SeriesWhereUniqueInput!]
+}
+
+input SeriesCreateOneWithoutRegistrationInput {
+  create: SeriesCreateWithoutRegistrationInput
+  connect: SeriesWhereUniqueInput
+}
+
+input SeriesCreateWithoutEducationTypeInput {
+  id: ID
+  seriesName: String!
+  seriesCode: String!
+  registration: RegistrationCreateManyWithoutSeriesInput
+}
+
+input SeriesCreateWithoutRegistrationInput {
+  id: ID
+  seriesName: String!
+  seriesCode: String!
+  educationType: EducationTypeCreateOneWithoutSeriesInput!
 }
 
 type SeriesEdge {
@@ -1884,6 +5038,70 @@ type SeriesPreviousValues {
   updatedAt: DateTime!
 }
 
+input SeriesScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  seriesName: String
+  seriesName_not: String
+  seriesName_in: [String!]
+  seriesName_not_in: [String!]
+  seriesName_lt: String
+  seriesName_lte: String
+  seriesName_gt: String
+  seriesName_gte: String
+  seriesName_contains: String
+  seriesName_not_contains: String
+  seriesName_starts_with: String
+  seriesName_not_starts_with: String
+  seriesName_ends_with: String
+  seriesName_not_ends_with: String
+  seriesCode: String
+  seriesCode_not: String
+  seriesCode_in: [String!]
+  seriesCode_not_in: [String!]
+  seriesCode_lt: String
+  seriesCode_lte: String
+  seriesCode_gt: String
+  seriesCode_gte: String
+  seriesCode_contains: String
+  seriesCode_not_contains: String
+  seriesCode_starts_with: String
+  seriesCode_not_starts_with: String
+  seriesCode_ends_with: String
+  seriesCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [SeriesScalarWhereInput!]
+  OR: [SeriesScalarWhereInput!]
+  NOT: [SeriesScalarWhereInput!]
+}
+
 type SeriesSubscriptionPayload {
   mutation: MutationType!
   node: Series
@@ -1905,11 +5123,70 @@ input SeriesSubscriptionWhereInput {
 input SeriesUpdateInput {
   seriesName: String
   seriesCode: String
+  educationType: EducationTypeUpdateOneRequiredWithoutSeriesInput
+  registration: RegistrationUpdateManyWithoutSeriesInput
+}
+
+input SeriesUpdateManyDataInput {
+  seriesName: String
+  seriesCode: String
 }
 
 input SeriesUpdateManyMutationInput {
   seriesName: String
   seriesCode: String
+}
+
+input SeriesUpdateManyWithoutEducationTypeInput {
+  create: [SeriesCreateWithoutEducationTypeInput!]
+  delete: [SeriesWhereUniqueInput!]
+  connect: [SeriesWhereUniqueInput!]
+  set: [SeriesWhereUniqueInput!]
+  disconnect: [SeriesWhereUniqueInput!]
+  update: [SeriesUpdateWithWhereUniqueWithoutEducationTypeInput!]
+  upsert: [SeriesUpsertWithWhereUniqueWithoutEducationTypeInput!]
+  deleteMany: [SeriesScalarWhereInput!]
+  updateMany: [SeriesUpdateManyWithWhereNestedInput!]
+}
+
+input SeriesUpdateManyWithWhereNestedInput {
+  where: SeriesScalarWhereInput!
+  data: SeriesUpdateManyDataInput!
+}
+
+input SeriesUpdateOneRequiredWithoutRegistrationInput {
+  create: SeriesCreateWithoutRegistrationInput
+  update: SeriesUpdateWithoutRegistrationDataInput
+  upsert: SeriesUpsertWithoutRegistrationInput
+  connect: SeriesWhereUniqueInput
+}
+
+input SeriesUpdateWithoutEducationTypeDataInput {
+  seriesName: String
+  seriesCode: String
+  registration: RegistrationUpdateManyWithoutSeriesInput
+}
+
+input SeriesUpdateWithoutRegistrationDataInput {
+  seriesName: String
+  seriesCode: String
+  educationType: EducationTypeUpdateOneRequiredWithoutSeriesInput
+}
+
+input SeriesUpdateWithWhereUniqueWithoutEducationTypeInput {
+  where: SeriesWhereUniqueInput!
+  data: SeriesUpdateWithoutEducationTypeDataInput!
+}
+
+input SeriesUpsertWithoutRegistrationInput {
+  update: SeriesUpdateWithoutRegistrationDataInput!
+  create: SeriesCreateWithoutRegistrationInput!
+}
+
+input SeriesUpsertWithWhereUniqueWithoutEducationTypeInput {
+  where: SeriesWhereUniqueInput!
+  update: SeriesUpdateWithoutEducationTypeDataInput!
+  create: SeriesCreateWithoutEducationTypeInput!
 }
 
 input SeriesWhereInput {
@@ -1971,12 +5248,272 @@ input SeriesWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  educationType: EducationTypeWhereInput
+  registration_every: RegistrationWhereInput
+  registration_some: RegistrationWhereInput
+  registration_none: RegistrationWhereInput
   AND: [SeriesWhereInput!]
   OR: [SeriesWhereInput!]
   NOT: [SeriesWhereInput!]
 }
 
 input SeriesWhereUniqueInput {
+  id: ID
+}
+
+type Session {
+  id: ID!
+  sessionName: String!
+  sessionCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  centerAdmin(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterAdmin!]
+  annExamSeriesSubj(where: AnnualExamSubjectSeriesWhereInput, orderBy: AnnualExamSubjectSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AnnualExamSubjectSeries!]
+  registration(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
+}
+
+type SessionConnection {
+  pageInfo: PageInfo!
+  edges: [SessionEdge]!
+  aggregate: AggregateSession!
+}
+
+input SessionCreateInput {
+  id: ID
+  sessionName: String!
+  sessionCode: String!
+  centerAdmin: CenterAdminCreateManyWithoutSessionInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesCreateManyWithoutSessionInput
+  registration: RegistrationCreateManyWithoutSessionInput
+}
+
+input SessionCreateOneWithoutAnnExamSeriesSubjInput {
+  create: SessionCreateWithoutAnnExamSeriesSubjInput
+  connect: SessionWhereUniqueInput
+}
+
+input SessionCreateOneWithoutCenterAdminInput {
+  create: SessionCreateWithoutCenterAdminInput
+  connect: SessionWhereUniqueInput
+}
+
+input SessionCreateOneWithoutRegistrationInput {
+  create: SessionCreateWithoutRegistrationInput
+  connect: SessionWhereUniqueInput
+}
+
+input SessionCreateWithoutAnnExamSeriesSubjInput {
+  id: ID
+  sessionName: String!
+  sessionCode: String!
+  centerAdmin: CenterAdminCreateManyWithoutSessionInput
+  registration: RegistrationCreateManyWithoutSessionInput
+}
+
+input SessionCreateWithoutCenterAdminInput {
+  id: ID
+  sessionName: String!
+  sessionCode: String!
+  annExamSeriesSubj: AnnualExamSubjectSeriesCreateManyWithoutSessionInput
+  registration: RegistrationCreateManyWithoutSessionInput
+}
+
+input SessionCreateWithoutRegistrationInput {
+  id: ID
+  sessionName: String!
+  sessionCode: String!
+  centerAdmin: CenterAdminCreateManyWithoutSessionInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesCreateManyWithoutSessionInput
+}
+
+type SessionEdge {
+  node: Session!
+  cursor: String!
+}
+
+enum SessionOrderByInput {
+  id_ASC
+  id_DESC
+  sessionName_ASC
+  sessionName_DESC
+  sessionCode_ASC
+  sessionCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type SessionPreviousValues {
+  id: ID!
+  sessionName: String!
+  sessionCode: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type SessionSubscriptionPayload {
+  mutation: MutationType!
+  node: Session
+  updatedFields: [String!]
+  previousValues: SessionPreviousValues
+}
+
+input SessionSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: SessionWhereInput
+  AND: [SessionSubscriptionWhereInput!]
+  OR: [SessionSubscriptionWhereInput!]
+  NOT: [SessionSubscriptionWhereInput!]
+}
+
+input SessionUpdateInput {
+  sessionName: String
+  sessionCode: String
+  centerAdmin: CenterAdminUpdateManyWithoutSessionInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesUpdateManyWithoutSessionInput
+  registration: RegistrationUpdateManyWithoutSessionInput
+}
+
+input SessionUpdateManyMutationInput {
+  sessionName: String
+  sessionCode: String
+}
+
+input SessionUpdateOneRequiredWithoutAnnExamSeriesSubjInput {
+  create: SessionCreateWithoutAnnExamSeriesSubjInput
+  update: SessionUpdateWithoutAnnExamSeriesSubjDataInput
+  upsert: SessionUpsertWithoutAnnExamSeriesSubjInput
+  connect: SessionWhereUniqueInput
+}
+
+input SessionUpdateOneRequiredWithoutCenterAdminInput {
+  create: SessionCreateWithoutCenterAdminInput
+  update: SessionUpdateWithoutCenterAdminDataInput
+  upsert: SessionUpsertWithoutCenterAdminInput
+  connect: SessionWhereUniqueInput
+}
+
+input SessionUpdateOneRequiredWithoutRegistrationInput {
+  create: SessionCreateWithoutRegistrationInput
+  update: SessionUpdateWithoutRegistrationDataInput
+  upsert: SessionUpsertWithoutRegistrationInput
+  connect: SessionWhereUniqueInput
+}
+
+input SessionUpdateWithoutAnnExamSeriesSubjDataInput {
+  sessionName: String
+  sessionCode: String
+  centerAdmin: CenterAdminUpdateManyWithoutSessionInput
+  registration: RegistrationUpdateManyWithoutSessionInput
+}
+
+input SessionUpdateWithoutCenterAdminDataInput {
+  sessionName: String
+  sessionCode: String
+  annExamSeriesSubj: AnnualExamSubjectSeriesUpdateManyWithoutSessionInput
+  registration: RegistrationUpdateManyWithoutSessionInput
+}
+
+input SessionUpdateWithoutRegistrationDataInput {
+  sessionName: String
+  sessionCode: String
+  centerAdmin: CenterAdminUpdateManyWithoutSessionInput
+  annExamSeriesSubj: AnnualExamSubjectSeriesUpdateManyWithoutSessionInput
+}
+
+input SessionUpsertWithoutAnnExamSeriesSubjInput {
+  update: SessionUpdateWithoutAnnExamSeriesSubjDataInput!
+  create: SessionCreateWithoutAnnExamSeriesSubjInput!
+}
+
+input SessionUpsertWithoutCenterAdminInput {
+  update: SessionUpdateWithoutCenterAdminDataInput!
+  create: SessionCreateWithoutCenterAdminInput!
+}
+
+input SessionUpsertWithoutRegistrationInput {
+  update: SessionUpdateWithoutRegistrationDataInput!
+  create: SessionCreateWithoutRegistrationInput!
+}
+
+input SessionWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  sessionName: String
+  sessionName_not: String
+  sessionName_in: [String!]
+  sessionName_not_in: [String!]
+  sessionName_lt: String
+  sessionName_lte: String
+  sessionName_gt: String
+  sessionName_gte: String
+  sessionName_contains: String
+  sessionName_not_contains: String
+  sessionName_starts_with: String
+  sessionName_not_starts_with: String
+  sessionName_ends_with: String
+  sessionName_not_ends_with: String
+  sessionCode: String
+  sessionCode_not: String
+  sessionCode_in: [String!]
+  sessionCode_not_in: [String!]
+  sessionCode_lt: String
+  sessionCode_lte: String
+  sessionCode_gt: String
+  sessionCode_gte: String
+  sessionCode_contains: String
+  sessionCode_not_contains: String
+  sessionCode_starts_with: String
+  sessionCode_not_starts_with: String
+  sessionCode_ends_with: String
+  sessionCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  centerAdmin_every: CenterAdminWhereInput
+  centerAdmin_some: CenterAdminWhereInput
+  centerAdmin_none: CenterAdminWhereInput
+  annExamSeriesSubj_every: AnnualExamSubjectSeriesWhereInput
+  annExamSeriesSubj_some: AnnualExamSubjectSeriesWhereInput
+  annExamSeriesSubj_none: AnnualExamSubjectSeriesWhereInput
+  registration_every: RegistrationWhereInput
+  registration_some: RegistrationWhereInput
+  registration_none: RegistrationWhereInput
+  AND: [SessionWhereInput!]
+  OR: [SessionWhereInput!]
+  NOT: [SessionWhereInput!]
+}
+
+input SessionWhereUniqueInput {
   id: ID
 }
 
@@ -1987,6 +5524,7 @@ type SubDivision {
   division: Division!
   createdAt: DateTime!
   updatedAt: DateTime!
+  town(where: TownWhereInput, orderBy: TownOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Town!]
 }
 
 type SubDivisionConnection {
@@ -1999,12 +5537,32 @@ input SubDivisionCreateInput {
   id: ID
   subDivName: String!
   subDivCode: String!
-  division: DivisionCreateOneInput!
+  division: DivisionCreateOneWithoutSubDivisionInput!
+  town: TownCreateManyWithoutSubDivInput
 }
 
-input SubDivisionCreateOneInput {
-  create: SubDivisionCreateInput
+input SubDivisionCreateManyWithoutDivisionInput {
+  create: [SubDivisionCreateWithoutDivisionInput!]
+  connect: [SubDivisionWhereUniqueInput!]
+}
+
+input SubDivisionCreateOneWithoutTownInput {
+  create: SubDivisionCreateWithoutTownInput
   connect: SubDivisionWhereUniqueInput
+}
+
+input SubDivisionCreateWithoutDivisionInput {
+  id: ID
+  subDivName: String!
+  subDivCode: String!
+  town: TownCreateManyWithoutSubDivInput
+}
+
+input SubDivisionCreateWithoutTownInput {
+  id: ID
+  subDivName: String!
+  subDivCode: String!
+  division: DivisionCreateOneWithoutSubDivisionInput!
 }
 
 type SubDivisionEdge {
@@ -2033,6 +5591,70 @@ type SubDivisionPreviousValues {
   updatedAt: DateTime!
 }
 
+input SubDivisionScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  subDivName: String
+  subDivName_not: String
+  subDivName_in: [String!]
+  subDivName_not_in: [String!]
+  subDivName_lt: String
+  subDivName_lte: String
+  subDivName_gt: String
+  subDivName_gte: String
+  subDivName_contains: String
+  subDivName_not_contains: String
+  subDivName_starts_with: String
+  subDivName_not_starts_with: String
+  subDivName_ends_with: String
+  subDivName_not_ends_with: String
+  subDivCode: String
+  subDivCode_not: String
+  subDivCode_in: [String!]
+  subDivCode_not_in: [String!]
+  subDivCode_lt: String
+  subDivCode_lte: String
+  subDivCode_gt: String
+  subDivCode_gte: String
+  subDivCode_contains: String
+  subDivCode_not_contains: String
+  subDivCode_starts_with: String
+  subDivCode_not_starts_with: String
+  subDivCode_ends_with: String
+  subDivCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [SubDivisionScalarWhereInput!]
+  OR: [SubDivisionScalarWhereInput!]
+  NOT: [SubDivisionScalarWhereInput!]
+}
+
 type SubDivisionSubscriptionPayload {
   mutation: MutationType!
   node: SubDivision
@@ -2051,16 +5673,16 @@ input SubDivisionSubscriptionWhereInput {
   NOT: [SubDivisionSubscriptionWhereInput!]
 }
 
-input SubDivisionUpdateDataInput {
-  subDivName: String
-  subDivCode: String
-  division: DivisionUpdateOneRequiredInput
-}
-
 input SubDivisionUpdateInput {
   subDivName: String
   subDivCode: String
-  division: DivisionUpdateOneRequiredInput
+  division: DivisionUpdateOneRequiredWithoutSubDivisionInput
+  town: TownUpdateManyWithoutSubDivInput
+}
+
+input SubDivisionUpdateManyDataInput {
+  subDivName: String
+  subDivCode: String
 }
 
 input SubDivisionUpdateManyMutationInput {
@@ -2068,16 +5690,56 @@ input SubDivisionUpdateManyMutationInput {
   subDivCode: String
 }
 
-input SubDivisionUpdateOneRequiredInput {
-  create: SubDivisionCreateInput
-  update: SubDivisionUpdateDataInput
-  upsert: SubDivisionUpsertNestedInput
+input SubDivisionUpdateManyWithoutDivisionInput {
+  create: [SubDivisionCreateWithoutDivisionInput!]
+  delete: [SubDivisionWhereUniqueInput!]
+  connect: [SubDivisionWhereUniqueInput!]
+  set: [SubDivisionWhereUniqueInput!]
+  disconnect: [SubDivisionWhereUniqueInput!]
+  update: [SubDivisionUpdateWithWhereUniqueWithoutDivisionInput!]
+  upsert: [SubDivisionUpsertWithWhereUniqueWithoutDivisionInput!]
+  deleteMany: [SubDivisionScalarWhereInput!]
+  updateMany: [SubDivisionUpdateManyWithWhereNestedInput!]
+}
+
+input SubDivisionUpdateManyWithWhereNestedInput {
+  where: SubDivisionScalarWhereInput!
+  data: SubDivisionUpdateManyDataInput!
+}
+
+input SubDivisionUpdateOneRequiredWithoutTownInput {
+  create: SubDivisionCreateWithoutTownInput
+  update: SubDivisionUpdateWithoutTownDataInput
+  upsert: SubDivisionUpsertWithoutTownInput
   connect: SubDivisionWhereUniqueInput
 }
 
-input SubDivisionUpsertNestedInput {
-  update: SubDivisionUpdateDataInput!
-  create: SubDivisionCreateInput!
+input SubDivisionUpdateWithoutDivisionDataInput {
+  subDivName: String
+  subDivCode: String
+  town: TownUpdateManyWithoutSubDivInput
+}
+
+input SubDivisionUpdateWithoutTownDataInput {
+  subDivName: String
+  subDivCode: String
+  division: DivisionUpdateOneRequiredWithoutSubDivisionInput
+}
+
+input SubDivisionUpdateWithWhereUniqueWithoutDivisionInput {
+  where: SubDivisionWhereUniqueInput!
+  data: SubDivisionUpdateWithoutDivisionDataInput!
+}
+
+input SubDivisionUpsertWithoutTownInput {
+  update: SubDivisionUpdateWithoutTownDataInput!
+  create: SubDivisionCreateWithoutTownInput!
+}
+
+input SubDivisionUpsertWithWhereUniqueWithoutDivisionInput {
+  where: SubDivisionWhereUniqueInput!
+  update: SubDivisionUpdateWithoutDivisionDataInput!
+  create: SubDivisionCreateWithoutDivisionInput!
 }
 
 input SubDivisionWhereInput {
@@ -2140,6 +5802,9 @@ input SubDivisionWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  town_every: TownWhereInput
+  town_some: TownWhereInput
+  town_none: TownWhereInput
   AND: [SubDivisionWhereInput!]
   OR: [SubDivisionWhereInput!]
   NOT: [SubDivisionWhereInput!]
@@ -2153,6 +5818,7 @@ type Subject {
   id: ID!
   subjName: String!
   subjCode: String!
+  annExamSeriesSubj(where: AnnualExamSubjectSeriesWhereInput, orderBy: AnnualExamSubjectSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AnnualExamSubjectSeries!]
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -2167,6 +5833,7 @@ input SubjectCreateInput {
   id: ID
   subjName: String!
   subjCode: String!
+  annExamSeriesSubj: AnnualExamSubjectSeriesCreateManyInput
 }
 
 type SubjectEdge {
@@ -2216,6 +5883,7 @@ input SubjectSubscriptionWhereInput {
 input SubjectUpdateInput {
   subjName: String
   subjCode: String
+  annExamSeriesSubj: AnnualExamSubjectSeriesUpdateManyInput
 }
 
 input SubjectUpdateManyMutationInput {
@@ -2266,6 +5934,9 @@ input SubjectWhereInput {
   subjCode_not_starts_with: String
   subjCode_ends_with: String
   subjCode_not_ends_with: String
+  annExamSeriesSubj_every: AnnualExamSubjectSeriesWhereInput
+  annExamSeriesSubj_some: AnnualExamSubjectSeriesWhereInput
+  annExamSeriesSubj_none: AnnualExamSubjectSeriesWhereInput
   createdAt: DateTime
   createdAt_not: DateTime
   createdAt_in: [DateTime!]
@@ -2292,20 +5963,28 @@ input SubjectWhereUniqueInput {
 }
 
 type Subscription {
+  annualExamSubjectSeries(where: AnnualExamSubjectSeriesSubscriptionWhereInput): AnnualExamSubjectSeriesSubscriptionPayload
+  anotherType(where: AnotherTypeSubscriptionWhereInput): AnotherTypeSubscriptionPayload
   candidate(where: CandidateSubscriptionWhereInput): CandidateSubscriptionPayload
+  centerAdmin(where: CenterAdminSubscriptionWhereInput): CenterAdminSubscriptionPayload
   division(where: DivisionSubscriptionWhereInput): DivisionSubscriptionPayload
+  educationType(where: EducationTypeSubscriptionWhereInput): EducationTypeSubscriptionPayload
   exam(where: ExamSubscriptionWhereInput): ExamSubscriptionPayload
-  examSession(where: ExamSessionSubscriptionWhereInput): ExamSessionSubscriptionPayload
+  examCenter(where: ExamCenterSubscriptionWhereInput): ExamCenterSubscriptionPayload
   gender(where: GenderSubscriptionWhereInput): GenderSubscriptionPayload
   item(where: ItemSubscriptionWhereInput): ItemSubscriptionPayload
   presence(where: PresenceSubscriptionWhereInput): PresenceSubscriptionPayload
+  rank(where: RankSubscriptionWhereInput): RankSubscriptionPayload
   region(where: RegionSubscriptionWhereInput): RegionSubscriptionPayload
+  registration(where: RegistrationSubscriptionWhereInput): RegistrationSubscriptionPayload
+  report(where: ReportSubscriptionWhereInput): ReportSubscriptionPayload
+  score(where: ScoreSubscriptionWhereInput): ScoreSubscriptionPayload
   series(where: SeriesSubscriptionWhereInput): SeriesSubscriptionPayload
+  session(where: SessionSubscriptionWhereInput): SessionSubscriptionPayload
   subDivision(where: SubDivisionSubscriptionWhereInput): SubDivisionSubscriptionPayload
   subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
   town(where: TownSubscriptionWhereInput): TownSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-  examCenter(where: examCenterSubscriptionWhereInput): examCenterSubscriptionPayload
 }
 
 type Town {
@@ -2315,6 +5994,7 @@ type Town {
   subDiv: SubDivision!
   createdAt: DateTime!
   updatedAt: DateTime!
+  center(where: ExamCenterWhereInput, orderBy: ExamCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [ExamCenter!]
 }
 
 type TownConnection {
@@ -2327,12 +6007,32 @@ input TownCreateInput {
   id: ID
   townName: String!
   townCode: String!
-  subDiv: SubDivisionCreateOneInput!
+  subDiv: SubDivisionCreateOneWithoutTownInput!
+  center: ExamCenterCreateManyWithoutTownInput
 }
 
-input TownCreateOneInput {
-  create: TownCreateInput
+input TownCreateManyWithoutSubDivInput {
+  create: [TownCreateWithoutSubDivInput!]
+  connect: [TownWhereUniqueInput!]
+}
+
+input TownCreateOneWithoutCenterInput {
+  create: TownCreateWithoutCenterInput
   connect: TownWhereUniqueInput
+}
+
+input TownCreateWithoutCenterInput {
+  id: ID
+  townName: String!
+  townCode: String!
+  subDiv: SubDivisionCreateOneWithoutTownInput!
+}
+
+input TownCreateWithoutSubDivInput {
+  id: ID
+  townName: String!
+  townCode: String!
+  center: ExamCenterCreateManyWithoutTownInput
 }
 
 type TownEdge {
@@ -2361,6 +6061,70 @@ type TownPreviousValues {
   updatedAt: DateTime!
 }
 
+input TownScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  townName: String
+  townName_not: String
+  townName_in: [String!]
+  townName_not_in: [String!]
+  townName_lt: String
+  townName_lte: String
+  townName_gt: String
+  townName_gte: String
+  townName_contains: String
+  townName_not_contains: String
+  townName_starts_with: String
+  townName_not_starts_with: String
+  townName_ends_with: String
+  townName_not_ends_with: String
+  townCode: String
+  townCode_not: String
+  townCode_in: [String!]
+  townCode_not_in: [String!]
+  townCode_lt: String
+  townCode_lte: String
+  townCode_gt: String
+  townCode_gte: String
+  townCode_contains: String
+  townCode_not_contains: String
+  townCode_starts_with: String
+  townCode_not_starts_with: String
+  townCode_ends_with: String
+  townCode_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [TownScalarWhereInput!]
+  OR: [TownScalarWhereInput!]
+  NOT: [TownScalarWhereInput!]
+}
+
 type TownSubscriptionPayload {
   mutation: MutationType!
   node: Town
@@ -2379,16 +6143,16 @@ input TownSubscriptionWhereInput {
   NOT: [TownSubscriptionWhereInput!]
 }
 
-input TownUpdateDataInput {
-  townName: String
-  townCode: String
-  subDiv: SubDivisionUpdateOneRequiredInput
-}
-
 input TownUpdateInput {
   townName: String
   townCode: String
-  subDiv: SubDivisionUpdateOneRequiredInput
+  subDiv: SubDivisionUpdateOneRequiredWithoutTownInput
+  center: ExamCenterUpdateManyWithoutTownInput
+}
+
+input TownUpdateManyDataInput {
+  townName: String
+  townCode: String
 }
 
 input TownUpdateManyMutationInput {
@@ -2396,16 +6160,56 @@ input TownUpdateManyMutationInput {
   townCode: String
 }
 
-input TownUpdateOneRequiredInput {
-  create: TownCreateInput
-  update: TownUpdateDataInput
-  upsert: TownUpsertNestedInput
+input TownUpdateManyWithoutSubDivInput {
+  create: [TownCreateWithoutSubDivInput!]
+  delete: [TownWhereUniqueInput!]
+  connect: [TownWhereUniqueInput!]
+  set: [TownWhereUniqueInput!]
+  disconnect: [TownWhereUniqueInput!]
+  update: [TownUpdateWithWhereUniqueWithoutSubDivInput!]
+  upsert: [TownUpsertWithWhereUniqueWithoutSubDivInput!]
+  deleteMany: [TownScalarWhereInput!]
+  updateMany: [TownUpdateManyWithWhereNestedInput!]
+}
+
+input TownUpdateManyWithWhereNestedInput {
+  where: TownScalarWhereInput!
+  data: TownUpdateManyDataInput!
+}
+
+input TownUpdateOneRequiredWithoutCenterInput {
+  create: TownCreateWithoutCenterInput
+  update: TownUpdateWithoutCenterDataInput
+  upsert: TownUpsertWithoutCenterInput
   connect: TownWhereUniqueInput
 }
 
-input TownUpsertNestedInput {
-  update: TownUpdateDataInput!
-  create: TownCreateInput!
+input TownUpdateWithoutCenterDataInput {
+  townName: String
+  townCode: String
+  subDiv: SubDivisionUpdateOneRequiredWithoutTownInput
+}
+
+input TownUpdateWithoutSubDivDataInput {
+  townName: String
+  townCode: String
+  center: ExamCenterUpdateManyWithoutTownInput
+}
+
+input TownUpdateWithWhereUniqueWithoutSubDivInput {
+  where: TownWhereUniqueInput!
+  data: TownUpdateWithoutSubDivDataInput!
+}
+
+input TownUpsertWithoutCenterInput {
+  update: TownUpdateWithoutCenterDataInput!
+  create: TownCreateWithoutCenterInput!
+}
+
+input TownUpsertWithWhereUniqueWithoutSubDivInput {
+  where: TownWhereUniqueInput!
+  update: TownUpdateWithoutSubDivDataInput!
+  create: TownCreateWithoutSubDivInput!
 }
 
 input TownWhereInput {
@@ -2468,6 +6272,9 @@ input TownWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  center_every: ExamCenterWhereInput
+  center_some: ExamCenterWhereInput
+  center_none: ExamCenterWhereInput
   AND: [TownWhereInput!]
   OR: [TownWhereInput!]
   NOT: [TownWhereInput!]
@@ -2483,6 +6290,7 @@ type User {
   email: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+  item(where: ItemWhereInput, orderBy: ItemOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Item!]
 }
 
 type UserConnection {
@@ -2492,6 +6300,18 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
+  name: String!
+  email: String!
+  item: ItemCreateManyWithoutUserInput
+}
+
+input UserCreateOneWithoutItemInput {
+  create: UserCreateWithoutItemInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutItemInput {
   id: ID
   name: String!
   email: String!
@@ -2544,11 +6364,29 @@ input UserSubscriptionWhereInput {
 input UserUpdateInput {
   name: String
   email: String
+  item: ItemUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
   email: String
+}
+
+input UserUpdateOneRequiredWithoutItemInput {
+  create: UserCreateWithoutItemInput
+  update: UserUpdateWithoutItemDataInput
+  upsert: UserUpsertWithoutItemInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateWithoutItemDataInput {
+  name: String
+  email: String
+}
+
+input UserUpsertWithoutItemInput {
+  update: UserUpdateWithoutItemDataInput!
+  create: UserCreateWithoutItemInput!
 }
 
 input UserWhereInput {
@@ -2610,6 +6448,9 @@ input UserWhereInput {
   updatedAt_lte: DateTime
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
+  item_every: ItemWhereInput
+  item_some: ItemWhereInput
+  item_none: ItemWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

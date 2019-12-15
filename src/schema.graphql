@@ -3,54 +3,155 @@
 
 type Mutation {
     createUser(name: String!, email: String!): User! 
-   createCandidate(
-   cand1stName:String,
+    createCandidate(
+    cand1stName:String,
     cand2ndName:String,
-
     cand3rdName:String,
     email: String,
     phoneNumb: Int,
     image: String,
     candCode: String,
-    placeOfBirth: String
+    placeOfBirth: String,
+    gender:  GenderCreateWithoutCandidateInput !
        ):Candidate!
 
    updateCandidate(
      id:ID!,
-   cand1stName:String,
+    cand1stName:String,
     cand2ndName:String,
     cand3rdName:String,
     email: String,
     phoneNumb: Int,
     image: String,
     candCode: String,
-    placeOfBirth: String
+    placeOfBirth: String,
+    genre: GenderCreateWithoutCandidateInput
+
        ):Candidate!
        
        createRegion(regName: String!, regCode: String!):Region!
        updateRegion(id:ID!, regName: String, regCode: String):Region!
+      
+       createPresence(presenceName: String!, presenceCode: String!):Presence!
+       updatePresence(id:ID!, presenceName: String, presenceCode: String):Presence!
+      
+       createExam(examName: String!, examCode: String!):Exam!
+       updateExam(id:ID!, examName: String, examCode: String):Exam!
+      
+      
+       createSeries(seriesName: String!, seriesCode: String!,educationType:EducationTypeCreateWithoutSeriesInput! ):Series!
+       updateSeries(id:ID!, seriesName: String, seriesCode: String):Series!
+      
+      
+       createSubject(subjectName: String!, subjectCode: String!):Subject!
+       updateSubject(id:ID!, subjectName: String, subjectCode: String):Subject!
+      
+      
+       createReport(reportName: String!, reportCode: String!):Report!
+       updateReport(id:ID!, reportName: String, reportCode: String):Report!
+      
+      
+       createSession(sessionName: String!, sessionCode: String!):Session!
+       updateSession(id:ID!, sessionName: String, sessionCode: String):Session!
+      
+      
+       createRank(rankName: String!, rankCode: String!):Rank!
+       updateRank(id:ID!, rankName: String, rankCode: String):Rank!
+     
+       createEducationType(educationTypeName: String!, educationTypeCode: String!):EducationType!
+       updateEducationType(id:ID!, educationTypeName: String, educationTypeCode: String):EducationType!
+      
+      
+       updateRegistration(id:ID!):Registration!
+       createRegistration( 
+         candidate: CandidateCreateOneWithoutRegistrationInput!,
+  exam: ExamCreateOneWithoutRegistrationInput!,
+  series: SeriesCreateOneWithoutRegistrationInput!,
+  session: SessionCreateOneWithoutRegistrationInput!,
+  center: CenterCreateOneWithoutRegistrationInput!,
+):Registration!
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
        createItem(title: String! , description: String, image: String!):Item!
-       
+
        createDivision(divName: String!, divCode: String!, region: RegionCreateWithoutDivisionInput! ):Division!
+       createSubDivision(subDivName: String!, subDivCode: String!,  division: DivisionWhereUniqueInput! ):SubDivision!
+       createTown(townName: String!, townCode: String!,  subDiv: SubDivisionWhereUniqueInput! ):Town!
+
+       createCenter(centerName: String!, centerCode: String!, centerNumber: Int, town: TownWhereUniqueInput! ):Center!
        createGender(genderName: String! , genderCode: String!):Gender!
-      deleteCandidate(id: ID! ): Candidate      
-      deleteRegion(id: ID! ): Region      
+       deleteCandidate(id: ID! ): Candidate      
+       deleteRegion(id: ID! ): Region 
 
        }
 
 type Query {
-        candidates:[Candidate]!  
-        candidate(id: ID!):Candidate!
-        regions:[Region]! 
+
+        candidates(orderBy:CandidateOrderByInput):[Candidate]!  
+        candidate(id: CandidateWhereUniqueInput!):Candidate!
+        regions(orderBy:RegionOrderByInput):[Region]! 
         region(id: ID!):Region! 
-       division(where: DivisionWhereUniqueInput!): Division
-  divisions(where: RegionWhereUniqueInput, orderBy: DivisionOrderByInput): [Division]!
+
+        exams(orderBy:ExamOrderByInput):[Exam]! 
+        exam(id: ID!):Exam! 
+
+        # centers(orderBy:CenterOrderByInput):[Center]! 
+        # center(id: ID!):Center! 
+
+        presences(orderBy:PresenceOrderByInput):[Presence]! 
+        presence(id: ID!):Presence! 
+
+        registrations(orderBy:RegistrationOrderByInput):[Registration]! 
+        registration(id: ID!):Registration! 
+
+        serieses(orderBy:SeriesOrderByInput):[Series]! 
+        series(id: ID!):Series! 
+
+        subjects(orderBy:SubjectOrderByInput):[Subject]! 
+        subject(id: ID!):Subject! 
+
+        reports(orderBy:ReportOrderByInput):[Report]! 
+        report(id: ID!):Report! 
+
+        sessions(orderBy:SessionOrderByInput):[Session]! 
+        session(id: ID!):Session! 
+
+        ranks(orderBy:RankOrderByInput):[Rank]! 
+        rank(id: ID!):Rank! 
+        educationTypes(orderBy:EducationTypeOrderByInput):[EducationType]! 
+        educationType(id: ID!):EducationType! 
+
+
+
+
+
+
+
+
+       division(id: ID!): Division!
+       divisions(orderBy:DivisionOrderByInput):[Division]!
+       town(id: ID!): Town!
+       towns(orderBy:TownOrderByInput):[Town]!
+       subDivision(id: ID!): SubDivision!
+       subDivisions(orderBy:SubDivisionOrderByInput):[SubDivision]!
+       center(id: ID!): Center!
+       centers(orderBy:CenterOrderByInput):[Center]!
+
         items:[Item]! 
         item(where:ItemWhereUniqueInput!):Item 
          users:[User]!
-         genders:[Gender]!
-         gender(where: GenderWhereUniqueInput!):Gender!
-          
+         genders(orderBy:GenderOrderByInput):[Gender]!
+         gender(where:GenderWhereUniqueInput!):Gender!
+         Region(where:RegionWhereUniqueInput!):Region!
            }
 
 

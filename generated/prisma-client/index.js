@@ -29,11 +29,15 @@ var models = [
     embedded: false
   },
   {
-    name: "examCenter",
+    name: "ExamCenter",
     embedded: false
   },
   {
     name: "Series",
+    embedded: false
+  },
+  {
+    name: "EducationType",
     embedded: false
   },
   {
@@ -49,7 +53,7 @@ var models = [
     embedded: false
   },
   {
-    name: "ExamSession",
+    name: "Session",
     embedded: false
   },
   {
@@ -58,6 +62,34 @@ var models = [
   },
   {
     name: "Candidate",
+    embedded: false
+  },
+  {
+    name: "Rank",
+    embedded: false
+  },
+  {
+    name: "CenterAdmin",
+    embedded: false
+  },
+  {
+    name: "Report",
+    embedded: false
+  },
+  {
+    name: "Score",
+    embedded: false
+  },
+  {
+    name: "Registration",
+    embedded: false
+  },
+  {
+    name: "AnnualExamSubjectSeries",
+    embedded: false
+  },
+  {
+    name: "AnotherType",
     embedded: false
   }
 ];

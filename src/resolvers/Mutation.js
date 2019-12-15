@@ -1,11 +1,35 @@
 const Mutation = {
   async  createCandidate(parents, args, ctx, info) {
 
-        const candidate = await ctx.db.mutation.createCandidate({
+    const newCand = {...args};
+    const {
+      cand1stName,
+      cand2ndName,
+      cand3rdName,
+      email,
+      phoneNumb,
+      image,
+      candCode,
+      placeOfBirth,
+      gender
+    }= newCand
+const candidate = await ctx.db.mutation.createCandidate({
                 data: {
-                    ...args
-                }
+                  gender:{
+                    connect:{id: gender.id },
+                  },
+                  cand1stName,
+            cand2ndName,
+            cand3rdName,
+            email,
+            phoneNumb,
+            image,
+            candCode,
+            placeOfBirth
+                },
             }, info);
+            console.log('logging candidate properties')
+            console.log(args)
             return candidate;
     },
 
@@ -20,11 +44,11 @@ const Mutation = {
 
     const division = await ctx.db.mutation.createDivision({
         data: {
+          divName,
+          divCode,
              region: {
                 connect: {id:region.id },
                 }, 
-              divName,
-              divCode
             },
     }, info);
     console.log(args);
@@ -33,6 +57,112 @@ const Mutation = {
 
     
     
+
+  async  createSubDivision(parents, args, ctx, info) {
+  
+//    make a copy  of the args
+   const newDivs = {...args};
+   // show the region name from the new regions array because will not have to update the id
+
+  const {subDivName, subDivCode, division}=newDivs
+
+    const subDivision = await ctx.db.mutation.createSubDivision({
+        data: {
+          division: {
+            connect: {id:division.id },
+          }, 
+            subDivName,
+           subDivCode ,           
+            },
+    }, info);
+    console.log(args);
+            return subDivision;
+    },
+
+
+  async  createTown(parents, args, ctx, info) {
+  console.log('we are in create town mutation') 
+  console.log(args) ;
+//    make a copy  of the args
+   const newTowns = {...args};
+   // show the region name from the new regions array because will not have to update the id
+
+  const {townName, townCode, subDiv}=newTowns
+
+    const town = await ctx.db.mutation.createTown({
+        data: {
+          subDiv: {
+            connect: {id:subDiv.id },
+          }, 
+            townName,
+           townCode ,           
+            },
+    }, info);
+    console.log(args);
+            return town;
+    },
+
+    
+
+  async  createCenter(parents, args, ctx, info) {
+//    make a copy  of the args
+   const newCenters = {...args};
+   // show the region name from the new regions array because will not have to update the id
+
+  const {centerName,centerNumber, centerCode, town}=newCenters
+
+    const center = await ctx.db.mutation.createCenter({
+        data: {
+          town: {
+            connect: {id:town.id },
+          }, 
+            centerName,
+           centerCode ,
+           centerNumber
+          },
+    }, info);
+    console.log(args);
+            return center;
+    },
+
+    
+    
+    
+
+    
+
+  async  createRegistration(parents, args, ctx, info) {
+  console.log(args) ;
+//    make a copy  of the args
+   const newRegistartionInfos = {...args};
+   // show the region name from the new regions array because will not have to update the id
+
+  const { candidate,  center, series, session, exam}=newRegistartionInfos
+
+    const registration = await ctx.db.mutation.createRegistration({
+        data: {
+          candidate:{
+          connect:{id: candidate.id}
+          },
+          center: {
+            connect: {id:center.id },
+          }, 
+          series: {
+            connect: {id:series.id },
+          }, 
+          session: {
+            connect: {id:session.id },
+          }, 
+          exam: {
+            connect: {id:exam.id },
+          }, 
+
+            },
+    }, info);
+    console.log(args);
+            return registration;
+    },
+
     
    async  createRegion(parents, args, ctx, info) {
        
@@ -40,6 +170,88 @@ const Mutation = {
            data: {...args}
         }, info);
         return region;
+    },
+    
+    
+    
+   async  createRank(parents, args, ctx, info) {
+       
+       const rank =  await ctx.db.mutation.createRank({
+           data: {...args}
+        }, info);
+        return rank;
+    },
+    
+    
+    
+   async  createEducationType(parents, args, ctx, info) {
+       
+       const educationType =  await ctx.db.mutation.createEducationType({
+           data: {...args}
+        }, info);
+        return educationType;
+    },
+    
+    
+    
+   async  createExam(parents, args, ctx, info) {
+       
+       const exam =  await ctx.db.mutation.createExam({
+           data: {...args}
+        }, info);
+        return exam;
+    },
+    
+   async  createSession(parents, args, ctx, info) {
+       
+       const session =  await ctx.db.mutation.createSession({
+           data: {...args}
+        }, info);
+        return session;
+    },
+    
+   async  createReport(parents, args, ctx, info) {
+       
+       const report =  await ctx.db.mutation.createReport({
+           data: {...args}
+        }, info);
+        return report;
+    },
+    
+   async  createPresence(parents, args, ctx, info) {
+       
+       const presence =  await ctx.db.mutation.createPresence({
+           data: {...args}
+        }, info);
+        return presence;
+    },
+    
+   async  createSeries(parents, args, ctx, info) {
+    //make a copy  of the args
+    const newEducTypes = {...args};
+    // show the region name from the new regions array because will not have to update the id
+ 
+   const {seriesName, seriesCode, educationType}=newEducTypes
+ 
+       const  series =  await ctx.db.mutation.createSeries({
+
+           data: {
+             educationType:{
+              connect: {id:educationType.id },
+             },
+             seriesName,
+             seriesCode
+            },
+            }, info);
+        return series;
+    },
+    
+   async  createSubject(parents, args, ctx, info) {
+       
+       const subject =  await ctx.db.mutation.createSubject({
+           data: {...args}
+        }, info);
+        return subject;
     },
     
 
@@ -59,6 +271,7 @@ async  createItem(parents, args, ctx, info) {
                   return item;
           },
           
+
 async  createGender(parents, args, ctx, info) {
  const gender =  await ctx.db.mutation.createGender({
                       data: {
