@@ -84,6 +84,7 @@ type Mutation {
        createItem(title: String! , description: String, image: String!):Item!
 
        createDivision(divName: String!, divCode: String!, region: RegionCreateWithoutDivisionInput! ):Division!
+       updateDivision(id:ID!, divName: String!, divCode: String!, region: RegionCreateWithoutDivisionInput! ):Division!
        createSubDivision(subDivName: String!, subDivCode: String!,  division: DivisionWhereUniqueInput! ):SubDivision!
        createTown(townName: String!, townCode: String!,  subDiv: SubDivisionWhereUniqueInput! ):Town!
 
@@ -97,7 +98,7 @@ type Mutation {
 type Query {
 
         candidates(orderBy:CandidateOrderByInput):[Candidate]!  
-        candidate(id: CandidateWhereUniqueInput!):Candidate!
+        candidate(id: ID!):Candidate!
         regions(orderBy:RegionOrderByInput):[Region]! 
         region(id: ID!):Region! 
 

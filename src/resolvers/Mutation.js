@@ -310,6 +310,21 @@ async  createUser(parents, args, ctx, info) {
                   
 
           }, 
+
+  updateDivision(parent, args, ctx, info){
+              // first get a copy of the updates
+              const updates = {...args};
+              // remove the ID from the updates because will not have to update the id
+              delete updates.id;
+              // run the update method
+              console.log('calling division update mutation!!')
+              return ctx.db.mutation.updateDivision({
+                  data: updates,
+                  where:{ id: args.id,} ,},info);
+                  console.log(updates);
+                  console.log(args.id);
+                  console.log(ctx);
+          }, 
       
 
           updateRegion(parent, args, ctx, info){
