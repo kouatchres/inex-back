@@ -1,3 +1,4 @@
+
 endpoint: https://eu1.prisma.sh/kouatchoua/inex-back/dev
 datamodel: datamodel.prisma
 
@@ -7,5 +8,5 @@ hooks:
 
 generate:
   - generator: javascript-client
-    output: src/generated
+    output: ./src/generated/
     # output: ./generated/prisma-client/

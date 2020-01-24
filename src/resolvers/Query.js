@@ -10,9 +10,11 @@ async candidate(parent, args, ctx, info){
  const oneCandidate = await ctx.db.query.candidate({where},info);
  return oneCandidate;
               },
+
 async region(parent, args, ctx, info){
   const where ={ id:  args.id}; 
-const oneRegion = await ctx.db.query.region({where},info);
+const oneRegion = 
+await ctx.db.query.region({where},info);
  return oneRegion;
               },
 
@@ -57,7 +59,25 @@ return allSubDivisions;
 const oneSubDivision = await ctx.db.query.subDivision({where},info);
 return oneSubDivision;
    },
+                            
+  async centerAdminSignIn(parent, args, ctx, info){
+    const where={authCode: args.authCode}
+const centerAdmin = await ctx.db.query.subjectTypes({where},info);
+const getCAID= centerAdmin.id
+console.log(getCAID)
+return getCAID;
+   },
+  async subjectTypes(parent, args, ctx, info){
+const allSubjectTypes = await ctx.db.query.subjectTypes();
+return allSubjectTypes;
+   },
+  async subjectType(parent, args, ctx, info){
+    const where ={ id:  args.id}; 
+const oneSubjectType = await ctx.db.query.subjectType({where},info);
+return oneSubjectType;
+   },
 
+                            
                             
   async towns(parent, args, ctx, info){
 const allTowns = await ctx.db.query.towns();
@@ -119,6 +139,18 @@ const oneSubject = await ctx.db.query.subject({where},info);
 return oneSubject;
    },
                             
+                    
+                            
+  async subjectSerieses(parent, args, ctx, info){
+const allSubjectSeries = await ctx.db.query.subjectSerieses();
+return allSubjectSeries;
+   },
+  async subjectSeries(parent, args, ctx, info){
+    const where ={ id:  args.id}; 
+const oneSubjectSeries = await ctx.db.query.subjectSeries({where},info);
+return oneSubjectSeries;
+   },
+                            
   async reports(parent, args, ctx, info){
 const allReport = await ctx.db.query.reports();
 return allReport;
@@ -135,8 +167,8 @@ return allSession;
    },
   async session(parent, args, ctx, info){
     const where ={ id:  args.id}; 
-const oneSesion = await ctx.db.query.sesion({where},info);
-return oneSesion;
+const oneSession = await ctx.db.query.session({where},info);
+return oneSession;
    },
   async ranks(parent, args, ctx, info){
 const allRank = await ctx.db.query.ranks();
@@ -168,8 +200,19 @@ const oneRegistration = await ctx.db.query.registration({where},info);
 return oneRegistration;
    },
 
-                            
-}
+  async centerAdmins(parent, args, ctx, info){
+const allCenterAdmin = await ctx.db.query.centerAdmins();
+return allCenterAdmin;
+   },
+  async centerAdmin(parent, args, ctx, info){
+    const where ={ id:  args.id}; 
+const oneCenterAdmin = await ctx.db.query.centerAdmin({where},info);
+return oneCenterAdmin;
+   },
 
+
+
+
+}
 
 module.exports= Query;
