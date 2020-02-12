@@ -28,10 +28,16 @@ type Mutation {
     genre: GenderCreateWithoutCandidateInput
        ):Candidate!
        
-  createScore(
-  registration: RegistrationWhereUniqueInput!
-  subject: SubjectWhereUniqueInput!
-  ): Score!
+    createScore(
+        registration: RegistrationWhereUniqueInput!
+        subjectSeries: SubjectSeriesWhereUniqueInput!
+        candExamSecretCode: String!
+        series: SeriesWhereUniqueInput!
+        coeff: Int!
+    ): Score!
+    updateScore(subjectSeries: SubjectSeriesWhereUniqueInput!, subjectAve: Float!, candExamSecretCode: String!):Score!
+
+    updateManyRegistrations(data: RegistrationUpdateManyMutationInput!, where: RegistrationWhereInput): BatchPayload!
   
 
        createRegion(regName: String!, regCode: String!):Region!
@@ -39,10 +45,7 @@ type Mutation {
       
        createSubjectType(subjectTypeName: String!, subjectTypeCode: String!):SubjectType!
        updateSubjectType(id:ID!, subjectTypeName: String, subjectTypeCode: String):SubjectType!
-      
-       createPresence(presenceName: String!, presenceCode: String!):Presence!
-       updatePresence(id:ID!, presenceName: String, presenceCode: String):Presence!
-      
+
        createExam(examName: String!, examCode: String!):Exam!
        updateExam(id:ID!, examName: String, examCode: String):Exam!
       
@@ -51,7 +54,7 @@ type Mutation {
        updateSeries(id:ID!, seriesName: String, seriesCode: String):Series!
       
       
-       createSubject(subjectName: String!, subjectCode: String!, subjectType: SubjectTypeWhereUniqueInput!):Subject!
+       createSubject(subjectName: String!, subjectCode: String!, educType: EducationTypeWhereUniqueInput!, subjectType: SubjectTypeWhereUniqueInput!):Subject!
        updateSubject(id:ID!, subjectName: String, subjectCode: String):Subject!
       
        createReport(
@@ -67,7 +70,7 @@ type Mutation {
        createRank(rankName: String!, rankCode: String!):Rank!
        updateRank(id:ID!, rankName: String, rankCode: String):Rank!
      
-       createEducationType(exam: ExamWhereUniqueInput!,  educationTypeName: String!, educationTypeCode: String!):EducationType!
+       createEducationType( educationTypeName: String!, educationTypeCode: String!):EducationType!
        updateEducationType(id:ID!, educationTypeName: String, educationTypeCode: String):EducationType!
       
        updateRegistration(id:ID!):Registration!
@@ -77,6 +80,7 @@ type Mutation {
                     series: SeriesWhereUniqueInput!,
                     session: SessionWhereUniqueInput!,
                     center: CenterWhereUniqueInput!,
+                    candExamSecretCode: String!
                     ):Registration!
 
        updateCenterAdmin(id:ID!):CenterAdmin!
@@ -108,10 +112,12 @@ type Mutation {
        deleteRegion(id: ID! ): Region
 
 
-       
+    
        createSubjectSeries( 
-          subject: SubjectWhereUniqueInput!,
+          subjectName: String!,
+          subjectCode: String!,
           series: SeriesWhereUniqueInput!,
+          coeff: Int!
      ):SubjectSeries!
 
        signUp(name: String! , email: String!, password: String!):User!
@@ -124,6 +130,8 @@ type Query {
          me:User
         candidates(orderBy:CandidateOrderByInput):[Candidate]!  
         candidate(id: ID!):Candidate!
+        scores(candExamSecretCode: String!):[Score]!  
+        score(id: ID!):Score!
         singleCandidate(candCode: String!):Candidate!
         regions(orderBy:RegionOrderByInput):[Region!]! 
         region(id: ID!):Region! 
@@ -134,17 +142,15 @@ type Query {
         centerAdmins(orderBy:CenterAdminOrderByInput):[CenterAdmin]! 
         centerAdmin(id: ID!):CenterAdmin! 
 
-        presences(orderBy:PresenceOrderByInput):[Presence]! 
-        presence(id: ID!):Presence! 
-
         subjectTypes(orderBy:SubjectTypeOrderByInput):[SubjectType]! 
         subjectType(id: ID!):SubjectType! 
 
         registrations:[Registration]! 
-        registration(id: ID!):Registration! 
+        registration(candExamSecretCode: String!):Registration! 
 
         serieses(orderBy:SeriesOrderByInput):[Series]! 
         series(id: ID!):Series! 
+        subjSeries(id: ID!):Series! 
 
         subjects(orderBy:SubjectOrderByInput):[Subject]! 
         subject(id: ID!):Subject! 
@@ -172,8 +178,6 @@ type Query {
        center(id: ID!): Center!
        centers(orderBy:CenterOrderByInput):[Center]!
 
-        # items:[Item]! 
-        # item(where:ItemWhereUniqueInput!):Item 
          users:[User]!
          genders(orderBy:GenderOrderByInput):[Gender]!
          gender(id:ID!):Gender!
@@ -190,5 +194,5 @@ type Series {
     updatedAt : DateTime!
     educationType : EducationType !
     registration : [Registration]!
-     score: [Score]!
+     scores: [Score]!
 }

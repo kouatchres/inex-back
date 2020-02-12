@@ -108,21 +108,44 @@ return allExams;
 const oneExam = await ctx.db.query.exam({where},info);
 return oneExam;
    },
+                     
                             
-  async presences(parent, args, ctx, info){
-const allPresences = await ctx.db.query.presences();
-return allPresences;
+  async scores(parent, args, ctx, info){
+console.log('this is in the scores query')
+    console.log(args)
+    const  where={candExamSecretCode: args.candExamSecretCode}
+const allScores = await ctx.db.query.scores({where}, info);
+return allScores;
    },
-  async presence(parent, args, ctx, info){
+  async score(parent, args, ctx, info){
     const where ={ id:  args.id}; 
-const onePresence = await ctx.db.query.presence({where},info);
-return onePresence;
+const oneScore = await ctx.db.query.score({where},info);
+return oneScore;
    },
                             
-  async serieses(parent, args, ctx, info){
+  async series(parent, args, ctx, info){
+    
 const allSeries = await ctx.db.query.serieses();
 return allSeries;
    },
+   async subjSeries(parent, args, ctx, info){
+    const where= {id: args.id}
+    let subjsOfSeries = await ctx.db.query.series({where}, info
+      // `
+      //  { 
+      //     id
+      //     subjectSeries{
+      //       id
+      //     subject {
+      //       id
+      //       subjectName
+      //      subjectCode
+          
+      //   }}}`
+        )
+return subjsOfSeries;
+   },
+
   async series(parent, args, ctx, info){
     const where ={ id:  args.id}; 
 const oneSeries = await ctx.db.query.series({where},info);

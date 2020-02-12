@@ -111,7 +111,7 @@ const candidate = await ctx.db.mutation.createCandidate({
 
     
     
-    
+   // the whole system depends on this mutation going right each time. 
 
     
 
@@ -121,16 +121,16 @@ const candidate = await ctx.db.mutation.createCandidate({
 //    make a copy  of the args
    const newRegistartionInfos = {...args};
    // show the region name from the new regions array because will not have to update the id
-  const {candidate,  center, series, session, exam}=newRegistartionInfos
-  const [existingRegistration] = await ctx.db.query.registrations({
+  const { candExamSecretCode, candidate,  center, series, session, exam}=newRegistartionInfos
+  const [alreadyRegistered] = await ctx.db.query.registrations({
     where: {
       candidate: {candCode:candidate.candCode},
       session: {id: session.id},
       exam: {id: exam.id},
      },
    });
-   if (existingRegistration){
-     throw new Error('Vous etes deja inscrit a cet examen pour cette annee')
+   if (alreadyRegistered){
+     throw new Error('Pour cette session, vous êtes déjà inscrit à cet examen.')
    }
  
   
@@ -142,37 +142,38 @@ const candidate = await ctx.db.mutation.createCandidate({
         id
         subjectSeries{
           id
-        subject {
-          id
+          coeff
           subjectName
-         subjectCode
-        
-      }}}`
+          subjectCode
+      }}`
       )
 
       console.log('line 154')
       const {subjectSeries} = subjsOfSeries
       
      // //make an array of the subjects for the candidate according to the chosen series 
-const subjectScoreItems =subjectSeries.map(item=>{
+const subjectList = subjectSeries.map(item=>{
   
   //each subject with the accompanying attributes
-  const subjectScoreItems= {
-   subject: {
-     connect:{
-       id: item.subject.id}
-    }  
-
+  const subjectList= {
+        
+           subjectSeries: {
+            connect: {id:item.id },
+          }, 
+          candExamSecretCode,
+          coeff:item.coeff
   }
-  console.log(subjectScoreItems)
-return subjectScoreItems;
+ 
+return subjectList;
 });
-
+if(subjectList && subjectList.length===0){
+  throw new Error("Pour l'instant, cette série n'est pas disponible pour les inscriptions")
+}
 //now  drop the list of subjects on the score table linking it up with the just created registration
 
 const newRegistration = ctx.db.mutation.createRegistration({
   data: {
-          
+          candExamSecretCode,
           center: {
             connect: {id:center.id },
           }, 
@@ -189,50 +190,16 @@ const newRegistration = ctx.db.mutation.createRegistration({
             connect: {candCode: candidate.candCode },
           }, 
           scores: {
-            create:subjectScoreItems,
+            create:subjectList,
           },
+
         },
 }, info);
 
        return newRegistration;
   },
 
-    
-
-//   async  createRegistrationz(parents, args, ctx, info) {
-//   console.log(args) ;
-// //    make a copy  of the args
-//    const newRegistartionInfos = {...args};
-//    // show the region name from the new regions array because will not have to update the id
-//   const {candExamSession , candidate,  center, series, session, exam}=newRegistartionInfos
-
-//     const newRegistration = await ctx.db.mutation.createRegistration({
-//         data: {
-          
-//           center: {
-//             connect: {id:center.id },
-//           }, 
-//           series: {
-//             connect: {id:series.id },
-//           }, 
-//           session: {
-//             connect: {id:session.id },
-//           }, 
-//           exam: {
-//             connect: {id:exam.id },
-//           }, 
-//           candidate: {
-//             connect: {candCode: candidate.candCode },
-//           }, 
-//           candExamSession ,
-//         },
-//     }, info);
-//     console.log(args);
-//        return newRegistration;
-//   },
-
-    
-
+  
   async  createCenterAdmin(parents, args, ctx, info) {
   console.log(args) ;
 //    make a copy  of the args
@@ -274,38 +241,36 @@ const newRegistration = ctx.db.mutation.createRegistration({
             return centerAdmin;
     },
 
-    
   async  createSubjectSeries(parents, args, ctx, info) {
   console.log(args) ;
 //    make a copy  of the args
    const subjSeriesInfos = {...args};
    // show the region name from the new regions array because will not have to update the id
 
-  const {  subject, series }=subjSeriesInfos
+  const {  subjectName, subjectCode, series, coeff }=subjSeriesInfos
   const [existingSubj] = await ctx.db.query.subjectSerieses({
    where: {
      series: {id:series.id},
-     subject: {id: subject.id},
+     subjectName,
     },
   });
   if (existingSubj){
     throw new Error('Cette matiere est deja presente pour  la series')
   }
 
-    const subjSeries = await ctx.db.mutation.createSubjectSeries({
+
+    const newSubjSeries = await ctx.db.mutation.createSubjectSeries({
       data: {
-       
-          subject:{
-          connect:{id: subject.id},
-          },
-         
-          series: {
-            connect: {id:series.id },
-          },
+        series: {
+          connect: {id:series.id },
+        },
+        subjectName,
+        subjectCode,
+          coeff,
             },
     }, info);
     console.log(args);
-            return subjSeries;
+            return newSubjSeries;
     },
 
     
@@ -330,27 +295,18 @@ const newRegistration = ctx.db.mutation.createRegistration({
    async  createRank(parents, args, ctx, info) {
        
        const rank =  await ctx.db.mutation.createRank({
-           data: {...args}
-        }, info);
+           data: {...args}}, info);
         return rank;
     },
     
     
     
    async  createEducationType(parents, args, ctx, info) {
-     const allArgs ={...args}
-     const {exam, ...others} = allArgs
        
        const educationType =  await ctx.db.mutation.createEducationType({
-           data: {
-             exam:{
-               connect:{id: exam.id}
-             },
-            ...others}
-        }, info);
+           data: {...args}}, info);
         return educationType;
     },
-    
     
     
    async  createExam(parents, args, ctx, info) {
@@ -383,13 +339,7 @@ const newRegistration = ctx.db.mutation.createRegistration({
         return report;
     },
     
-   async  createPresence(parents, args, ctx, info) {
-       
-       const presence =  await ctx.db.mutation.createPresence({
-           data: {...args}
-        }, info);
-        return presence;
-    },
+  
     
    async  createSeries(parents, args, ctx, info) {
     //make a copy  of the args
@@ -413,25 +363,18 @@ const newRegistration = ctx.db.mutation.createRegistration({
    async  createSubject(parents, args, ctx, info) {
        
      const newSbujectTypes = {...args};
-       const {  subjectType, subjectName, subjectCode} = newSbujectTypes
-    // const [existingSubject] = ctx.db.query.subjects({
-    //   where:{
-    //   subjectName:subjectName,
-    //    subjectCode: subjectCode
-    //   },
-    // });
-     
-    // if(existingSubject) {
-    //   throw new Error('Cette matiere est deja  inscrite')
-    // }
+       const {educType,  subjectType, ...others} = newSbujectTypes
+    
        const subject =  await ctx.db.mutation.createSubject({
 
             data: {
               subjectType:{
                connect: {id: subjectType.id },
               },
-              subjectName,
-              subjectCode,
+              educType:{
+               connect: {id: educType.id },
+              },
+             ...others,
             }
         }, info);
         return subject;
@@ -466,9 +409,8 @@ async  createUser(parents, args, ctx, info) {
   updateCandidate(parent, args, ctx, info){
               // first get a copy of the updates
               const where ={ id:  args.id}; 
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+              const {id,...updates} =args;
+             
               // run the update method
               console.log('calling the candidate update mutation!!')
               return ctx.db.mutation.updateCandidate({
@@ -479,10 +421,7 @@ async  createUser(parents, args, ctx, info) {
           }, 
 
   updateDivision(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling division update mutation!!')
               return ctx.db.mutation.updateDivision({
@@ -490,13 +429,38 @@ async  createUser(parents, args, ctx, info) {
                   where:{ id: args.id,} ,},info);
                   console.log(updates);
           }, 
+  async updateScore(parent, args, ctx, info){
+    console.log(args)
+              
+              const {subjectSeries,candExamSecretCode,...updates}= args
+              
+              console.log('calling scores update mutation!!')
+           // looking for the score id of the record whose marks will be updated
+              const [getScoreID] = await ctx.db.query.scores({
+                where:{
+                  subjectSeries,
+                  candExamSecretCode
+              }},
+              `{
+                id
+                subjectAve
+                coeff
+                }`)
+            console.log(getScoreID)
+            if(!getScoreID){
+              throw new Error('The candidate code entered does not exist ')
+            }
+           // updating the marks for the given subject for the given student
+              return ctx.db.mutation.updateScore({
+                  data: updates,
+                  where:{id:getScoreID.id}
+                 } ,info);
+          }, 
       
 
   updateGender(parent, args, ctx, info){
               // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+              const {id, ...updates}= args
               // run the update method
               console.log('calling Gender update mutation!!')
               return ctx.db.mutation.updateGender({
@@ -506,10 +470,7 @@ async  createUser(parents, args, ctx, info) {
           }, 
       
   updateRegion(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the mutation!!')
               return ctx.db.mutation.updateRegion({
@@ -519,10 +480,7 @@ async  createUser(parents, args, ctx, info) {
                 },
       
   updateSubjectType(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the mutation!!')
               return ctx.db.mutation.updateSubjectType({
@@ -532,10 +490,7 @@ async  createUser(parents, args, ctx, info) {
                 },
       
   updateSeries(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the update series mutation!!')
               return ctx.db.mutation.updateSeries({
@@ -544,10 +499,7 @@ async  createUser(parents, args, ctx, info) {
                   console.log(args.id);
                 },
   updateRank(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the update Rank mutation!!')
               return ctx.db.mutation.updateRank({
@@ -556,10 +508,7 @@ async  createUser(parents, args, ctx, info) {
                   console.log(args.id);
                 },
   updateSession(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the update Session mutation!!')
               return ctx.db.mutation.updateSession({
@@ -568,10 +517,7 @@ async  createUser(parents, args, ctx, info) {
                   console.log(args.id);
                 },
   updateEducationType(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the update Educ Type mutation!!')
               return ctx.db.mutation.updateEducationType({
@@ -581,10 +527,7 @@ async  createUser(parents, args, ctx, info) {
                 },
 
   updateExam(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the mutation!!')
               return ctx.db.mutation.updateExam({
@@ -593,10 +536,7 @@ async  createUser(parents, args, ctx, info) {
                   console.log(args.id);
                 },
   updateSubject(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the mutation!!')
               return ctx.db.mutation.updateSubject({
@@ -605,10 +545,7 @@ async  createUser(parents, args, ctx, info) {
                   console.log(args.id);
                 },
   updateTown(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the mutation!!')
               return ctx.db.mutation.updateTown({
@@ -617,10 +554,7 @@ async  createUser(parents, args, ctx, info) {
                   console.log(args.id);
                 },
   updateSubDivision(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the mutation!!')
               return ctx.db.mutation.updateSubDivision({
@@ -629,10 +563,7 @@ async  createUser(parents, args, ctx, info) {
                   console.log(args.id);
                 },
   updateCenter(parent, args, ctx, info){
-              // first get a copy of the updates
-              const updates = {...args};
-              // remove the ID from the updates because will not have to update the id
-              delete updates.id;
+             const {id, ...updates}= args
               // run the update method
               console.log('calling the update center mutation!!')
               return ctx.db.mutation.updateCenter({

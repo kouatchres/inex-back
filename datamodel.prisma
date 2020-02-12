@@ -1,11 +1,11 @@
  enum Permission {
 
-USER
-ADMIN
-ITEM_CREATE
-ITEM_DELETE
-ITEM_UPDATE
-PERMISSION_UPDATE
+        USER
+        ADMIN
+        ITEM_CREATE
+        ITEM_DELETE
+        ITEM_UPDATE
+        PERMISSION_UPDATE
 
   }
   
@@ -70,30 +70,27 @@ type Center {
     centerNumber : Int ! @unique
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt
-  registration: [Registration]!
-  centerAdmin:[CenterAdmin]!
-  subCenter:[SubCenter]!
-   score: [Score]!
-
-
+    registration: [Registration]!
+    centerAdmin:[CenterAdmin]!
+    scores:[Score]!
 }
 
 type Series {
     id : ID  ! @id @unique
     seriesName : String !
     seriesCode : String ! @unique
+    
     subjectSeries: [SubjectSeries]!
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt  
     educationType : EducationType !
-    registration : [Registration]!
-     score: [Score]!
+    
 }
 type EducationType {
     id : ID  ! @id @unique
+    subject: [Subject]!
     educationTypeName : String
     educationTypeCode : String! @unique
-    exam:Exam!
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt  
     series : [Series]!
@@ -102,11 +99,10 @@ type EducationType {
 type Exam {
     id : ID  ! @id @unique
     examName : String !
+    registration: [Registration]!
     examCode : String ! @unique
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt 
-    educationType: [EducationType!]!
-    score: [Score]!
    
 }
 type Subject {
@@ -114,25 +110,19 @@ type Subject {
     subjectName : String ! @unique
     subjectCode : String ! @unique
     subjectType: SubjectType! 
+    educType: EducationType!
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt  
 }
-type Presence {
-    id : ID  ! @id @unique
-    presenceName : Boolean !
-    createdAt : DateTime! @createdAt
-    updatedAt : DateTime! @updatedAt  
-    score: [Score]!
-}
+
 type Session {
     id : ID  ! @id @unique
+      registration: [Registration]!
     sessionName : String !@unique
     sessionCode : String ! @unique
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
-    centerAdmin:[CenterAdmin]!
-     score: [Score]!
-  registration: [Registration]!
+   
 }
 
 type Gender {
@@ -159,8 +149,8 @@ type Candidate {
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
     gender : Gender !
+    scores: [Score]!
     registration: [Registration]!
-
 }
 
 type Rank {
@@ -201,24 +191,27 @@ type Score {
     id : ID! @id @unique
     subjectAve : Float
     subjectTotal : Float
-    subjectCoeff: Int
     registration : Registration !
-    subject: Subject!
+    subjectSeries: SubjectSeries!
+    presence: Boolean
+    coeff: Int!
+    candExamSecretCode: String!
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt
-    presence : Presence
 }
 type Registration {
     id : ID  ! @id @unique
     candidate : Candidate !
-   exam: Exam!
-   series: Series!
-   scores: [Score]!
-   session: Session!
+    exam: Exam!
+    series: Series!
+    session: Session!
+    center : Center!
     createdAt : DateTime ! @createdAt
     updatedAt : DateTime ! @updatedAt
-   center : Center!
-
+    scores: [Score]!
+    candExamSecretCode: String! @unique
+    chefSecCode: String
+    chargeMissionCode: String
 
 }
 
@@ -226,8 +219,10 @@ type SubjectSeries {
     id : ID! @id @unique
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
-  subject: Subject!
-  series : Series!
+    series : Series!
+    coeff: Int!
+    subjectName : String ! 
+    subjectCode : String ! 
 }
 
 
