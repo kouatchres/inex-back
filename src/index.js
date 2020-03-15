@@ -33,7 +33,7 @@ server.start({
     cors: {
         credentials: true, 
         // origin: process.env.FRONTEND_URL
-        origin: 'http://localhost:7777'
+        origin: 'http://localhost:8888'
     }
 }, deets => {
 console.log(`server running on port http://localhost:${deets.port}`);

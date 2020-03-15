@@ -1,9 +1,5 @@
 # source: https://eu1.prisma.sh/kouatchoua/inex-back/dev
-# timestamp: Tue Feb 04 2020 09:58:14 GMT+0100 (West Africa Standard Time)
-
-type AggregateAnotherType {
-  count: Int!
-}
+# timestamp: Sat Mar 14 2020 18:17:03 GMT+0100 (West Africa Standard Time)
 
 type AggregateCandidate {
   count: Int!
@@ -14,6 +10,14 @@ type AggregateCenter {
 }
 
 type AggregateCenterAdmin {
+  count: Int!
+}
+
+type AggregateCenterExamSession {
+  count: Int!
+}
+
+type AggregateCenterExamSessionSeries {
   count: Int!
 }
 
@@ -61,10 +65,6 @@ type AggregateSession {
   count: Int!
 }
 
-type AggregateSubCenter {
-  count: Int!
-}
-
 type AggregateSubDivision {
   count: Int!
 }
@@ -89,188 +89,6 @@ type AggregateUser {
   count: Int!
 }
 
-type AnotherType implements Node {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-"""A connection to a list of items."""
-type AnotherTypeConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [AnotherTypeEdge]!
-  aggregate: AggregateAnotherType!
-}
-
-input AnotherTypeCreateInput {
-  id: ID
-}
-
-"""An edge in a connection."""
-type AnotherTypeEdge {
-  """The item at the end of the edge."""
-  node: AnotherType!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum AnotherTypeOrderByInput {
-  id_ASC
-  id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type AnotherTypePreviousValues {
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type AnotherTypeSubscriptionPayload {
-  mutation: MutationType!
-  node: AnotherType
-  updatedFields: [String!]
-  previousValues: AnotherTypePreviousValues
-}
-
-input AnotherTypeSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [AnotherTypeSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [AnotherTypeSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [AnotherTypeSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: AnotherTypeWhereInput
-}
-
-input AnotherTypeWhereInput {
-  """Logical AND on all given filters."""
-  AND: [AnotherTypeWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [AnotherTypeWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [AnotherTypeWhereInput!]
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-
-  """All values that are not equal to given value."""
-  updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-}
-
-input AnotherTypeWhereUniqueInput {
-  id: ID
-}
-
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
@@ -282,6 +100,8 @@ type Candidate implements Node {
   cand2ndName: String
   cand3rdName: String
   placeOfBirth: String
+  momName: String
+  dadName: String
   image: String
   birthCertNumber: String
   candCode: String!
@@ -311,6 +131,8 @@ input CandidateCreateInput {
   cand2ndName: String
   cand3rdName: String
   placeOfBirth: String
+  momName: String
+  dadName: String
   image: String
   birthCertNumber: String
   candCode: String!
@@ -338,6 +160,8 @@ input CandidateCreateWithoutGenderInput {
   cand2ndName: String
   cand3rdName: String
   placeOfBirth: String
+  momName: String
+  dadName: String
   image: String
   birthCertNumber: String
   candCode: String!
@@ -354,6 +178,8 @@ input CandidateCreateWithoutRegistrationInput {
   cand2ndName: String
   cand3rdName: String
   placeOfBirth: String
+  momName: String
+  dadName: String
   image: String
   birthCertNumber: String
   candCode: String!
@@ -384,6 +210,10 @@ enum CandidateOrderByInput {
   cand3rdName_DESC
   placeOfBirth_ASC
   placeOfBirth_DESC
+  momName_ASC
+  momName_DESC
+  dadName_ASC
+  dadName_DESC
   image_ASC
   image_DESC
   birthCertNumber_ASC
@@ -408,6 +238,8 @@ type CandidatePreviousValues {
   cand2ndName: String
   cand3rdName: String
   placeOfBirth: String
+  momName: String
+  dadName: String
   image: String
   birthCertNumber: String
   candCode: String!
@@ -627,6 +459,86 @@ input CandidateScalarWhereInput {
 
   """All values not ending with the given string."""
   placeOfBirth_not_ends_with: String
+  momName: String
+
+  """All values that are not equal to given value."""
+  momName_not: String
+
+  """All values that are contained in given list."""
+  momName_in: [String!]
+
+  """All values that are not contained in given list."""
+  momName_not_in: [String!]
+
+  """All values less than the given value."""
+  momName_lt: String
+
+  """All values less than or equal the given value."""
+  momName_lte: String
+
+  """All values greater than the given value."""
+  momName_gt: String
+
+  """All values greater than or equal the given value."""
+  momName_gte: String
+
+  """All values containing the given string."""
+  momName_contains: String
+
+  """All values not containing the given string."""
+  momName_not_contains: String
+
+  """All values starting with the given string."""
+  momName_starts_with: String
+
+  """All values not starting with the given string."""
+  momName_not_starts_with: String
+
+  """All values ending with the given string."""
+  momName_ends_with: String
+
+  """All values not ending with the given string."""
+  momName_not_ends_with: String
+  dadName: String
+
+  """All values that are not equal to given value."""
+  dadName_not: String
+
+  """All values that are contained in given list."""
+  dadName_in: [String!]
+
+  """All values that are not contained in given list."""
+  dadName_not_in: [String!]
+
+  """All values less than the given value."""
+  dadName_lt: String
+
+  """All values less than or equal the given value."""
+  dadName_lte: String
+
+  """All values greater than the given value."""
+  dadName_gt: String
+
+  """All values greater than or equal the given value."""
+  dadName_gte: String
+
+  """All values containing the given string."""
+  dadName_contains: String
+
+  """All values not containing the given string."""
+  dadName_not_contains: String
+
+  """All values starting with the given string."""
+  dadName_starts_with: String
+
+  """All values not starting with the given string."""
+  dadName_not_starts_with: String
+
+  """All values ending with the given string."""
+  dadName_ends_with: String
+
+  """All values not ending with the given string."""
+  dadName_not_ends_with: String
   image: String
 
   """All values that are not equal to given value."""
@@ -921,6 +833,8 @@ input CandidateUpdateInput {
   cand2ndName: String
   cand3rdName: String
   placeOfBirth: String
+  momName: String
+  dadName: String
   image: String
   birthCertNumber: String
   candCode: String
@@ -937,6 +851,8 @@ input CandidateUpdateManyDataInput {
   cand2ndName: String
   cand3rdName: String
   placeOfBirth: String
+  momName: String
+  dadName: String
   image: String
   birthCertNumber: String
   candCode: String
@@ -950,6 +866,8 @@ input CandidateUpdateManyMutationInput {
   cand2ndName: String
   cand3rdName: String
   placeOfBirth: String
+  momName: String
+  dadName: String
   image: String
   birthCertNumber: String
   candCode: String
@@ -987,6 +905,8 @@ input CandidateUpdateWithoutGenderDataInput {
   cand2ndName: String
   cand3rdName: String
   placeOfBirth: String
+  momName: String
+  dadName: String
   image: String
   birthCertNumber: String
   candCode: String
@@ -1002,6 +922,8 @@ input CandidateUpdateWithoutRegistrationDataInput {
   cand2ndName: String
   cand3rdName: String
   placeOfBirth: String
+  momName: String
+  dadName: String
   image: String
   birthCertNumber: String
   candCode: String
@@ -1237,6 +1159,86 @@ input CandidateWhereInput {
 
   """All values not ending with the given string."""
   placeOfBirth_not_ends_with: String
+  momName: String
+
+  """All values that are not equal to given value."""
+  momName_not: String
+
+  """All values that are contained in given list."""
+  momName_in: [String!]
+
+  """All values that are not contained in given list."""
+  momName_not_in: [String!]
+
+  """All values less than the given value."""
+  momName_lt: String
+
+  """All values less than or equal the given value."""
+  momName_lte: String
+
+  """All values greater than the given value."""
+  momName_gt: String
+
+  """All values greater than or equal the given value."""
+  momName_gte: String
+
+  """All values containing the given string."""
+  momName_contains: String
+
+  """All values not containing the given string."""
+  momName_not_contains: String
+
+  """All values starting with the given string."""
+  momName_starts_with: String
+
+  """All values not starting with the given string."""
+  momName_not_starts_with: String
+
+  """All values ending with the given string."""
+  momName_ends_with: String
+
+  """All values not ending with the given string."""
+  momName_not_ends_with: String
+  dadName: String
+
+  """All values that are not equal to given value."""
+  dadName_not: String
+
+  """All values that are contained in given list."""
+  dadName_in: [String!]
+
+  """All values that are not contained in given list."""
+  dadName_not_in: [String!]
+
+  """All values less than the given value."""
+  dadName_lt: String
+
+  """All values less than or equal the given value."""
+  dadName_lte: String
+
+  """All values greater than the given value."""
+  dadName_gt: String
+
+  """All values greater than or equal the given value."""
+  dadName_gte: String
+
+  """All values containing the given string."""
+  dadName_contains: String
+
+  """All values not containing the given string."""
+  dadName_not_contains: String
+
+  """All values starting with the given string."""
+  dadName_starts_with: String
+
+  """All values not starting with the given string."""
+  dadName_not_starts_with: String
+
+  """All values ending with the given string."""
+  dadName_ends_with: String
+
+  """All values not ending with the given string."""
+  dadName_not_ends_with: String
   image: String
 
   """All values that are not equal to given value."""
@@ -1508,9 +1510,8 @@ type Center implements Node {
   centerNumber: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
-  registration(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
   centerAdmin(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterAdmin!]
-  scores(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Score!]
+  centerExamSession(where: CenterExamSessionWhereInput, orderBy: CenterExamSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterExamSession!]
 }
 
 type CenterAdmin implements Node {
@@ -1520,11 +1521,8 @@ type CenterAdmin implements Node {
   authPhone: Int!
   authMatricule: String!
   authCode: String!
-  exam: Exam!
   rank: Rank!
-  session: Session!
-  center: Center!
-  sessionRank: String!
+  centerExamSession: CenterExamSession!
   createdAt: DateTime!
   updatedAt: DateTime!
   report(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Report!]
@@ -1547,16 +1545,18 @@ input CenterAdminCreateInput {
   authPhone: Int!
   authMatricule: String!
   authCode: String!
-  sessionRank: String!
-  exam: ExamCreateOneInput!
   rank: RankCreateOneWithoutCenterAdminInput!
-  session: SessionCreateOneInput!
-  center: CenterCreateOneWithoutCenterAdminInput!
+  centerExamSession: CenterExamSessionCreateOneWithoutCenterAdminInput!
   report: ReportCreateManyWithoutCenterAdminInput
 }
 
-input CenterAdminCreateManyWithoutCenterInput {
-  create: [CenterAdminCreateWithoutCenterInput!]
+input CenterAdminCreateManyInput {
+  create: [CenterAdminCreateInput!]
+  connect: [CenterAdminWhereUniqueInput!]
+}
+
+input CenterAdminCreateManyWithoutCenterExamSessionInput {
+  create: [CenterAdminCreateWithoutCenterExamSessionInput!]
   connect: [CenterAdminWhereUniqueInput!]
 }
 
@@ -1570,17 +1570,14 @@ input CenterAdminCreateOneWithoutReportInput {
   connect: CenterAdminWhereUniqueInput
 }
 
-input CenterAdminCreateWithoutCenterInput {
+input CenterAdminCreateWithoutCenterExamSessionInput {
   id: ID
   authName: String!
   authCNI: String!
   authPhone: Int!
   authMatricule: String!
   authCode: String!
-  sessionRank: String!
-  exam: ExamCreateOneInput!
   rank: RankCreateOneWithoutCenterAdminInput!
-  session: SessionCreateOneInput!
   report: ReportCreateManyWithoutCenterAdminInput
 }
 
@@ -1591,10 +1588,7 @@ input CenterAdminCreateWithoutRankInput {
   authPhone: Int!
   authMatricule: String!
   authCode: String!
-  sessionRank: String!
-  exam: ExamCreateOneInput!
-  session: SessionCreateOneInput!
-  center: CenterCreateOneWithoutCenterAdminInput!
+  centerExamSession: CenterExamSessionCreateOneWithoutCenterAdminInput!
   report: ReportCreateManyWithoutCenterAdminInput
 }
 
@@ -1605,11 +1599,8 @@ input CenterAdminCreateWithoutReportInput {
   authPhone: Int!
   authMatricule: String!
   authCode: String!
-  sessionRank: String!
-  exam: ExamCreateOneInput!
   rank: RankCreateOneWithoutCenterAdminInput!
-  session: SessionCreateOneInput!
-  center: CenterCreateOneWithoutCenterAdminInput!
+  centerExamSession: CenterExamSessionCreateOneWithoutCenterAdminInput!
 }
 
 """An edge in a connection."""
@@ -1634,8 +1625,6 @@ enum CenterAdminOrderByInput {
   authMatricule_DESC
   authCode_ASC
   authCode_DESC
-  sessionRank_ASC
-  sessionRank_DESC
   createdAt_ASC
   createdAt_DESC
   updatedAt_ASC
@@ -1649,7 +1638,6 @@ type CenterAdminPreviousValues {
   authPhone: Int!
   authMatricule: String!
   authCode: String!
-  sessionRank: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -1885,46 +1873,6 @@ input CenterAdminScalarWhereInput {
 
   """All values not ending with the given string."""
   authCode_not_ends_with: String
-  sessionRank: String
-
-  """All values that are not equal to given value."""
-  sessionRank_not: String
-
-  """All values that are contained in given list."""
-  sessionRank_in: [String!]
-
-  """All values that are not contained in given list."""
-  sessionRank_not_in: [String!]
-
-  """All values less than the given value."""
-  sessionRank_lt: String
-
-  """All values less than or equal the given value."""
-  sessionRank_lte: String
-
-  """All values greater than the given value."""
-  sessionRank_gt: String
-
-  """All values greater than or equal the given value."""
-  sessionRank_gte: String
-
-  """All values containing the given string."""
-  sessionRank_contains: String
-
-  """All values not containing the given string."""
-  sessionRank_not_contains: String
-
-  """All values starting with the given string."""
-  sessionRank_starts_with: String
-
-  """All values not starting with the given string."""
-  sessionRank_not_starts_with: String
-
-  """All values ending with the given string."""
-  sessionRank_ends_with: String
-
-  """All values not ending with the given string."""
-  sessionRank_not_ends_with: String
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -2010,17 +1958,25 @@ input CenterAdminSubscriptionWhereInput {
   node: CenterAdminWhereInput
 }
 
+input CenterAdminUpdateDataInput {
+  authName: String
+  authCNI: String
+  authPhone: Int
+  authMatricule: String
+  authCode: String
+  rank: RankUpdateOneRequiredWithoutCenterAdminInput
+  centerExamSession: CenterExamSessionUpdateOneRequiredWithoutCenterAdminInput
+  report: ReportUpdateManyWithoutCenterAdminInput
+}
+
 input CenterAdminUpdateInput {
   authName: String
   authCNI: String
   authPhone: Int
   authMatricule: String
   authCode: String
-  sessionRank: String
-  exam: ExamUpdateOneRequiredInput
   rank: RankUpdateOneRequiredWithoutCenterAdminInput
-  session: SessionUpdateOneRequiredInput
-  center: CenterUpdateOneRequiredWithoutCenterAdminInput
+  centerExamSession: CenterExamSessionUpdateOneRequiredWithoutCenterAdminInput
   report: ReportUpdateManyWithoutCenterAdminInput
 }
 
@@ -2030,7 +1986,18 @@ input CenterAdminUpdateManyDataInput {
   authPhone: Int
   authMatricule: String
   authCode: String
-  sessionRank: String
+}
+
+input CenterAdminUpdateManyInput {
+  create: [CenterAdminCreateInput!]
+  connect: [CenterAdminWhereUniqueInput!]
+  set: [CenterAdminWhereUniqueInput!]
+  disconnect: [CenterAdminWhereUniqueInput!]
+  delete: [CenterAdminWhereUniqueInput!]
+  update: [CenterAdminUpdateWithWhereUniqueNestedInput!]
+  updateMany: [CenterAdminUpdateManyWithWhereNestedInput!]
+  deleteMany: [CenterAdminScalarWhereInput!]
+  upsert: [CenterAdminUpsertWithWhereUniqueNestedInput!]
 }
 
 input CenterAdminUpdateManyMutationInput {
@@ -2039,19 +2006,18 @@ input CenterAdminUpdateManyMutationInput {
   authPhone: Int
   authMatricule: String
   authCode: String
-  sessionRank: String
 }
 
-input CenterAdminUpdateManyWithoutCenterInput {
-  create: [CenterAdminCreateWithoutCenterInput!]
+input CenterAdminUpdateManyWithoutCenterExamSessionInput {
+  create: [CenterAdminCreateWithoutCenterExamSessionInput!]
   connect: [CenterAdminWhereUniqueInput!]
   set: [CenterAdminWhereUniqueInput!]
   disconnect: [CenterAdminWhereUniqueInput!]
   delete: [CenterAdminWhereUniqueInput!]
-  update: [CenterAdminUpdateWithWhereUniqueWithoutCenterInput!]
+  update: [CenterAdminUpdateWithWhereUniqueWithoutCenterExamSessionInput!]
   updateMany: [CenterAdminUpdateManyWithWhereNestedInput!]
   deleteMany: [CenterAdminScalarWhereInput!]
-  upsert: [CenterAdminUpsertWithWhereUniqueWithoutCenterInput!]
+  upsert: [CenterAdminUpsertWithWhereUniqueWithoutCenterExamSessionInput!]
 }
 
 input CenterAdminUpdateManyWithoutRankInput {
@@ -2078,16 +2044,13 @@ input CenterAdminUpdateOneRequiredWithoutReportInput {
   upsert: CenterAdminUpsertWithoutReportInput
 }
 
-input CenterAdminUpdateWithoutCenterDataInput {
+input CenterAdminUpdateWithoutCenterExamSessionDataInput {
   authName: String
   authCNI: String
   authPhone: Int
   authMatricule: String
   authCode: String
-  sessionRank: String
-  exam: ExamUpdateOneRequiredInput
   rank: RankUpdateOneRequiredWithoutCenterAdminInput
-  session: SessionUpdateOneRequiredInput
   report: ReportUpdateManyWithoutCenterAdminInput
 }
 
@@ -2097,10 +2060,7 @@ input CenterAdminUpdateWithoutRankDataInput {
   authPhone: Int
   authMatricule: String
   authCode: String
-  sessionRank: String
-  exam: ExamUpdateOneRequiredInput
-  session: SessionUpdateOneRequiredInput
-  center: CenterUpdateOneRequiredWithoutCenterAdminInput
+  centerExamSession: CenterExamSessionUpdateOneRequiredWithoutCenterAdminInput
   report: ReportUpdateManyWithoutCenterAdminInput
 }
 
@@ -2110,16 +2070,18 @@ input CenterAdminUpdateWithoutReportDataInput {
   authPhone: Int
   authMatricule: String
   authCode: String
-  sessionRank: String
-  exam: ExamUpdateOneRequiredInput
   rank: RankUpdateOneRequiredWithoutCenterAdminInput
-  session: SessionUpdateOneRequiredInput
-  center: CenterUpdateOneRequiredWithoutCenterAdminInput
+  centerExamSession: CenterExamSessionUpdateOneRequiredWithoutCenterAdminInput
 }
 
-input CenterAdminUpdateWithWhereUniqueWithoutCenterInput {
+input CenterAdminUpdateWithWhereUniqueNestedInput {
   where: CenterAdminWhereUniqueInput!
-  data: CenterAdminUpdateWithoutCenterDataInput!
+  data: CenterAdminUpdateDataInput!
+}
+
+input CenterAdminUpdateWithWhereUniqueWithoutCenterExamSessionInput {
+  where: CenterAdminWhereUniqueInput!
+  data: CenterAdminUpdateWithoutCenterExamSessionDataInput!
 }
 
 input CenterAdminUpdateWithWhereUniqueWithoutRankInput {
@@ -2132,10 +2094,16 @@ input CenterAdminUpsertWithoutReportInput {
   create: CenterAdminCreateWithoutReportInput!
 }
 
-input CenterAdminUpsertWithWhereUniqueWithoutCenterInput {
+input CenterAdminUpsertWithWhereUniqueNestedInput {
   where: CenterAdminWhereUniqueInput!
-  update: CenterAdminUpdateWithoutCenterDataInput!
-  create: CenterAdminCreateWithoutCenterInput!
+  update: CenterAdminUpdateDataInput!
+  create: CenterAdminCreateInput!
+}
+
+input CenterAdminUpsertWithWhereUniqueWithoutCenterExamSessionInput {
+  where: CenterAdminWhereUniqueInput!
+  update: CenterAdminUpdateWithoutCenterExamSessionDataInput!
+  create: CenterAdminCreateWithoutCenterExamSessionInput!
 }
 
 input CenterAdminUpsertWithWhereUniqueWithoutRankInput {
@@ -2375,46 +2343,952 @@ input CenterAdminWhereInput {
 
   """All values not ending with the given string."""
   authCode_not_ends_with: String
-  sessionRank: String
+  createdAt: DateTime
 
   """All values that are not equal to given value."""
-  sessionRank_not: String
+  createdAt_not: DateTime
 
   """All values that are contained in given list."""
-  sessionRank_in: [String!]
+  createdAt_in: [DateTime!]
 
   """All values that are not contained in given list."""
-  sessionRank_not_in: [String!]
+  createdAt_not_in: [DateTime!]
 
   """All values less than the given value."""
-  sessionRank_lt: String
+  createdAt_lt: DateTime
 
   """All values less than or equal the given value."""
-  sessionRank_lte: String
+  createdAt_lte: DateTime
 
   """All values greater than the given value."""
-  sessionRank_gt: String
+  createdAt_gt: DateTime
 
   """All values greater than or equal the given value."""
-  sessionRank_gte: String
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  rank: RankWhereInput
+  centerExamSession: CenterExamSessionWhereInput
+  report_every: ReportWhereInput
+  report_some: ReportWhereInput
+  report_none: ReportWhereInput
+}
+
+input CenterAdminWhereUniqueInput {
+  id: ID
+  authCode: String
+}
+
+"""A connection to a list of items."""
+type CenterConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CenterEdge]!
+  aggregate: AggregateCenter!
+}
+
+input CenterCreateInput {
+  id: ID
+  centerName: String!
+  centerCode: String!
+  centerNumber: Int!
+  town: TownCreateOneWithoutCenterInput!
+  centerAdmin: CenterAdminCreateManyInput
+  centerExamSession: CenterExamSessionCreateManyWithoutCenterInput
+}
+
+input CenterCreateManyWithoutTownInput {
+  create: [CenterCreateWithoutTownInput!]
+  connect: [CenterWhereUniqueInput!]
+}
+
+input CenterCreateOneWithoutCenterExamSessionInput {
+  create: CenterCreateWithoutCenterExamSessionInput
+  connect: CenterWhereUniqueInput
+}
+
+input CenterCreateWithoutCenterExamSessionInput {
+  id: ID
+  centerName: String!
+  centerCode: String!
+  centerNumber: Int!
+  town: TownCreateOneWithoutCenterInput!
+  centerAdmin: CenterAdminCreateManyInput
+}
+
+input CenterCreateWithoutTownInput {
+  id: ID
+  centerName: String!
+  centerCode: String!
+  centerNumber: Int!
+  centerAdmin: CenterAdminCreateManyInput
+  centerExamSession: CenterExamSessionCreateManyWithoutCenterInput
+}
+
+"""An edge in a connection."""
+type CenterEdge {
+  """The item at the end of the edge."""
+  node: Center!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+type CenterExamSession implements Node {
+  id: ID!
+  exam: Exam!
+  session: Session!
+  center: Center!
+  centerExamSessionSeries(where: CenterExamSessionSeriesWhereInput, orderBy: CenterExamSessionSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterExamSessionSeries!]
+  centerAdmin(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterAdmin!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type CenterExamSessionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CenterExamSessionEdge]!
+  aggregate: AggregateCenterExamSession!
+}
+
+input CenterExamSessionCreateInput {
+  id: ID
+  exam: ExamCreateOneWithoutCenterExamSessionInput!
+  session: SessionCreateOneWithoutCenterExamSessionInput!
+  center: CenterCreateOneWithoutCenterExamSessionInput!
+  centerExamSessionSeries: CenterExamSessionSeriesCreateManyWithoutCenterExamSessionInput
+  centerAdmin: CenterAdminCreateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionCreateManyWithoutCenterInput {
+  create: [CenterExamSessionCreateWithoutCenterInput!]
+  connect: [CenterExamSessionWhereUniqueInput!]
+}
+
+input CenterExamSessionCreateManyWithoutExamInput {
+  create: [CenterExamSessionCreateWithoutExamInput!]
+  connect: [CenterExamSessionWhereUniqueInput!]
+}
+
+input CenterExamSessionCreateManyWithoutSessionInput {
+  create: [CenterExamSessionCreateWithoutSessionInput!]
+  connect: [CenterExamSessionWhereUniqueInput!]
+}
+
+input CenterExamSessionCreateOneWithoutCenterAdminInput {
+  create: CenterExamSessionCreateWithoutCenterAdminInput
+  connect: CenterExamSessionWhereUniqueInput
+}
+
+input CenterExamSessionCreateOneWithoutCenterExamSessionSeriesInput {
+  create: CenterExamSessionCreateWithoutCenterExamSessionSeriesInput
+  connect: CenterExamSessionWhereUniqueInput
+}
+
+input CenterExamSessionCreateWithoutCenterAdminInput {
+  id: ID
+  exam: ExamCreateOneWithoutCenterExamSessionInput!
+  session: SessionCreateOneWithoutCenterExamSessionInput!
+  center: CenterCreateOneWithoutCenterExamSessionInput!
+  centerExamSessionSeries: CenterExamSessionSeriesCreateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionCreateWithoutCenterExamSessionSeriesInput {
+  id: ID
+  exam: ExamCreateOneWithoutCenterExamSessionInput!
+  session: SessionCreateOneWithoutCenterExamSessionInput!
+  center: CenterCreateOneWithoutCenterExamSessionInput!
+  centerAdmin: CenterAdminCreateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionCreateWithoutCenterInput {
+  id: ID
+  exam: ExamCreateOneWithoutCenterExamSessionInput!
+  session: SessionCreateOneWithoutCenterExamSessionInput!
+  centerExamSessionSeries: CenterExamSessionSeriesCreateManyWithoutCenterExamSessionInput
+  centerAdmin: CenterAdminCreateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionCreateWithoutExamInput {
+  id: ID
+  session: SessionCreateOneWithoutCenterExamSessionInput!
+  center: CenterCreateOneWithoutCenterExamSessionInput!
+  centerExamSessionSeries: CenterExamSessionSeriesCreateManyWithoutCenterExamSessionInput
+  centerAdmin: CenterAdminCreateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionCreateWithoutSessionInput {
+  id: ID
+  exam: ExamCreateOneWithoutCenterExamSessionInput!
+  center: CenterCreateOneWithoutCenterExamSessionInput!
+  centerExamSessionSeries: CenterExamSessionSeriesCreateManyWithoutCenterExamSessionInput
+  centerAdmin: CenterAdminCreateManyWithoutCenterExamSessionInput
+}
+
+"""An edge in a connection."""
+type CenterExamSessionEdge {
+  """The item at the end of the edge."""
+  node: CenterExamSession!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CenterExamSessionOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type CenterExamSessionPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input CenterExamSessionScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CenterExamSessionScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CenterExamSessionScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CenterExamSessionScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
 
   """All values containing the given string."""
-  sessionRank_contains: String
+  id_contains: ID
 
   """All values not containing the given string."""
-  sessionRank_not_contains: String
+  id_not_contains: ID
 
   """All values starting with the given string."""
-  sessionRank_starts_with: String
+  id_starts_with: ID
 
   """All values not starting with the given string."""
-  sessionRank_not_starts_with: String
+  id_not_starts_with: ID
 
   """All values ending with the given string."""
-  sessionRank_ends_with: String
+  id_ends_with: ID
 
   """All values not ending with the given string."""
-  sessionRank_not_ends_with: String
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+}
+
+type CenterExamSessionSeries implements Node {
+  id: ID!
+  centerExamSession: CenterExamSession!
+  registration(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
+  series: Series!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type CenterExamSessionSeriesConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CenterExamSessionSeriesEdge]!
+  aggregate: AggregateCenterExamSessionSeries!
+}
+
+input CenterExamSessionSeriesCreateInput {
+  id: ID
+  centerExamSession: CenterExamSessionCreateOneWithoutCenterExamSessionSeriesInput!
+  registration: RegistrationCreateManyWithoutCenterExamSessionSeriesInput
+  series: SeriesCreateOneWithoutCenterExamSessionSeriesInput!
+}
+
+input CenterExamSessionSeriesCreateManyWithoutCenterExamSessionInput {
+  create: [CenterExamSessionSeriesCreateWithoutCenterExamSessionInput!]
+  connect: [CenterExamSessionSeriesWhereUniqueInput!]
+}
+
+input CenterExamSessionSeriesCreateManyWithoutSeriesInput {
+  create: [CenterExamSessionSeriesCreateWithoutSeriesInput!]
+  connect: [CenterExamSessionSeriesWhereUniqueInput!]
+}
+
+input CenterExamSessionSeriesCreateOneWithoutRegistrationInput {
+  create: CenterExamSessionSeriesCreateWithoutRegistrationInput
+  connect: CenterExamSessionSeriesWhereUniqueInput
+}
+
+input CenterExamSessionSeriesCreateWithoutCenterExamSessionInput {
+  id: ID
+  registration: RegistrationCreateManyWithoutCenterExamSessionSeriesInput
+  series: SeriesCreateOneWithoutCenterExamSessionSeriesInput!
+}
+
+input CenterExamSessionSeriesCreateWithoutRegistrationInput {
+  id: ID
+  centerExamSession: CenterExamSessionCreateOneWithoutCenterExamSessionSeriesInput!
+  series: SeriesCreateOneWithoutCenterExamSessionSeriesInput!
+}
+
+input CenterExamSessionSeriesCreateWithoutSeriesInput {
+  id: ID
+  centerExamSession: CenterExamSessionCreateOneWithoutCenterExamSessionSeriesInput!
+  registration: RegistrationCreateManyWithoutCenterExamSessionSeriesInput
+}
+
+"""An edge in a connection."""
+type CenterExamSessionSeriesEdge {
+  """The item at the end of the edge."""
+  node: CenterExamSessionSeries!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CenterExamSessionSeriesOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type CenterExamSessionSeriesPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input CenterExamSessionSeriesScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CenterExamSessionSeriesScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CenterExamSessionSeriesScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CenterExamSessionSeriesScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+}
+
+type CenterExamSessionSeriesSubscriptionPayload {
+  mutation: MutationType!
+  node: CenterExamSessionSeries
+  updatedFields: [String!]
+  previousValues: CenterExamSessionSeriesPreviousValues
+}
+
+input CenterExamSessionSeriesSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CenterExamSessionSeriesSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CenterExamSessionSeriesSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CenterExamSessionSeriesSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CenterExamSessionSeriesWhereInput
+}
+
+input CenterExamSessionSeriesUpdateInput {
+  centerExamSession: CenterExamSessionUpdateOneRequiredWithoutCenterExamSessionSeriesInput
+  registration: RegistrationUpdateManyWithoutCenterExamSessionSeriesInput
+  series: SeriesUpdateOneRequiredWithoutCenterExamSessionSeriesInput
+}
+
+input CenterExamSessionSeriesUpdateManyWithoutCenterExamSessionInput {
+  create: [CenterExamSessionSeriesCreateWithoutCenterExamSessionInput!]
+  connect: [CenterExamSessionSeriesWhereUniqueInput!]
+  set: [CenterExamSessionSeriesWhereUniqueInput!]
+  disconnect: [CenterExamSessionSeriesWhereUniqueInput!]
+  delete: [CenterExamSessionSeriesWhereUniqueInput!]
+  update: [CenterExamSessionSeriesUpdateWithWhereUniqueWithoutCenterExamSessionInput!]
+  deleteMany: [CenterExamSessionSeriesScalarWhereInput!]
+  upsert: [CenterExamSessionSeriesUpsertWithWhereUniqueWithoutCenterExamSessionInput!]
+}
+
+input CenterExamSessionSeriesUpdateManyWithoutSeriesInput {
+  create: [CenterExamSessionSeriesCreateWithoutSeriesInput!]
+  connect: [CenterExamSessionSeriesWhereUniqueInput!]
+  set: [CenterExamSessionSeriesWhereUniqueInput!]
+  disconnect: [CenterExamSessionSeriesWhereUniqueInput!]
+  delete: [CenterExamSessionSeriesWhereUniqueInput!]
+  update: [CenterExamSessionSeriesUpdateWithWhereUniqueWithoutSeriesInput!]
+  deleteMany: [CenterExamSessionSeriesScalarWhereInput!]
+  upsert: [CenterExamSessionSeriesUpsertWithWhereUniqueWithoutSeriesInput!]
+}
+
+input CenterExamSessionSeriesUpdateOneRequiredWithoutRegistrationInput {
+  create: CenterExamSessionSeriesCreateWithoutRegistrationInput
+  connect: CenterExamSessionSeriesWhereUniqueInput
+  update: CenterExamSessionSeriesUpdateWithoutRegistrationDataInput
+  upsert: CenterExamSessionSeriesUpsertWithoutRegistrationInput
+}
+
+input CenterExamSessionSeriesUpdateWithoutCenterExamSessionDataInput {
+  registration: RegistrationUpdateManyWithoutCenterExamSessionSeriesInput
+  series: SeriesUpdateOneRequiredWithoutCenterExamSessionSeriesInput
+}
+
+input CenterExamSessionSeriesUpdateWithoutRegistrationDataInput {
+  centerExamSession: CenterExamSessionUpdateOneRequiredWithoutCenterExamSessionSeriesInput
+  series: SeriesUpdateOneRequiredWithoutCenterExamSessionSeriesInput
+}
+
+input CenterExamSessionSeriesUpdateWithoutSeriesDataInput {
+  centerExamSession: CenterExamSessionUpdateOneRequiredWithoutCenterExamSessionSeriesInput
+  registration: RegistrationUpdateManyWithoutCenterExamSessionSeriesInput
+}
+
+input CenterExamSessionSeriesUpdateWithWhereUniqueWithoutCenterExamSessionInput {
+  where: CenterExamSessionSeriesWhereUniqueInput!
+  data: CenterExamSessionSeriesUpdateWithoutCenterExamSessionDataInput!
+}
+
+input CenterExamSessionSeriesUpdateWithWhereUniqueWithoutSeriesInput {
+  where: CenterExamSessionSeriesWhereUniqueInput!
+  data: CenterExamSessionSeriesUpdateWithoutSeriesDataInput!
+}
+
+input CenterExamSessionSeriesUpsertWithoutRegistrationInput {
+  update: CenterExamSessionSeriesUpdateWithoutRegistrationDataInput!
+  create: CenterExamSessionSeriesCreateWithoutRegistrationInput!
+}
+
+input CenterExamSessionSeriesUpsertWithWhereUniqueWithoutCenterExamSessionInput {
+  where: CenterExamSessionSeriesWhereUniqueInput!
+  update: CenterExamSessionSeriesUpdateWithoutCenterExamSessionDataInput!
+  create: CenterExamSessionSeriesCreateWithoutCenterExamSessionInput!
+}
+
+input CenterExamSessionSeriesUpsertWithWhereUniqueWithoutSeriesInput {
+  where: CenterExamSessionSeriesWhereUniqueInput!
+  update: CenterExamSessionSeriesUpdateWithoutSeriesDataInput!
+  create: CenterExamSessionSeriesCreateWithoutSeriesInput!
+}
+
+input CenterExamSessionSeriesWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CenterExamSessionSeriesWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CenterExamSessionSeriesWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CenterExamSessionSeriesWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  centerExamSession: CenterExamSessionWhereInput
+  registration_every: RegistrationWhereInput
+  registration_some: RegistrationWhereInput
+  registration_none: RegistrationWhereInput
+  series: SeriesWhereInput
+}
+
+input CenterExamSessionSeriesWhereUniqueInput {
+  id: ID
+}
+
+type CenterExamSessionSubscriptionPayload {
+  mutation: MutationType!
+  node: CenterExamSession
+  updatedFields: [String!]
+  previousValues: CenterExamSessionPreviousValues
+}
+
+input CenterExamSessionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CenterExamSessionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CenterExamSessionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CenterExamSessionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CenterExamSessionWhereInput
+}
+
+input CenterExamSessionUpdateInput {
+  exam: ExamUpdateOneRequiredWithoutCenterExamSessionInput
+  session: SessionUpdateOneRequiredWithoutCenterExamSessionInput
+  center: CenterUpdateOneRequiredWithoutCenterExamSessionInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateManyWithoutCenterExamSessionInput
+  centerAdmin: CenterAdminUpdateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionUpdateManyWithoutCenterInput {
+  create: [CenterExamSessionCreateWithoutCenterInput!]
+  connect: [CenterExamSessionWhereUniqueInput!]
+  set: [CenterExamSessionWhereUniqueInput!]
+  disconnect: [CenterExamSessionWhereUniqueInput!]
+  delete: [CenterExamSessionWhereUniqueInput!]
+  update: [CenterExamSessionUpdateWithWhereUniqueWithoutCenterInput!]
+  deleteMany: [CenterExamSessionScalarWhereInput!]
+  upsert: [CenterExamSessionUpsertWithWhereUniqueWithoutCenterInput!]
+}
+
+input CenterExamSessionUpdateManyWithoutExamInput {
+  create: [CenterExamSessionCreateWithoutExamInput!]
+  connect: [CenterExamSessionWhereUniqueInput!]
+  set: [CenterExamSessionWhereUniqueInput!]
+  disconnect: [CenterExamSessionWhereUniqueInput!]
+  delete: [CenterExamSessionWhereUniqueInput!]
+  update: [CenterExamSessionUpdateWithWhereUniqueWithoutExamInput!]
+  deleteMany: [CenterExamSessionScalarWhereInput!]
+  upsert: [CenterExamSessionUpsertWithWhereUniqueWithoutExamInput!]
+}
+
+input CenterExamSessionUpdateManyWithoutSessionInput {
+  create: [CenterExamSessionCreateWithoutSessionInput!]
+  connect: [CenterExamSessionWhereUniqueInput!]
+  set: [CenterExamSessionWhereUniqueInput!]
+  disconnect: [CenterExamSessionWhereUniqueInput!]
+  delete: [CenterExamSessionWhereUniqueInput!]
+  update: [CenterExamSessionUpdateWithWhereUniqueWithoutSessionInput!]
+  deleteMany: [CenterExamSessionScalarWhereInput!]
+  upsert: [CenterExamSessionUpsertWithWhereUniqueWithoutSessionInput!]
+}
+
+input CenterExamSessionUpdateOneRequiredWithoutCenterAdminInput {
+  create: CenterExamSessionCreateWithoutCenterAdminInput
+  connect: CenterExamSessionWhereUniqueInput
+  update: CenterExamSessionUpdateWithoutCenterAdminDataInput
+  upsert: CenterExamSessionUpsertWithoutCenterAdminInput
+}
+
+input CenterExamSessionUpdateOneRequiredWithoutCenterExamSessionSeriesInput {
+  create: CenterExamSessionCreateWithoutCenterExamSessionSeriesInput
+  connect: CenterExamSessionWhereUniqueInput
+  update: CenterExamSessionUpdateWithoutCenterExamSessionSeriesDataInput
+  upsert: CenterExamSessionUpsertWithoutCenterExamSessionSeriesInput
+}
+
+input CenterExamSessionUpdateWithoutCenterAdminDataInput {
+  exam: ExamUpdateOneRequiredWithoutCenterExamSessionInput
+  session: SessionUpdateOneRequiredWithoutCenterExamSessionInput
+  center: CenterUpdateOneRequiredWithoutCenterExamSessionInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionUpdateWithoutCenterDataInput {
+  exam: ExamUpdateOneRequiredWithoutCenterExamSessionInput
+  session: SessionUpdateOneRequiredWithoutCenterExamSessionInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateManyWithoutCenterExamSessionInput
+  centerAdmin: CenterAdminUpdateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionUpdateWithoutCenterExamSessionSeriesDataInput {
+  exam: ExamUpdateOneRequiredWithoutCenterExamSessionInput
+  session: SessionUpdateOneRequiredWithoutCenterExamSessionInput
+  center: CenterUpdateOneRequiredWithoutCenterExamSessionInput
+  centerAdmin: CenterAdminUpdateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionUpdateWithoutExamDataInput {
+  session: SessionUpdateOneRequiredWithoutCenterExamSessionInput
+  center: CenterUpdateOneRequiredWithoutCenterExamSessionInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateManyWithoutCenterExamSessionInput
+  centerAdmin: CenterAdminUpdateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionUpdateWithoutSessionDataInput {
+  exam: ExamUpdateOneRequiredWithoutCenterExamSessionInput
+  center: CenterUpdateOneRequiredWithoutCenterExamSessionInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateManyWithoutCenterExamSessionInput
+  centerAdmin: CenterAdminUpdateManyWithoutCenterExamSessionInput
+}
+
+input CenterExamSessionUpdateWithWhereUniqueWithoutCenterInput {
+  where: CenterExamSessionWhereUniqueInput!
+  data: CenterExamSessionUpdateWithoutCenterDataInput!
+}
+
+input CenterExamSessionUpdateWithWhereUniqueWithoutExamInput {
+  where: CenterExamSessionWhereUniqueInput!
+  data: CenterExamSessionUpdateWithoutExamDataInput!
+}
+
+input CenterExamSessionUpdateWithWhereUniqueWithoutSessionInput {
+  where: CenterExamSessionWhereUniqueInput!
+  data: CenterExamSessionUpdateWithoutSessionDataInput!
+}
+
+input CenterExamSessionUpsertWithoutCenterAdminInput {
+  update: CenterExamSessionUpdateWithoutCenterAdminDataInput!
+  create: CenterExamSessionCreateWithoutCenterAdminInput!
+}
+
+input CenterExamSessionUpsertWithoutCenterExamSessionSeriesInput {
+  update: CenterExamSessionUpdateWithoutCenterExamSessionSeriesDataInput!
+  create: CenterExamSessionCreateWithoutCenterExamSessionSeriesInput!
+}
+
+input CenterExamSessionUpsertWithWhereUniqueWithoutCenterInput {
+  where: CenterExamSessionWhereUniqueInput!
+  update: CenterExamSessionUpdateWithoutCenterDataInput!
+  create: CenterExamSessionCreateWithoutCenterInput!
+}
+
+input CenterExamSessionUpsertWithWhereUniqueWithoutExamInput {
+  where: CenterExamSessionWhereUniqueInput!
+  update: CenterExamSessionUpdateWithoutExamDataInput!
+  create: CenterExamSessionCreateWithoutExamInput!
+}
+
+input CenterExamSessionUpsertWithWhereUniqueWithoutSessionInput {
+  where: CenterExamSessionWhereUniqueInput!
+  update: CenterExamSessionUpdateWithoutSessionDataInput!
+  create: CenterExamSessionCreateWithoutSessionInput!
+}
+
+input CenterExamSessionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CenterExamSessionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CenterExamSessionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CenterExamSessionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
   createdAt: DateTime
 
   """All values that are not equal to given value."""
@@ -2460,98 +3334,18 @@ input CenterAdminWhereInput {
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
   exam: ExamWhereInput
-  rank: RankWhereInput
   session: SessionWhereInput
   center: CenterWhereInput
-  report_every: ReportWhereInput
-  report_some: ReportWhereInput
-  report_none: ReportWhereInput
+  centerExamSessionSeries_every: CenterExamSessionSeriesWhereInput
+  centerExamSessionSeries_some: CenterExamSessionSeriesWhereInput
+  centerExamSessionSeries_none: CenterExamSessionSeriesWhereInput
+  centerAdmin_every: CenterAdminWhereInput
+  centerAdmin_some: CenterAdminWhereInput
+  centerAdmin_none: CenterAdminWhereInput
 }
 
-input CenterAdminWhereUniqueInput {
+input CenterExamSessionWhereUniqueInput {
   id: ID
-  authCode: String
-  sessionRank: String
-}
-
-"""A connection to a list of items."""
-type CenterConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [CenterEdge]!
-  aggregate: AggregateCenter!
-}
-
-input CenterCreateInput {
-  id: ID
-  centerName: String!
-  centerCode: String!
-  centerNumber: Int!
-  town: TownCreateOneWithoutCenterInput!
-  registration: RegistrationCreateManyWithoutCenterInput
-  centerAdmin: CenterAdminCreateManyWithoutCenterInput
-  scores: ScoreCreateManyInput
-}
-
-input CenterCreateManyWithoutTownInput {
-  create: [CenterCreateWithoutTownInput!]
-  connect: [CenterWhereUniqueInput!]
-}
-
-input CenterCreateOneInput {
-  create: CenterCreateInput
-  connect: CenterWhereUniqueInput
-}
-
-input CenterCreateOneWithoutCenterAdminInput {
-  create: CenterCreateWithoutCenterAdminInput
-  connect: CenterWhereUniqueInput
-}
-
-input CenterCreateOneWithoutRegistrationInput {
-  create: CenterCreateWithoutRegistrationInput
-  connect: CenterWhereUniqueInput
-}
-
-input CenterCreateWithoutCenterAdminInput {
-  id: ID
-  centerName: String!
-  centerCode: String!
-  centerNumber: Int!
-  town: TownCreateOneWithoutCenterInput!
-  registration: RegistrationCreateManyWithoutCenterInput
-  scores: ScoreCreateManyInput
-}
-
-input CenterCreateWithoutRegistrationInput {
-  id: ID
-  centerName: String!
-  centerCode: String!
-  centerNumber: Int!
-  town: TownCreateOneWithoutCenterInput!
-  centerAdmin: CenterAdminCreateManyWithoutCenterInput
-  scores: ScoreCreateManyInput
-}
-
-input CenterCreateWithoutTownInput {
-  id: ID
-  centerName: String!
-  centerCode: String!
-  centerNumber: Int!
-  registration: RegistrationCreateManyWithoutCenterInput
-  centerAdmin: CenterAdminCreateManyWithoutCenterInput
-  scores: ScoreCreateManyInput
-}
-
-"""An edge in a connection."""
-type CenterEdge {
-  """The item at the end of the edge."""
-  node: Center!
-
-  """A cursor for use in pagination."""
-  cursor: String!
 }
 
 enum CenterOrderByInput {
@@ -2814,24 +3608,13 @@ input CenterSubscriptionWhereInput {
   node: CenterWhereInput
 }
 
-input CenterUpdateDataInput {
-  centerName: String
-  centerCode: String
-  centerNumber: Int
-  town: TownUpdateOneRequiredWithoutCenterInput
-  registration: RegistrationUpdateManyWithoutCenterInput
-  centerAdmin: CenterAdminUpdateManyWithoutCenterInput
-  scores: ScoreUpdateManyInput
-}
-
 input CenterUpdateInput {
   centerName: String
   centerCode: String
   centerNumber: Int
   town: TownUpdateOneRequiredWithoutCenterInput
-  registration: RegistrationUpdateManyWithoutCenterInput
-  centerAdmin: CenterAdminUpdateManyWithoutCenterInput
-  scores: ScoreUpdateManyInput
+  centerAdmin: CenterAdminUpdateManyInput
+  centerExamSession: CenterExamSessionUpdateManyWithoutCenterInput
 }
 
 input CenterUpdateManyDataInput {
@@ -2863,52 +3646,27 @@ input CenterUpdateManyWithWhereNestedInput {
   data: CenterUpdateManyDataInput!
 }
 
-input CenterUpdateOneRequiredInput {
-  create: CenterCreateInput
+input CenterUpdateOneRequiredWithoutCenterExamSessionInput {
+  create: CenterCreateWithoutCenterExamSessionInput
   connect: CenterWhereUniqueInput
-  update: CenterUpdateDataInput
-  upsert: CenterUpsertNestedInput
+  update: CenterUpdateWithoutCenterExamSessionDataInput
+  upsert: CenterUpsertWithoutCenterExamSessionInput
 }
 
-input CenterUpdateOneRequiredWithoutCenterAdminInput {
-  create: CenterCreateWithoutCenterAdminInput
-  connect: CenterWhereUniqueInput
-  update: CenterUpdateWithoutCenterAdminDataInput
-  upsert: CenterUpsertWithoutCenterAdminInput
-}
-
-input CenterUpdateOneRequiredWithoutRegistrationInput {
-  create: CenterCreateWithoutRegistrationInput
-  connect: CenterWhereUniqueInput
-  update: CenterUpdateWithoutRegistrationDataInput
-  upsert: CenterUpsertWithoutRegistrationInput
-}
-
-input CenterUpdateWithoutCenterAdminDataInput {
+input CenterUpdateWithoutCenterExamSessionDataInput {
   centerName: String
   centerCode: String
   centerNumber: Int
   town: TownUpdateOneRequiredWithoutCenterInput
-  registration: RegistrationUpdateManyWithoutCenterInput
-  scores: ScoreUpdateManyInput
-}
-
-input CenterUpdateWithoutRegistrationDataInput {
-  centerName: String
-  centerCode: String
-  centerNumber: Int
-  town: TownUpdateOneRequiredWithoutCenterInput
-  centerAdmin: CenterAdminUpdateManyWithoutCenterInput
-  scores: ScoreUpdateManyInput
+  centerAdmin: CenterAdminUpdateManyInput
 }
 
 input CenterUpdateWithoutTownDataInput {
   centerName: String
   centerCode: String
   centerNumber: Int
-  registration: RegistrationUpdateManyWithoutCenterInput
-  centerAdmin: CenterAdminUpdateManyWithoutCenterInput
-  scores: ScoreUpdateManyInput
+  centerAdmin: CenterAdminUpdateManyInput
+  centerExamSession: CenterExamSessionUpdateManyWithoutCenterInput
 }
 
 input CenterUpdateWithWhereUniqueWithoutTownInput {
@@ -2916,19 +3674,9 @@ input CenterUpdateWithWhereUniqueWithoutTownInput {
   data: CenterUpdateWithoutTownDataInput!
 }
 
-input CenterUpsertNestedInput {
-  update: CenterUpdateDataInput!
-  create: CenterCreateInput!
-}
-
-input CenterUpsertWithoutCenterAdminInput {
-  update: CenterUpdateWithoutCenterAdminDataInput!
-  create: CenterCreateWithoutCenterAdminInput!
-}
-
-input CenterUpsertWithoutRegistrationInput {
-  update: CenterUpdateWithoutRegistrationDataInput!
-  create: CenterCreateWithoutRegistrationInput!
+input CenterUpsertWithoutCenterExamSessionInput {
+  update: CenterUpdateWithoutCenterExamSessionDataInput!
+  create: CenterCreateWithoutCenterExamSessionInput!
 }
 
 input CenterUpsertWithWhereUniqueWithoutTownInput {
@@ -3133,15 +3881,12 @@ input CenterWhereInput {
   """All values greater than or equal the given value."""
   updatedAt_gte: DateTime
   town: TownWhereInput
-  registration_every: RegistrationWhereInput
-  registration_some: RegistrationWhereInput
-  registration_none: RegistrationWhereInput
   centerAdmin_every: CenterAdminWhereInput
   centerAdmin_some: CenterAdminWhereInput
   centerAdmin_none: CenterAdminWhereInput
-  scores_every: ScoreWhereInput
-  scores_some: ScoreWhereInput
-  scores_none: ScoreWhereInput
+  centerExamSession_every: CenterExamSessionWhereInput
+  centerExamSession_some: CenterExamSessionWhereInput
+  centerExamSession_none: CenterExamSessionWhereInput
 }
 
 input CenterWhereUniqueInput {
@@ -4060,6 +4805,7 @@ type Exam implements Node {
   id: ID!
   examName: String!
   registration(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
+  centerExamSession(where: CenterExamSessionWhereInput, orderBy: CenterExamSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterExamSession!]
   examCode: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -4079,23 +4825,20 @@ input ExamCreateInput {
   id: ID
   examName: String!
   examCode: String!
-  registration: RegistrationCreateManyWithoutExamInput
+  registration: RegistrationCreateManyInput
+  centerExamSession: CenterExamSessionCreateManyWithoutExamInput
 }
 
-input ExamCreateOneInput {
-  create: ExamCreateInput
+input ExamCreateOneWithoutCenterExamSessionInput {
+  create: ExamCreateWithoutCenterExamSessionInput
   connect: ExamWhereUniqueInput
 }
 
-input ExamCreateOneWithoutRegistrationInput {
-  create: ExamCreateWithoutRegistrationInput
-  connect: ExamWhereUniqueInput
-}
-
-input ExamCreateWithoutRegistrationInput {
+input ExamCreateWithoutCenterExamSessionInput {
   id: ID
   examName: String!
   examCode: String!
+  registration: RegistrationCreateManyInput
 }
 
 """An edge in a connection."""
@@ -4167,16 +4910,11 @@ input ExamSubscriptionWhereInput {
   node: ExamWhereInput
 }
 
-input ExamUpdateDataInput {
-  examName: String
-  examCode: String
-  registration: RegistrationUpdateManyWithoutExamInput
-}
-
 input ExamUpdateInput {
   examName: String
   examCode: String
-  registration: RegistrationUpdateManyWithoutExamInput
+  registration: RegistrationUpdateManyInput
+  centerExamSession: CenterExamSessionUpdateManyWithoutExamInput
 }
 
 input ExamUpdateManyMutationInput {
@@ -4184,33 +4922,22 @@ input ExamUpdateManyMutationInput {
   examCode: String
 }
 
-input ExamUpdateOneRequiredInput {
-  create: ExamCreateInput
+input ExamUpdateOneRequiredWithoutCenterExamSessionInput {
+  create: ExamCreateWithoutCenterExamSessionInput
   connect: ExamWhereUniqueInput
-  update: ExamUpdateDataInput
-  upsert: ExamUpsertNestedInput
+  update: ExamUpdateWithoutCenterExamSessionDataInput
+  upsert: ExamUpsertWithoutCenterExamSessionInput
 }
 
-input ExamUpdateOneRequiredWithoutRegistrationInput {
-  create: ExamCreateWithoutRegistrationInput
-  connect: ExamWhereUniqueInput
-  update: ExamUpdateWithoutRegistrationDataInput
-  upsert: ExamUpsertWithoutRegistrationInput
-}
-
-input ExamUpdateWithoutRegistrationDataInput {
+input ExamUpdateWithoutCenterExamSessionDataInput {
   examName: String
   examCode: String
+  registration: RegistrationUpdateManyInput
 }
 
-input ExamUpsertNestedInput {
-  update: ExamUpdateDataInput!
-  create: ExamCreateInput!
-}
-
-input ExamUpsertWithoutRegistrationInput {
-  update: ExamUpdateWithoutRegistrationDataInput!
-  create: ExamCreateWithoutRegistrationInput!
+input ExamUpsertWithoutCenterExamSessionInput {
+  update: ExamUpdateWithoutCenterExamSessionDataInput!
+  create: ExamCreateWithoutCenterExamSessionInput!
 }
 
 input ExamWhereInput {
@@ -4389,6 +5116,9 @@ input ExamWhereInput {
   registration_every: RegistrationWhereInput
   registration_some: RegistrationWhereInput
   registration_none: RegistrationWhereInput
+  centerExamSession_every: CenterExamSessionWhereInput
+  centerExamSession_some: CenterExamSessionWhereInput
+  centerExamSession_none: CenterExamSessionWhereInput
 }
 
 input ExamWhereUniqueInput {
@@ -4725,130 +5455,131 @@ type Mutation {
   createDivision(data: DivisionCreateInput!): Division!
   createSubDivision(data: SubDivisionCreateInput!): SubDivision!
   createTown(data: TownCreateInput!): Town!
+  createCenter(data: CenterCreateInput!): Center!
   createEducationType(data: EducationTypeCreateInput!): EducationType!
+  createExam(data: ExamCreateInput!): Exam!
   createSubject(data: SubjectCreateInput!): Subject!
+  createSession(data: SessionCreateInput!): Session!
   createGender(data: GenderCreateInput!): Gender!
   createCandidate(data: CandidateCreateInput!): Candidate!
   createRank(data: RankCreateInput!): Rank!
-  createCenterAdmin(data: CenterAdminCreateInput!): CenterAdmin!
   createReport(data: ReportCreateInput!): Report!
-  createRegistration(data: RegistrationCreateInput!): Registration!
-  createSubCenter(data: SubCenterCreateInput!): SubCenter!
-  createAnotherType(data: AnotherTypeCreateInput!): AnotherType!
-  createSession(data: SessionCreateInput!): Session!
+  createCenterExamSession(data: CenterExamSessionCreateInput!): CenterExamSession!
+  createCenterExamSessionSeries(data: CenterExamSessionSeriesCreateInput!): CenterExamSessionSeries!
+  createCenterAdmin(data: CenterAdminCreateInput!): CenterAdmin!
+  createScore(data: ScoreCreateInput!): Score!
   createSubjectSeries(data: SubjectSeriesCreateInput!): SubjectSeries!
   createSeries(data: SeriesCreateInput!): Series!
   createSubjectType(data: SubjectTypeCreateInput!): SubjectType!
-  createScore(data: ScoreCreateInput!): Score!
-  createExam(data: ExamCreateInput!): Exam!
-  createCenter(data: CenterCreateInput!): Center!
+  createRegistration(data: RegistrationCreateInput!): Registration!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateRegion(data: RegionUpdateInput!, where: RegionWhereUniqueInput!): Region
   updateDivision(data: DivisionUpdateInput!, where: DivisionWhereUniqueInput!): Division
   updateSubDivision(data: SubDivisionUpdateInput!, where: SubDivisionWhereUniqueInput!): SubDivision
   updateTown(data: TownUpdateInput!, where: TownWhereUniqueInput!): Town
+  updateCenter(data: CenterUpdateInput!, where: CenterWhereUniqueInput!): Center
   updateEducationType(data: EducationTypeUpdateInput!, where: EducationTypeWhereUniqueInput!): EducationType
+  updateExam(data: ExamUpdateInput!, where: ExamWhereUniqueInput!): Exam
   updateSubject(data: SubjectUpdateInput!, where: SubjectWhereUniqueInput!): Subject
+  updateSession(data: SessionUpdateInput!, where: SessionWhereUniqueInput!): Session
   updateGender(data: GenderUpdateInput!, where: GenderWhereUniqueInput!): Gender
   updateCandidate(data: CandidateUpdateInput!, where: CandidateWhereUniqueInput!): Candidate
   updateRank(data: RankUpdateInput!, where: RankWhereUniqueInput!): Rank
-  updateCenterAdmin(data: CenterAdminUpdateInput!, where: CenterAdminWhereUniqueInput!): CenterAdmin
   updateReport(data: ReportUpdateInput!, where: ReportWhereUniqueInput!): Report
-  updateRegistration(data: RegistrationUpdateInput!, where: RegistrationWhereUniqueInput!): Registration
-  updateSubCenter(data: SubCenterUpdateInput!, where: SubCenterWhereUniqueInput!): SubCenter
-  updateSession(data: SessionUpdateInput!, where: SessionWhereUniqueInput!): Session
+  updateCenterExamSession(data: CenterExamSessionUpdateInput!, where: CenterExamSessionWhereUniqueInput!): CenterExamSession
+  updateCenterExamSessionSeries(data: CenterExamSessionSeriesUpdateInput!, where: CenterExamSessionSeriesWhereUniqueInput!): CenterExamSessionSeries
+  updateCenterAdmin(data: CenterAdminUpdateInput!, where: CenterAdminWhereUniqueInput!): CenterAdmin
+  updateScore(data: ScoreUpdateInput!, where: ScoreWhereUniqueInput!): Score
   updateSubjectSeries(data: SubjectSeriesUpdateInput!, where: SubjectSeriesWhereUniqueInput!): SubjectSeries
   updateSeries(data: SeriesUpdateInput!, where: SeriesWhereUniqueInput!): Series
   updateSubjectType(data: SubjectTypeUpdateInput!, where: SubjectTypeWhereUniqueInput!): SubjectType
-  updateScore(data: ScoreUpdateInput!, where: ScoreWhereUniqueInput!): Score
-  updateExam(data: ExamUpdateInput!, where: ExamWhereUniqueInput!): Exam
-  updateCenter(data: CenterUpdateInput!, where: CenterWhereUniqueInput!): Center
+  updateRegistration(data: RegistrationUpdateInput!, where: RegistrationWhereUniqueInput!): Registration
   deleteUser(where: UserWhereUniqueInput!): User
   deleteRegion(where: RegionWhereUniqueInput!): Region
   deleteDivision(where: DivisionWhereUniqueInput!): Division
   deleteSubDivision(where: SubDivisionWhereUniqueInput!): SubDivision
   deleteTown(where: TownWhereUniqueInput!): Town
+  deleteCenter(where: CenterWhereUniqueInput!): Center
   deleteEducationType(where: EducationTypeWhereUniqueInput!): EducationType
+  deleteExam(where: ExamWhereUniqueInput!): Exam
   deleteSubject(where: SubjectWhereUniqueInput!): Subject
+  deleteSession(where: SessionWhereUniqueInput!): Session
   deleteGender(where: GenderWhereUniqueInput!): Gender
   deleteCandidate(where: CandidateWhereUniqueInput!): Candidate
   deleteRank(where: RankWhereUniqueInput!): Rank
-  deleteCenterAdmin(where: CenterAdminWhereUniqueInput!): CenterAdmin
   deleteReport(where: ReportWhereUniqueInput!): Report
-  deleteRegistration(where: RegistrationWhereUniqueInput!): Registration
-  deleteSubCenter(where: SubCenterWhereUniqueInput!): SubCenter
-  deleteAnotherType(where: AnotherTypeWhereUniqueInput!): AnotherType
-  deleteSession(where: SessionWhereUniqueInput!): Session
+  deleteCenterExamSession(where: CenterExamSessionWhereUniqueInput!): CenterExamSession
+  deleteCenterExamSessionSeries(where: CenterExamSessionSeriesWhereUniqueInput!): CenterExamSessionSeries
+  deleteCenterAdmin(where: CenterAdminWhereUniqueInput!): CenterAdmin
+  deleteScore(where: ScoreWhereUniqueInput!): Score
   deleteSubjectSeries(where: SubjectSeriesWhereUniqueInput!): SubjectSeries
   deleteSeries(where: SeriesWhereUniqueInput!): Series
   deleteSubjectType(where: SubjectTypeWhereUniqueInput!): SubjectType
-  deleteScore(where: ScoreWhereUniqueInput!): Score
-  deleteExam(where: ExamWhereUniqueInput!): Exam
-  deleteCenter(where: CenterWhereUniqueInput!): Center
+  deleteRegistration(where: RegistrationWhereUniqueInput!): Registration
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertRegion(where: RegionWhereUniqueInput!, create: RegionCreateInput!, update: RegionUpdateInput!): Region!
   upsertDivision(where: DivisionWhereUniqueInput!, create: DivisionCreateInput!, update: DivisionUpdateInput!): Division!
   upsertSubDivision(where: SubDivisionWhereUniqueInput!, create: SubDivisionCreateInput!, update: SubDivisionUpdateInput!): SubDivision!
   upsertTown(where: TownWhereUniqueInput!, create: TownCreateInput!, update: TownUpdateInput!): Town!
+  upsertCenter(where: CenterWhereUniqueInput!, create: CenterCreateInput!, update: CenterUpdateInput!): Center!
   upsertEducationType(where: EducationTypeWhereUniqueInput!, create: EducationTypeCreateInput!, update: EducationTypeUpdateInput!): EducationType!
+  upsertExam(where: ExamWhereUniqueInput!, create: ExamCreateInput!, update: ExamUpdateInput!): Exam!
   upsertSubject(where: SubjectWhereUniqueInput!, create: SubjectCreateInput!, update: SubjectUpdateInput!): Subject!
+  upsertSession(where: SessionWhereUniqueInput!, create: SessionCreateInput!, update: SessionUpdateInput!): Session!
   upsertGender(where: GenderWhereUniqueInput!, create: GenderCreateInput!, update: GenderUpdateInput!): Gender!
   upsertCandidate(where: CandidateWhereUniqueInput!, create: CandidateCreateInput!, update: CandidateUpdateInput!): Candidate!
   upsertRank(where: RankWhereUniqueInput!, create: RankCreateInput!, update: RankUpdateInput!): Rank!
-  upsertCenterAdmin(where: CenterAdminWhereUniqueInput!, create: CenterAdminCreateInput!, update: CenterAdminUpdateInput!): CenterAdmin!
   upsertReport(where: ReportWhereUniqueInput!, create: ReportCreateInput!, update: ReportUpdateInput!): Report!
-  upsertRegistration(where: RegistrationWhereUniqueInput!, create: RegistrationCreateInput!, update: RegistrationUpdateInput!): Registration!
-  upsertSubCenter(where: SubCenterWhereUniqueInput!, create: SubCenterCreateInput!, update: SubCenterUpdateInput!): SubCenter!
-  upsertSession(where: SessionWhereUniqueInput!, create: SessionCreateInput!, update: SessionUpdateInput!): Session!
+  upsertCenterExamSession(where: CenterExamSessionWhereUniqueInput!, create: CenterExamSessionCreateInput!, update: CenterExamSessionUpdateInput!): CenterExamSession!
+  upsertCenterExamSessionSeries(where: CenterExamSessionSeriesWhereUniqueInput!, create: CenterExamSessionSeriesCreateInput!, update: CenterExamSessionSeriesUpdateInput!): CenterExamSessionSeries!
+  upsertCenterAdmin(where: CenterAdminWhereUniqueInput!, create: CenterAdminCreateInput!, update: CenterAdminUpdateInput!): CenterAdmin!
+  upsertScore(where: ScoreWhereUniqueInput!, create: ScoreCreateInput!, update: ScoreUpdateInput!): Score!
   upsertSubjectSeries(where: SubjectSeriesWhereUniqueInput!, create: SubjectSeriesCreateInput!, update: SubjectSeriesUpdateInput!): SubjectSeries!
   upsertSeries(where: SeriesWhereUniqueInput!, create: SeriesCreateInput!, update: SeriesUpdateInput!): Series!
   upsertSubjectType(where: SubjectTypeWhereUniqueInput!, create: SubjectTypeCreateInput!, update: SubjectTypeUpdateInput!): SubjectType!
-  upsertScore(where: ScoreWhereUniqueInput!, create: ScoreCreateInput!, update: ScoreUpdateInput!): Score!
-  upsertExam(where: ExamWhereUniqueInput!, create: ExamCreateInput!, update: ExamUpdateInput!): Exam!
-  upsertCenter(where: CenterWhereUniqueInput!, create: CenterCreateInput!, update: CenterUpdateInput!): Center!
+  upsertRegistration(where: RegistrationWhereUniqueInput!, create: RegistrationCreateInput!, update: RegistrationUpdateInput!): Registration!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyRegions(data: RegionUpdateManyMutationInput!, where: RegionWhereInput): BatchPayload!
   updateManyDivisions(data: DivisionUpdateManyMutationInput!, where: DivisionWhereInput): BatchPayload!
   updateManySubDivisions(data: SubDivisionUpdateManyMutationInput!, where: SubDivisionWhereInput): BatchPayload!
   updateManyTowns(data: TownUpdateManyMutationInput!, where: TownWhereInput): BatchPayload!
+  updateManyCenters(data: CenterUpdateManyMutationInput!, where: CenterWhereInput): BatchPayload!
   updateManyEducationTypes(data: EducationTypeUpdateManyMutationInput!, where: EducationTypeWhereInput): BatchPayload!
+  updateManyExams(data: ExamUpdateManyMutationInput!, where: ExamWhereInput): BatchPayload!
   updateManySubjects(data: SubjectUpdateManyMutationInput!, where: SubjectWhereInput): BatchPayload!
+  updateManySessions(data: SessionUpdateManyMutationInput!, where: SessionWhereInput): BatchPayload!
   updateManyGenders(data: GenderUpdateManyMutationInput!, where: GenderWhereInput): BatchPayload!
   updateManyCandidates(data: CandidateUpdateManyMutationInput!, where: CandidateWhereInput): BatchPayload!
   updateManyRanks(data: RankUpdateManyMutationInput!, where: RankWhereInput): BatchPayload!
-  updateManyCenterAdmins(data: CenterAdminUpdateManyMutationInput!, where: CenterAdminWhereInput): BatchPayload!
   updateManyReports(data: ReportUpdateManyMutationInput!, where: ReportWhereInput): BatchPayload!
-  updateManyRegistrations(data: RegistrationUpdateManyMutationInput!, where: RegistrationWhereInput): BatchPayload!
-  updateManySubCenters(data: SubCenterUpdateManyMutationInput!, where: SubCenterWhereInput): BatchPayload!
-  updateManySessions(data: SessionUpdateManyMutationInput!, where: SessionWhereInput): BatchPayload!
+  updateManyCenterAdmins(data: CenterAdminUpdateManyMutationInput!, where: CenterAdminWhereInput): BatchPayload!
+  updateManyScores(data: ScoreUpdateManyMutationInput!, where: ScoreWhereInput): BatchPayload!
   updateManySubjectSerieses(data: SubjectSeriesUpdateManyMutationInput!, where: SubjectSeriesWhereInput): BatchPayload!
   updateManySerieses(data: SeriesUpdateManyMutationInput!, where: SeriesWhereInput): BatchPayload!
   updateManySubjectTypes(data: SubjectTypeUpdateManyMutationInput!, where: SubjectTypeWhereInput): BatchPayload!
-  updateManyScores(data: ScoreUpdateManyMutationInput!, where: ScoreWhereInput): BatchPayload!
-  updateManyExams(data: ExamUpdateManyMutationInput!, where: ExamWhereInput): BatchPayload!
-  updateManyCenters(data: CenterUpdateManyMutationInput!, where: CenterWhereInput): BatchPayload!
+  updateManyRegistrations(data: RegistrationUpdateManyMutationInput!, where: RegistrationWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyRegions(where: RegionWhereInput): BatchPayload!
   deleteManyDivisions(where: DivisionWhereInput): BatchPayload!
   deleteManySubDivisions(where: SubDivisionWhereInput): BatchPayload!
   deleteManyTowns(where: TownWhereInput): BatchPayload!
+  deleteManyCenters(where: CenterWhereInput): BatchPayload!
   deleteManyEducationTypes(where: EducationTypeWhereInput): BatchPayload!
+  deleteManyExams(where: ExamWhereInput): BatchPayload!
   deleteManySubjects(where: SubjectWhereInput): BatchPayload!
+  deleteManySessions(where: SessionWhereInput): BatchPayload!
   deleteManyGenders(where: GenderWhereInput): BatchPayload!
   deleteManyCandidates(where: CandidateWhereInput): BatchPayload!
   deleteManyRanks(where: RankWhereInput): BatchPayload!
-  deleteManyCenterAdmins(where: CenterAdminWhereInput): BatchPayload!
   deleteManyReports(where: ReportWhereInput): BatchPayload!
-  deleteManyRegistrations(where: RegistrationWhereInput): BatchPayload!
-  deleteManySubCenters(where: SubCenterWhereInput): BatchPayload!
-  deleteManyAnotherTypes(where: AnotherTypeWhereInput): BatchPayload!
-  deleteManySessions(where: SessionWhereInput): BatchPayload!
+  deleteManyCenterExamSessions(where: CenterExamSessionWhereInput): BatchPayload!
+  deleteManyCenterExamSessionSerieses(where: CenterExamSessionSeriesWhereInput): BatchPayload!
+  deleteManyCenterAdmins(where: CenterAdminWhereInput): BatchPayload!
+  deleteManyScores(where: ScoreWhereInput): BatchPayload!
   deleteManySubjectSerieses(where: SubjectSeriesWhereInput): BatchPayload!
   deleteManySerieses(where: SeriesWhereInput): BatchPayload!
   deleteManySubjectTypes(where: SubjectTypeWhereInput): BatchPayload!
-  deleteManyScores(where: ScoreWhereInput): BatchPayload!
-  deleteManyExams(where: ExamWhereInput): BatchPayload!
-  deleteManyCenters(where: CenterWhereInput): BatchPayload!
+  deleteManyRegistrations(where: RegistrationWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -4893,67 +5624,67 @@ type Query {
   divisions(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Division]!
   subDivisions(where: SubDivisionWhereInput, orderBy: SubDivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubDivision]!
   towns(where: TownWhereInput, orderBy: TownOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Town]!
+  centers(where: CenterWhereInput, orderBy: CenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Center]!
   educationTypes(where: EducationTypeWhereInput, orderBy: EducationTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EducationType]!
+  exams(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Exam]!
   subjects(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Subject]!
+  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session]!
   genders(where: GenderWhereInput, orderBy: GenderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Gender]!
   candidates(where: CandidateWhereInput, orderBy: CandidateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Candidate]!
   ranks(where: RankWhereInput, orderBy: RankOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rank]!
-  centerAdmins(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterAdmin]!
   reports(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Report]!
-  registrations(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration]!
-  subCenters(where: SubCenterWhereInput, orderBy: SubCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubCenter]!
-  anotherTypes(where: AnotherTypeWhereInput, orderBy: AnotherTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AnotherType]!
-  sessions(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Session]!
+  centerExamSessions(where: CenterExamSessionWhereInput, orderBy: CenterExamSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterExamSession]!
+  centerExamSessionSerieses(where: CenterExamSessionSeriesWhereInput, orderBy: CenterExamSessionSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterExamSessionSeries]!
+  centerAdmins(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterAdmin]!
+  scores(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Score]!
   subjectSerieses(where: SubjectSeriesWhereInput, orderBy: SubjectSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubjectSeries]!
   serieses(where: SeriesWhereInput, orderBy: SeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Series]!
   subjectTypes(where: SubjectTypeWhereInput, orderBy: SubjectTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubjectType]!
-  scores(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Score]!
-  exams(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Exam]!
-  centers(where: CenterWhereInput, orderBy: CenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Center]!
+  registrations(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration]!
   user(where: UserWhereUniqueInput!): User
   region(where: RegionWhereUniqueInput!): Region
   division(where: DivisionWhereUniqueInput!): Division
   subDivision(where: SubDivisionWhereUniqueInput!): SubDivision
   town(where: TownWhereUniqueInput!): Town
+  center(where: CenterWhereUniqueInput!): Center
   educationType(where: EducationTypeWhereUniqueInput!): EducationType
+  exam(where: ExamWhereUniqueInput!): Exam
   subject(where: SubjectWhereUniqueInput!): Subject
+  session(where: SessionWhereUniqueInput!): Session
   gender(where: GenderWhereUniqueInput!): Gender
   candidate(where: CandidateWhereUniqueInput!): Candidate
   rank(where: RankWhereUniqueInput!): Rank
-  centerAdmin(where: CenterAdminWhereUniqueInput!): CenterAdmin
   report(where: ReportWhereUniqueInput!): Report
-  registration(where: RegistrationWhereUniqueInput!): Registration
-  subCenter(where: SubCenterWhereUniqueInput!): SubCenter
-  anotherType(where: AnotherTypeWhereUniqueInput!): AnotherType
-  session(where: SessionWhereUniqueInput!): Session
+  centerExamSession(where: CenterExamSessionWhereUniqueInput!): CenterExamSession
+  centerExamSessionSeries(where: CenterExamSessionSeriesWhereUniqueInput!): CenterExamSessionSeries
+  centerAdmin(where: CenterAdminWhereUniqueInput!): CenterAdmin
+  score(where: ScoreWhereUniqueInput!): Score
   subjectSeries(where: SubjectSeriesWhereUniqueInput!): SubjectSeries
   series(where: SeriesWhereUniqueInput!): Series
   subjectType(where: SubjectTypeWhereUniqueInput!): SubjectType
-  score(where: ScoreWhereUniqueInput!): Score
-  exam(where: ExamWhereUniqueInput!): Exam
-  center(where: CenterWhereUniqueInput!): Center
+  registration(where: RegistrationWhereUniqueInput!): Registration
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   regionsConnection(where: RegionWhereInput, orderBy: RegionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RegionConnection!
   divisionsConnection(where: DivisionWhereInput, orderBy: DivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DivisionConnection!
   subDivisionsConnection(where: SubDivisionWhereInput, orderBy: SubDivisionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubDivisionConnection!
   townsConnection(where: TownWhereInput, orderBy: TownOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TownConnection!
+  centersConnection(where: CenterWhereInput, orderBy: CenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CenterConnection!
   educationTypesConnection(where: EducationTypeWhereInput, orderBy: EducationTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EducationTypeConnection!
+  examsConnection(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExamConnection!
   subjectsConnection(where: SubjectWhereInput, orderBy: SubjectOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectConnection!
+  sessionsConnection(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SessionConnection!
   gendersConnection(where: GenderWhereInput, orderBy: GenderOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GenderConnection!
   candidatesConnection(where: CandidateWhereInput, orderBy: CandidateOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CandidateConnection!
   ranksConnection(where: RankWhereInput, orderBy: RankOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RankConnection!
-  centerAdminsConnection(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CenterAdminConnection!
   reportsConnection(where: ReportWhereInput, orderBy: ReportOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ReportConnection!
-  registrationsConnection(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RegistrationConnection!
-  subCentersConnection(where: SubCenterWhereInput, orderBy: SubCenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubCenterConnection!
-  anotherTypesConnection(where: AnotherTypeWhereInput, orderBy: AnotherTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AnotherTypeConnection!
-  sessionsConnection(where: SessionWhereInput, orderBy: SessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SessionConnection!
+  centerExamSessionsConnection(where: CenterExamSessionWhereInput, orderBy: CenterExamSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CenterExamSessionConnection!
+  centerExamSessionSeriesesConnection(where: CenterExamSessionSeriesWhereInput, orderBy: CenterExamSessionSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CenterExamSessionSeriesConnection!
+  centerAdminsConnection(where: CenterAdminWhereInput, orderBy: CenterAdminOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CenterAdminConnection!
+  scoresConnection(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ScoreConnection!
   subjectSeriesesConnection(where: SubjectSeriesWhereInput, orderBy: SubjectSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectSeriesConnection!
   seriesesConnection(where: SeriesWhereInput, orderBy: SeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SeriesConnection!
   subjectTypesConnection(where: SubjectTypeWhereInput, orderBy: SubjectTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): SubjectTypeConnection!
-  scoresConnection(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ScoreConnection!
-  examsConnection(where: ExamWhereInput, orderBy: ExamOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExamConnection!
-  centersConnection(where: CenterWhereInput, orderBy: CenterOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CenterConnection!
+  registrationsConnection(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): RegistrationConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -5598,16 +6329,15 @@ input RegionWhereUniqueInput {
 type Registration implements Node {
   id: ID!
   candidate: Candidate!
-  exam: Exam!
-  series: Series!
-  session: Session!
-  center: Center!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  scores(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Score!]
+  centerExamSessionSeries: CenterExamSessionSeries!
   candExamSecretCode: String!
+  candExamSession: String!
+  scores(where: ScoreWhereInput, orderBy: ScoreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Score!]
+  series: Series!
   chefSecCode: String
   chargeMissionCode: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 """A connection to a list of items."""
@@ -5623,14 +6353,18 @@ type RegistrationConnection {
 input RegistrationCreateInput {
   id: ID
   candExamSecretCode: String!
+  candExamSession: String!
   chefSecCode: String
   chargeMissionCode: String
   candidate: CandidateCreateOneWithoutRegistrationInput!
-  exam: ExamCreateOneWithoutRegistrationInput!
-  series: SeriesCreateOneInput!
-  session: SessionCreateOneWithoutRegistrationInput!
-  center: CenterCreateOneWithoutRegistrationInput!
+  centerExamSessionSeries: CenterExamSessionSeriesCreateOneWithoutRegistrationInput!
   scores: ScoreCreateManyWithoutRegistrationInput
+  series: SeriesCreateOneInput!
+}
+
+input RegistrationCreateManyInput {
+  create: [RegistrationCreateInput!]
+  connect: [RegistrationWhereUniqueInput!]
 }
 
 input RegistrationCreateManyWithoutCandidateInput {
@@ -5638,18 +6372,8 @@ input RegistrationCreateManyWithoutCandidateInput {
   connect: [RegistrationWhereUniqueInput!]
 }
 
-input RegistrationCreateManyWithoutCenterInput {
-  create: [RegistrationCreateWithoutCenterInput!]
-  connect: [RegistrationWhereUniqueInput!]
-}
-
-input RegistrationCreateManyWithoutExamInput {
-  create: [RegistrationCreateWithoutExamInput!]
-  connect: [RegistrationWhereUniqueInput!]
-}
-
-input RegistrationCreateManyWithoutSessionInput {
-  create: [RegistrationCreateWithoutSessionInput!]
+input RegistrationCreateManyWithoutCenterExamSessionSeriesInput {
+  create: [RegistrationCreateWithoutCenterExamSessionSeriesInput!]
   connect: [RegistrationWhereUniqueInput!]
 }
 
@@ -5661,61 +6385,34 @@ input RegistrationCreateOneWithoutScoresInput {
 input RegistrationCreateWithoutCandidateInput {
   id: ID
   candExamSecretCode: String!
+  candExamSession: String!
   chefSecCode: String
   chargeMissionCode: String
-  exam: ExamCreateOneWithoutRegistrationInput!
-  series: SeriesCreateOneInput!
-  session: SessionCreateOneWithoutRegistrationInput!
-  center: CenterCreateOneWithoutRegistrationInput!
+  centerExamSessionSeries: CenterExamSessionSeriesCreateOneWithoutRegistrationInput!
   scores: ScoreCreateManyWithoutRegistrationInput
+  series: SeriesCreateOneInput!
 }
 
-input RegistrationCreateWithoutCenterInput {
+input RegistrationCreateWithoutCenterExamSessionSeriesInput {
   id: ID
   candExamSecretCode: String!
+  candExamSession: String!
   chefSecCode: String
   chargeMissionCode: String
   candidate: CandidateCreateOneWithoutRegistrationInput!
-  exam: ExamCreateOneWithoutRegistrationInput!
-  series: SeriesCreateOneInput!
-  session: SessionCreateOneWithoutRegistrationInput!
   scores: ScoreCreateManyWithoutRegistrationInput
-}
-
-input RegistrationCreateWithoutExamInput {
-  id: ID
-  candExamSecretCode: String!
-  chefSecCode: String
-  chargeMissionCode: String
-  candidate: CandidateCreateOneWithoutRegistrationInput!
   series: SeriesCreateOneInput!
-  session: SessionCreateOneWithoutRegistrationInput!
-  center: CenterCreateOneWithoutRegistrationInput!
-  scores: ScoreCreateManyWithoutRegistrationInput
 }
 
 input RegistrationCreateWithoutScoresInput {
   id: ID
   candExamSecretCode: String!
+  candExamSession: String!
   chefSecCode: String
   chargeMissionCode: String
   candidate: CandidateCreateOneWithoutRegistrationInput!
-  exam: ExamCreateOneWithoutRegistrationInput!
+  centerExamSessionSeries: CenterExamSessionSeriesCreateOneWithoutRegistrationInput!
   series: SeriesCreateOneInput!
-  session: SessionCreateOneWithoutRegistrationInput!
-  center: CenterCreateOneWithoutRegistrationInput!
-}
-
-input RegistrationCreateWithoutSessionInput {
-  id: ID
-  candExamSecretCode: String!
-  chefSecCode: String
-  chargeMissionCode: String
-  candidate: CandidateCreateOneWithoutRegistrationInput!
-  exam: ExamCreateOneWithoutRegistrationInput!
-  series: SeriesCreateOneInput!
-  center: CenterCreateOneWithoutRegistrationInput!
-  scores: ScoreCreateManyWithoutRegistrationInput
 }
 
 """An edge in a connection."""
@@ -5730,25 +6427,28 @@ type RegistrationEdge {
 enum RegistrationOrderByInput {
   id_ASC
   id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
   candExamSecretCode_ASC
   candExamSecretCode_DESC
+  candExamSession_ASC
+  candExamSession_DESC
   chefSecCode_ASC
   chefSecCode_DESC
   chargeMissionCode_ASC
   chargeMissionCode_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type RegistrationPreviousValues {
   id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
   candExamSecretCode: String!
+  candExamSession: String!
   chefSecCode: String
   chargeMissionCode: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 input RegistrationScalarWhereInput {
@@ -5800,50 +6500,6 @@ input RegistrationScalarWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-
-  """All values that are not equal to given value."""
-  updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
   candExamSecretCode: String
 
   """All values that are not equal to given value."""
@@ -5884,6 +6540,46 @@ input RegistrationScalarWhereInput {
 
   """All values not ending with the given string."""
   candExamSecretCode_not_ends_with: String
+  candExamSession: String
+
+  """All values that are not equal to given value."""
+  candExamSession_not: String
+
+  """All values that are contained in given list."""
+  candExamSession_in: [String!]
+
+  """All values that are not contained in given list."""
+  candExamSession_not_in: [String!]
+
+  """All values less than the given value."""
+  candExamSession_lt: String
+
+  """All values less than or equal the given value."""
+  candExamSession_lte: String
+
+  """All values greater than the given value."""
+  candExamSession_gt: String
+
+  """All values greater than or equal the given value."""
+  candExamSession_gte: String
+
+  """All values containing the given string."""
+  candExamSession_contains: String
+
+  """All values not containing the given string."""
+  candExamSession_not_contains: String
+
+  """All values starting with the given string."""
+  candExamSession_starts_with: String
+
+  """All values not starting with the given string."""
+  candExamSession_not_starts_with: String
+
+  """All values ending with the given string."""
+  candExamSession_ends_with: String
+
+  """All values not ending with the given string."""
+  candExamSession_not_ends_with: String
   chefSecCode: String
 
   """All values that are not equal to given value."""
@@ -5964,6 +6660,50 @@ input RegistrationScalarWhereInput {
 
   """All values not ending with the given string."""
   chargeMissionCode_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type RegistrationSubscriptionPayload {
@@ -6005,26 +6745,50 @@ input RegistrationSubscriptionWhereInput {
   node: RegistrationWhereInput
 }
 
-input RegistrationUpdateInput {
+input RegistrationUpdateDataInput {
   candExamSecretCode: String
+  candExamSession: String
   chefSecCode: String
   chargeMissionCode: String
   candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
-  exam: ExamUpdateOneRequiredWithoutRegistrationInput
-  series: SeriesUpdateOneRequiredInput
-  session: SessionUpdateOneRequiredWithoutRegistrationInput
-  center: CenterUpdateOneRequiredWithoutRegistrationInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateOneRequiredWithoutRegistrationInput
   scores: ScoreUpdateManyWithoutRegistrationInput
+  series: SeriesUpdateOneRequiredInput
+}
+
+input RegistrationUpdateInput {
+  candExamSecretCode: String
+  candExamSession: String
+  chefSecCode: String
+  chargeMissionCode: String
+  candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateOneRequiredWithoutRegistrationInput
+  scores: ScoreUpdateManyWithoutRegistrationInput
+  series: SeriesUpdateOneRequiredInput
 }
 
 input RegistrationUpdateManyDataInput {
   candExamSecretCode: String
+  candExamSession: String
   chefSecCode: String
   chargeMissionCode: String
 }
 
+input RegistrationUpdateManyInput {
+  create: [RegistrationCreateInput!]
+  connect: [RegistrationWhereUniqueInput!]
+  set: [RegistrationWhereUniqueInput!]
+  disconnect: [RegistrationWhereUniqueInput!]
+  delete: [RegistrationWhereUniqueInput!]
+  update: [RegistrationUpdateWithWhereUniqueNestedInput!]
+  updateMany: [RegistrationUpdateManyWithWhereNestedInput!]
+  deleteMany: [RegistrationScalarWhereInput!]
+  upsert: [RegistrationUpsertWithWhereUniqueNestedInput!]
+}
+
 input RegistrationUpdateManyMutationInput {
   candExamSecretCode: String
+  candExamSession: String
   chefSecCode: String
   chargeMissionCode: String
 }
@@ -6041,40 +6805,16 @@ input RegistrationUpdateManyWithoutCandidateInput {
   upsert: [RegistrationUpsertWithWhereUniqueWithoutCandidateInput!]
 }
 
-input RegistrationUpdateManyWithoutCenterInput {
-  create: [RegistrationCreateWithoutCenterInput!]
+input RegistrationUpdateManyWithoutCenterExamSessionSeriesInput {
+  create: [RegistrationCreateWithoutCenterExamSessionSeriesInput!]
   connect: [RegistrationWhereUniqueInput!]
   set: [RegistrationWhereUniqueInput!]
   disconnect: [RegistrationWhereUniqueInput!]
   delete: [RegistrationWhereUniqueInput!]
-  update: [RegistrationUpdateWithWhereUniqueWithoutCenterInput!]
+  update: [RegistrationUpdateWithWhereUniqueWithoutCenterExamSessionSeriesInput!]
   updateMany: [RegistrationUpdateManyWithWhereNestedInput!]
   deleteMany: [RegistrationScalarWhereInput!]
-  upsert: [RegistrationUpsertWithWhereUniqueWithoutCenterInput!]
-}
-
-input RegistrationUpdateManyWithoutExamInput {
-  create: [RegistrationCreateWithoutExamInput!]
-  connect: [RegistrationWhereUniqueInput!]
-  set: [RegistrationWhereUniqueInput!]
-  disconnect: [RegistrationWhereUniqueInput!]
-  delete: [RegistrationWhereUniqueInput!]
-  update: [RegistrationUpdateWithWhereUniqueWithoutExamInput!]
-  updateMany: [RegistrationUpdateManyWithWhereNestedInput!]
-  deleteMany: [RegistrationScalarWhereInput!]
-  upsert: [RegistrationUpsertWithWhereUniqueWithoutExamInput!]
-}
-
-input RegistrationUpdateManyWithoutSessionInput {
-  create: [RegistrationCreateWithoutSessionInput!]
-  connect: [RegistrationWhereUniqueInput!]
-  set: [RegistrationWhereUniqueInput!]
-  disconnect: [RegistrationWhereUniqueInput!]
-  delete: [RegistrationWhereUniqueInput!]
-  update: [RegistrationUpdateWithWhereUniqueWithoutSessionInput!]
-  updateMany: [RegistrationUpdateManyWithWhereNestedInput!]
-  deleteMany: [RegistrationScalarWhereInput!]
-  upsert: [RegistrationUpsertWithWhereUniqueWithoutSessionInput!]
+  upsert: [RegistrationUpsertWithWhereUniqueWithoutCenterExamSessionSeriesInput!]
 }
 
 input RegistrationUpdateManyWithWhereNestedInput {
@@ -6091,57 +6831,37 @@ input RegistrationUpdateOneRequiredWithoutScoresInput {
 
 input RegistrationUpdateWithoutCandidateDataInput {
   candExamSecretCode: String
+  candExamSession: String
   chefSecCode: String
   chargeMissionCode: String
-  exam: ExamUpdateOneRequiredWithoutRegistrationInput
-  series: SeriesUpdateOneRequiredInput
-  session: SessionUpdateOneRequiredWithoutRegistrationInput
-  center: CenterUpdateOneRequiredWithoutRegistrationInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateOneRequiredWithoutRegistrationInput
   scores: ScoreUpdateManyWithoutRegistrationInput
+  series: SeriesUpdateOneRequiredInput
 }
 
-input RegistrationUpdateWithoutCenterDataInput {
+input RegistrationUpdateWithoutCenterExamSessionSeriesDataInput {
   candExamSecretCode: String
+  candExamSession: String
   chefSecCode: String
   chargeMissionCode: String
   candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
-  exam: ExamUpdateOneRequiredWithoutRegistrationInput
-  series: SeriesUpdateOneRequiredInput
-  session: SessionUpdateOneRequiredWithoutRegistrationInput
   scores: ScoreUpdateManyWithoutRegistrationInput
-}
-
-input RegistrationUpdateWithoutExamDataInput {
-  candExamSecretCode: String
-  chefSecCode: String
-  chargeMissionCode: String
-  candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
   series: SeriesUpdateOneRequiredInput
-  session: SessionUpdateOneRequiredWithoutRegistrationInput
-  center: CenterUpdateOneRequiredWithoutRegistrationInput
-  scores: ScoreUpdateManyWithoutRegistrationInput
 }
 
 input RegistrationUpdateWithoutScoresDataInput {
   candExamSecretCode: String
+  candExamSession: String
   chefSecCode: String
   chargeMissionCode: String
   candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
-  exam: ExamUpdateOneRequiredWithoutRegistrationInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateOneRequiredWithoutRegistrationInput
   series: SeriesUpdateOneRequiredInput
-  session: SessionUpdateOneRequiredWithoutRegistrationInput
-  center: CenterUpdateOneRequiredWithoutRegistrationInput
 }
 
-input RegistrationUpdateWithoutSessionDataInput {
-  candExamSecretCode: String
-  chefSecCode: String
-  chargeMissionCode: String
-  candidate: CandidateUpdateOneRequiredWithoutRegistrationInput
-  exam: ExamUpdateOneRequiredWithoutRegistrationInput
-  series: SeriesUpdateOneRequiredInput
-  center: CenterUpdateOneRequiredWithoutRegistrationInput
-  scores: ScoreUpdateManyWithoutRegistrationInput
+input RegistrationUpdateWithWhereUniqueNestedInput {
+  where: RegistrationWhereUniqueInput!
+  data: RegistrationUpdateDataInput!
 }
 
 input RegistrationUpdateWithWhereUniqueWithoutCandidateInput {
@@ -6149,24 +6869,20 @@ input RegistrationUpdateWithWhereUniqueWithoutCandidateInput {
   data: RegistrationUpdateWithoutCandidateDataInput!
 }
 
-input RegistrationUpdateWithWhereUniqueWithoutCenterInput {
+input RegistrationUpdateWithWhereUniqueWithoutCenterExamSessionSeriesInput {
   where: RegistrationWhereUniqueInput!
-  data: RegistrationUpdateWithoutCenterDataInput!
-}
-
-input RegistrationUpdateWithWhereUniqueWithoutExamInput {
-  where: RegistrationWhereUniqueInput!
-  data: RegistrationUpdateWithoutExamDataInput!
-}
-
-input RegistrationUpdateWithWhereUniqueWithoutSessionInput {
-  where: RegistrationWhereUniqueInput!
-  data: RegistrationUpdateWithoutSessionDataInput!
+  data: RegistrationUpdateWithoutCenterExamSessionSeriesDataInput!
 }
 
 input RegistrationUpsertWithoutScoresInput {
   update: RegistrationUpdateWithoutScoresDataInput!
   create: RegistrationCreateWithoutScoresInput!
+}
+
+input RegistrationUpsertWithWhereUniqueNestedInput {
+  where: RegistrationWhereUniqueInput!
+  update: RegistrationUpdateDataInput!
+  create: RegistrationCreateInput!
 }
 
 input RegistrationUpsertWithWhereUniqueWithoutCandidateInput {
@@ -6175,22 +6891,10 @@ input RegistrationUpsertWithWhereUniqueWithoutCandidateInput {
   create: RegistrationCreateWithoutCandidateInput!
 }
 
-input RegistrationUpsertWithWhereUniqueWithoutCenterInput {
+input RegistrationUpsertWithWhereUniqueWithoutCenterExamSessionSeriesInput {
   where: RegistrationWhereUniqueInput!
-  update: RegistrationUpdateWithoutCenterDataInput!
-  create: RegistrationCreateWithoutCenterInput!
-}
-
-input RegistrationUpsertWithWhereUniqueWithoutExamInput {
-  where: RegistrationWhereUniqueInput!
-  update: RegistrationUpdateWithoutExamDataInput!
-  create: RegistrationCreateWithoutExamInput!
-}
-
-input RegistrationUpsertWithWhereUniqueWithoutSessionInput {
-  where: RegistrationWhereUniqueInput!
-  update: RegistrationUpdateWithoutSessionDataInput!
-  create: RegistrationCreateWithoutSessionInput!
+  update: RegistrationUpdateWithoutCenterExamSessionSeriesDataInput!
+  create: RegistrationCreateWithoutCenterExamSessionSeriesInput!
 }
 
 input RegistrationWhereInput {
@@ -6242,50 +6946,6 @@ input RegistrationWhereInput {
 
   """All values not ending with the given string."""
   id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-
-  """All values that are not equal to given value."""
-  updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
   candExamSecretCode: String
 
   """All values that are not equal to given value."""
@@ -6326,6 +6986,46 @@ input RegistrationWhereInput {
 
   """All values not ending with the given string."""
   candExamSecretCode_not_ends_with: String
+  candExamSession: String
+
+  """All values that are not equal to given value."""
+  candExamSession_not: String
+
+  """All values that are contained in given list."""
+  candExamSession_in: [String!]
+
+  """All values that are not contained in given list."""
+  candExamSession_not_in: [String!]
+
+  """All values less than the given value."""
+  candExamSession_lt: String
+
+  """All values less than or equal the given value."""
+  candExamSession_lte: String
+
+  """All values greater than the given value."""
+  candExamSession_gt: String
+
+  """All values greater than or equal the given value."""
+  candExamSession_gte: String
+
+  """All values containing the given string."""
+  candExamSession_contains: String
+
+  """All values not containing the given string."""
+  candExamSession_not_contains: String
+
+  """All values starting with the given string."""
+  candExamSession_starts_with: String
+
+  """All values not starting with the given string."""
+  candExamSession_not_starts_with: String
+
+  """All values ending with the given string."""
+  candExamSession_ends_with: String
+
+  """All values not ending with the given string."""
+  candExamSession_not_ends_with: String
   chefSecCode: String
 
   """All values that are not equal to given value."""
@@ -6406,19 +7106,62 @@ input RegistrationWhereInput {
 
   """All values not ending with the given string."""
   chargeMissionCode_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
   candidate: CandidateWhereInput
-  exam: ExamWhereInput
-  series: SeriesWhereInput
-  session: SessionWhereInput
-  center: CenterWhereInput
+  centerExamSessionSeries: CenterExamSessionSeriesWhereInput
   scores_every: ScoreWhereInput
   scores_some: ScoreWhereInput
   scores_none: ScoreWhereInput
+  series: SeriesWhereInput
 }
 
 input RegistrationWhereUniqueInput {
   id: ID
   candExamSecretCode: String
+  candExamSession: String
 }
 
 type Report implements Node {
@@ -7580,6 +8323,7 @@ type Series implements Node {
   seriesName: String!
   seriesCode: String!
   subjectSeries(where: SubjectSeriesWhereInput, orderBy: SubjectSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [SubjectSeries!]
+  centerExamSessionSeries(where: CenterExamSessionSeriesWhereInput, orderBy: CenterExamSessionSeriesOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterExamSessionSeries!]
   createdAt: DateTime!
   updatedAt: DateTime!
   educationType: EducationType!
@@ -7600,6 +8344,7 @@ input SeriesCreateInput {
   seriesName: String!
   seriesCode: String!
   subjectSeries: SubjectSeriesCreateManyWithoutSeriesInput
+  centerExamSessionSeries: CenterExamSessionSeriesCreateManyWithoutSeriesInput
   educationType: EducationTypeCreateOneWithoutSeriesInput!
 }
 
@@ -7613,9 +8358,22 @@ input SeriesCreateOneInput {
   connect: SeriesWhereUniqueInput
 }
 
+input SeriesCreateOneWithoutCenterExamSessionSeriesInput {
+  create: SeriesCreateWithoutCenterExamSessionSeriesInput
+  connect: SeriesWhereUniqueInput
+}
+
 input SeriesCreateOneWithoutSubjectSeriesInput {
   create: SeriesCreateWithoutSubjectSeriesInput
   connect: SeriesWhereUniqueInput
+}
+
+input SeriesCreateWithoutCenterExamSessionSeriesInput {
+  id: ID
+  seriesName: String!
+  seriesCode: String!
+  subjectSeries: SubjectSeriesCreateManyWithoutSeriesInput
+  educationType: EducationTypeCreateOneWithoutSeriesInput!
 }
 
 input SeriesCreateWithoutEducationTypeInput {
@@ -7623,12 +8381,14 @@ input SeriesCreateWithoutEducationTypeInput {
   seriesName: String!
   seriesCode: String!
   subjectSeries: SubjectSeriesCreateManyWithoutSeriesInput
+  centerExamSessionSeries: CenterExamSessionSeriesCreateManyWithoutSeriesInput
 }
 
 input SeriesCreateWithoutSubjectSeriesInput {
   id: ID
   seriesName: String!
   seriesCode: String!
+  centerExamSessionSeries: CenterExamSessionSeriesCreateManyWithoutSeriesInput
   educationType: EducationTypeCreateOneWithoutSeriesInput!
 }
 
@@ -7880,6 +8640,7 @@ input SeriesUpdateDataInput {
   seriesName: String
   seriesCode: String
   subjectSeries: SubjectSeriesUpdateManyWithoutSeriesInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateManyWithoutSeriesInput
   educationType: EducationTypeUpdateOneRequiredWithoutSeriesInput
 }
 
@@ -7887,6 +8648,7 @@ input SeriesUpdateInput {
   seriesName: String
   seriesCode: String
   subjectSeries: SubjectSeriesUpdateManyWithoutSeriesInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateManyWithoutSeriesInput
   educationType: EducationTypeUpdateOneRequiredWithoutSeriesInput
 }
 
@@ -7924,6 +8686,13 @@ input SeriesUpdateOneRequiredInput {
   upsert: SeriesUpsertNestedInput
 }
 
+input SeriesUpdateOneRequiredWithoutCenterExamSessionSeriesInput {
+  create: SeriesCreateWithoutCenterExamSessionSeriesInput
+  connect: SeriesWhereUniqueInput
+  update: SeriesUpdateWithoutCenterExamSessionSeriesDataInput
+  upsert: SeriesUpsertWithoutCenterExamSessionSeriesInput
+}
+
 input SeriesUpdateOneRequiredWithoutSubjectSeriesInput {
   create: SeriesCreateWithoutSubjectSeriesInput
   connect: SeriesWhereUniqueInput
@@ -7931,15 +8700,24 @@ input SeriesUpdateOneRequiredWithoutSubjectSeriesInput {
   upsert: SeriesUpsertWithoutSubjectSeriesInput
 }
 
+input SeriesUpdateWithoutCenterExamSessionSeriesDataInput {
+  seriesName: String
+  seriesCode: String
+  subjectSeries: SubjectSeriesUpdateManyWithoutSeriesInput
+  educationType: EducationTypeUpdateOneRequiredWithoutSeriesInput
+}
+
 input SeriesUpdateWithoutEducationTypeDataInput {
   seriesName: String
   seriesCode: String
   subjectSeries: SubjectSeriesUpdateManyWithoutSeriesInput
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateManyWithoutSeriesInput
 }
 
 input SeriesUpdateWithoutSubjectSeriesDataInput {
   seriesName: String
   seriesCode: String
+  centerExamSessionSeries: CenterExamSessionSeriesUpdateManyWithoutSeriesInput
   educationType: EducationTypeUpdateOneRequiredWithoutSeriesInput
 }
 
@@ -7951,6 +8729,11 @@ input SeriesUpdateWithWhereUniqueWithoutEducationTypeInput {
 input SeriesUpsertNestedInput {
   update: SeriesUpdateDataInput!
   create: SeriesCreateInput!
+}
+
+input SeriesUpsertWithoutCenterExamSessionSeriesInput {
+  update: SeriesUpdateWithoutCenterExamSessionSeriesDataInput!
+  create: SeriesCreateWithoutCenterExamSessionSeriesInput!
 }
 
 input SeriesUpsertWithoutSubjectSeriesInput {
@@ -8140,6 +8923,9 @@ input SeriesWhereInput {
   subjectSeries_every: SubjectSeriesWhereInput
   subjectSeries_some: SubjectSeriesWhereInput
   subjectSeries_none: SubjectSeriesWhereInput
+  centerExamSessionSeries_every: CenterExamSessionSeriesWhereInput
+  centerExamSessionSeries_some: CenterExamSessionSeriesWhereInput
+  centerExamSessionSeries_none: CenterExamSessionSeriesWhereInput
   educationType: EducationTypeWhereInput
 }
 
@@ -8151,6 +8937,7 @@ input SeriesWhereUniqueInput {
 type Session implements Node {
   id: ID!
   registration(where: RegistrationWhereInput, orderBy: RegistrationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Registration!]
+  centerExamSession(where: CenterExamSessionWhereInput, orderBy: CenterExamSessionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CenterExamSession!]
   sessionName: String!
   sessionCode: String!
   createdAt: DateTime!
@@ -8171,23 +8958,20 @@ input SessionCreateInput {
   id: ID
   sessionName: String!
   sessionCode: String!
-  registration: RegistrationCreateManyWithoutSessionInput
+  registration: RegistrationCreateManyInput
+  centerExamSession: CenterExamSessionCreateManyWithoutSessionInput
 }
 
-input SessionCreateOneInput {
-  create: SessionCreateInput
+input SessionCreateOneWithoutCenterExamSessionInput {
+  create: SessionCreateWithoutCenterExamSessionInput
   connect: SessionWhereUniqueInput
 }
 
-input SessionCreateOneWithoutRegistrationInput {
-  create: SessionCreateWithoutRegistrationInput
-  connect: SessionWhereUniqueInput
-}
-
-input SessionCreateWithoutRegistrationInput {
+input SessionCreateWithoutCenterExamSessionInput {
   id: ID
   sessionName: String!
   sessionCode: String!
+  registration: RegistrationCreateManyInput
 }
 
 """An edge in a connection."""
@@ -8259,16 +9043,11 @@ input SessionSubscriptionWhereInput {
   node: SessionWhereInput
 }
 
-input SessionUpdateDataInput {
-  sessionName: String
-  sessionCode: String
-  registration: RegistrationUpdateManyWithoutSessionInput
-}
-
 input SessionUpdateInput {
   sessionName: String
   sessionCode: String
-  registration: RegistrationUpdateManyWithoutSessionInput
+  registration: RegistrationUpdateManyInput
+  centerExamSession: CenterExamSessionUpdateManyWithoutSessionInput
 }
 
 input SessionUpdateManyMutationInput {
@@ -8276,33 +9055,22 @@ input SessionUpdateManyMutationInput {
   sessionCode: String
 }
 
-input SessionUpdateOneRequiredInput {
-  create: SessionCreateInput
+input SessionUpdateOneRequiredWithoutCenterExamSessionInput {
+  create: SessionCreateWithoutCenterExamSessionInput
   connect: SessionWhereUniqueInput
-  update: SessionUpdateDataInput
-  upsert: SessionUpsertNestedInput
+  update: SessionUpdateWithoutCenterExamSessionDataInput
+  upsert: SessionUpsertWithoutCenterExamSessionInput
 }
 
-input SessionUpdateOneRequiredWithoutRegistrationInput {
-  create: SessionCreateWithoutRegistrationInput
-  connect: SessionWhereUniqueInput
-  update: SessionUpdateWithoutRegistrationDataInput
-  upsert: SessionUpsertWithoutRegistrationInput
-}
-
-input SessionUpdateWithoutRegistrationDataInput {
+input SessionUpdateWithoutCenterExamSessionDataInput {
   sessionName: String
   sessionCode: String
+  registration: RegistrationUpdateManyInput
 }
 
-input SessionUpsertNestedInput {
-  update: SessionUpdateDataInput!
-  create: SessionCreateInput!
-}
-
-input SessionUpsertWithoutRegistrationInput {
-  update: SessionUpdateWithoutRegistrationDataInput!
-  create: SessionCreateWithoutRegistrationInput!
+input SessionUpsertWithoutCenterExamSessionInput {
+  update: SessionUpdateWithoutCenterExamSessionDataInput!
+  create: SessionCreateWithoutCenterExamSessionInput!
 }
 
 input SessionWhereInput {
@@ -8481,298 +9249,15 @@ input SessionWhereInput {
   registration_every: RegistrationWhereInput
   registration_some: RegistrationWhereInput
   registration_none: RegistrationWhereInput
+  centerExamSession_every: CenterExamSessionWhereInput
+  centerExamSession_some: CenterExamSessionWhereInput
+  centerExamSession_none: CenterExamSessionWhereInput
 }
 
 input SessionWhereUniqueInput {
   id: ID
   sessionName: String
   sessionCode: String
-}
-
-type SubCenter implements Node {
-  subCenterName: String!
-  subCenterCode: String!
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  center: Center!
-}
-
-"""A connection to a list of items."""
-type SubCenterConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [SubCenterEdge]!
-  aggregate: AggregateSubCenter!
-}
-
-input SubCenterCreateInput {
-  subCenterName: String!
-  subCenterCode: String!
-  id: ID
-  center: CenterCreateOneInput!
-}
-
-"""An edge in a connection."""
-type SubCenterEdge {
-  """The item at the end of the edge."""
-  node: SubCenter!
-
-  """A cursor for use in pagination."""
-  cursor: String!
-}
-
-enum SubCenterOrderByInput {
-  subCenterName_ASC
-  subCenterName_DESC
-  subCenterCode_ASC
-  subCenterCode_DESC
-  id_ASC
-  id_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-}
-
-type SubCenterPreviousValues {
-  subCenterName: String!
-  subCenterCode: String!
-  id: ID!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-}
-
-type SubCenterSubscriptionPayload {
-  mutation: MutationType!
-  node: SubCenter
-  updatedFields: [String!]
-  previousValues: SubCenterPreviousValues
-}
-
-input SubCenterSubscriptionWhereInput {
-  """Logical AND on all given filters."""
-  AND: [SubCenterSubscriptionWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [SubCenterSubscriptionWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [SubCenterSubscriptionWhereInput!]
-
-  """
-  The subscription event gets dispatched when it's listed in mutation_in
-  """
-  mutation_in: [MutationType!]
-
-  """
-  The subscription event gets only dispatched when one of the updated fields names is included in this list
-  """
-  updatedFields_contains: String
-
-  """
-  The subscription event gets only dispatched when all of the field names included in this list have been updated
-  """
-  updatedFields_contains_every: [String!]
-
-  """
-  The subscription event gets only dispatched when some of the field names included in this list have been updated
-  """
-  updatedFields_contains_some: [String!]
-  node: SubCenterWhereInput
-}
-
-input SubCenterUpdateInput {
-  subCenterName: String
-  subCenterCode: String
-  center: CenterUpdateOneRequiredInput
-}
-
-input SubCenterUpdateManyMutationInput {
-  subCenterName: String
-  subCenterCode: String
-}
-
-input SubCenterWhereInput {
-  """Logical AND on all given filters."""
-  AND: [SubCenterWhereInput!]
-
-  """Logical OR on all given filters."""
-  OR: [SubCenterWhereInput!]
-
-  """Logical NOT on all given filters combined by AND."""
-  NOT: [SubCenterWhereInput!]
-  subCenterName: String
-
-  """All values that are not equal to given value."""
-  subCenterName_not: String
-
-  """All values that are contained in given list."""
-  subCenterName_in: [String!]
-
-  """All values that are not contained in given list."""
-  subCenterName_not_in: [String!]
-
-  """All values less than the given value."""
-  subCenterName_lt: String
-
-  """All values less than or equal the given value."""
-  subCenterName_lte: String
-
-  """All values greater than the given value."""
-  subCenterName_gt: String
-
-  """All values greater than or equal the given value."""
-  subCenterName_gte: String
-
-  """All values containing the given string."""
-  subCenterName_contains: String
-
-  """All values not containing the given string."""
-  subCenterName_not_contains: String
-
-  """All values starting with the given string."""
-  subCenterName_starts_with: String
-
-  """All values not starting with the given string."""
-  subCenterName_not_starts_with: String
-
-  """All values ending with the given string."""
-  subCenterName_ends_with: String
-
-  """All values not ending with the given string."""
-  subCenterName_not_ends_with: String
-  subCenterCode: String
-
-  """All values that are not equal to given value."""
-  subCenterCode_not: String
-
-  """All values that are contained in given list."""
-  subCenterCode_in: [String!]
-
-  """All values that are not contained in given list."""
-  subCenterCode_not_in: [String!]
-
-  """All values less than the given value."""
-  subCenterCode_lt: String
-
-  """All values less than or equal the given value."""
-  subCenterCode_lte: String
-
-  """All values greater than the given value."""
-  subCenterCode_gt: String
-
-  """All values greater than or equal the given value."""
-  subCenterCode_gte: String
-
-  """All values containing the given string."""
-  subCenterCode_contains: String
-
-  """All values not containing the given string."""
-  subCenterCode_not_contains: String
-
-  """All values starting with the given string."""
-  subCenterCode_starts_with: String
-
-  """All values not starting with the given string."""
-  subCenterCode_not_starts_with: String
-
-  """All values ending with the given string."""
-  subCenterCode_ends_with: String
-
-  """All values not ending with the given string."""
-  subCenterCode_not_ends_with: String
-  id: ID
-
-  """All values that are not equal to given value."""
-  id_not: ID
-
-  """All values that are contained in given list."""
-  id_in: [ID!]
-
-  """All values that are not contained in given list."""
-  id_not_in: [ID!]
-
-  """All values less than the given value."""
-  id_lt: ID
-
-  """All values less than or equal the given value."""
-  id_lte: ID
-
-  """All values greater than the given value."""
-  id_gt: ID
-
-  """All values greater than or equal the given value."""
-  id_gte: ID
-
-  """All values containing the given string."""
-  id_contains: ID
-
-  """All values not containing the given string."""
-  id_not_contains: ID
-
-  """All values starting with the given string."""
-  id_starts_with: ID
-
-  """All values not starting with the given string."""
-  id_not_starts_with: ID
-
-  """All values ending with the given string."""
-  id_ends_with: ID
-
-  """All values not ending with the given string."""
-  id_not_ends_with: ID
-  createdAt: DateTime
-
-  """All values that are not equal to given value."""
-  createdAt_not: DateTime
-
-  """All values that are contained in given list."""
-  createdAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  createdAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  createdAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  createdAt_lte: DateTime
-
-  """All values greater than the given value."""
-  createdAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  createdAt_gte: DateTime
-  updatedAt: DateTime
-
-  """All values that are not equal to given value."""
-  updatedAt_not: DateTime
-
-  """All values that are contained in given list."""
-  updatedAt_in: [DateTime!]
-
-  """All values that are not contained in given list."""
-  updatedAt_not_in: [DateTime!]
-
-  """All values less than the given value."""
-  updatedAt_lt: DateTime
-
-  """All values less than or equal the given value."""
-  updatedAt_lte: DateTime
-
-  """All values greater than the given value."""
-  updatedAt_gt: DateTime
-
-  """All values greater than or equal the given value."""
-  updatedAt_gte: DateTime
-  center: CenterWhereInput
-}
-
-input SubCenterWhereUniqueInput {
-  id: ID
 }
 
 type SubDivision implements Node {
@@ -10742,23 +11227,23 @@ type Subscription {
   division(where: DivisionSubscriptionWhereInput): DivisionSubscriptionPayload
   subDivision(where: SubDivisionSubscriptionWhereInput): SubDivisionSubscriptionPayload
   town(where: TownSubscriptionWhereInput): TownSubscriptionPayload
+  center(where: CenterSubscriptionWhereInput): CenterSubscriptionPayload
   educationType(where: EducationTypeSubscriptionWhereInput): EducationTypeSubscriptionPayload
+  exam(where: ExamSubscriptionWhereInput): ExamSubscriptionPayload
   subject(where: SubjectSubscriptionWhereInput): SubjectSubscriptionPayload
+  session(where: SessionSubscriptionWhereInput): SessionSubscriptionPayload
   gender(where: GenderSubscriptionWhereInput): GenderSubscriptionPayload
   candidate(where: CandidateSubscriptionWhereInput): CandidateSubscriptionPayload
   rank(where: RankSubscriptionWhereInput): RankSubscriptionPayload
-  centerAdmin(where: CenterAdminSubscriptionWhereInput): CenterAdminSubscriptionPayload
   report(where: ReportSubscriptionWhereInput): ReportSubscriptionPayload
-  registration(where: RegistrationSubscriptionWhereInput): RegistrationSubscriptionPayload
-  subCenter(where: SubCenterSubscriptionWhereInput): SubCenterSubscriptionPayload
-  anotherType(where: AnotherTypeSubscriptionWhereInput): AnotherTypeSubscriptionPayload
-  session(where: SessionSubscriptionWhereInput): SessionSubscriptionPayload
+  centerExamSession(where: CenterExamSessionSubscriptionWhereInput): CenterExamSessionSubscriptionPayload
+  centerExamSessionSeries(where: CenterExamSessionSeriesSubscriptionWhereInput): CenterExamSessionSeriesSubscriptionPayload
+  centerAdmin(where: CenterAdminSubscriptionWhereInput): CenterAdminSubscriptionPayload
+  score(where: ScoreSubscriptionWhereInput): ScoreSubscriptionPayload
   subjectSeries(where: SubjectSeriesSubscriptionWhereInput): SubjectSeriesSubscriptionPayload
   series(where: SeriesSubscriptionWhereInput): SeriesSubscriptionPayload
   subjectType(where: SubjectTypeSubscriptionWhereInput): SubjectTypeSubscriptionPayload
-  score(where: ScoreSubscriptionWhereInput): ScoreSubscriptionPayload
-  exam(where: ExamSubscriptionWhereInput): ExamSubscriptionPayload
-  center(where: CenterSubscriptionWhereInput): CenterSubscriptionPayload
+  registration(where: RegistrationSubscriptionWhereInput): RegistrationSubscriptionPayload
 }
 
 type Town implements Node {

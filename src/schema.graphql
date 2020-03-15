@@ -9,10 +9,14 @@ type Mutation {
     cand3rdName:String,
     email: String,
     phoneNumb: Int,
+    momName: String,
+    dadName: String,
     image: String,
+    dateOfBirth: DateTime,
+    birthCertNumber: String,
     candCode: String,
     placeOfBirth: String,
-    gender:  GenderCreateWithoutCandidateInput !
+    gender:  GenderWhereUniqueInput !
        ):Candidate!
 
    updateCandidate(
@@ -20,12 +24,15 @@ type Mutation {
     cand1stName:String,
     cand2ndName:String,
     cand3rdName:String,
+    momName: String,
+    dadName: String,
     email: String,
     phoneNumb: Int,
+    dateOfBirth: DateTime,
+    birthCertNumber: String,
     image: String,
-    candCode: String,
     placeOfBirth: String,
-    genre: GenderCreateWithoutCandidateInput
+    gender: GenderWhereUniqueInput
        ):Candidate!
        
     createScore(
@@ -35,6 +42,8 @@ type Mutation {
         series: SeriesWhereUniqueInput!
         coeff: Int!
     ): Score!
+ createCenterExamSession( center: CenterWhereUniqueInput!, exam: ExamWhereUniqueInput! , session: SessionWhereUniqueInput! ):CenterExamSession!
+
     updateScore(subjectSeries: SubjectSeriesWhereUniqueInput!, subjectAve: Float!, candExamSecretCode: String!):Score!
 
     updateManyRegistrations(data: RegistrationUpdateManyMutationInput!, where: RegistrationWhereInput): BatchPayload!
@@ -74,21 +83,19 @@ type Mutation {
        updateEducationType(id:ID!, educationTypeName: String, educationTypeCode: String):EducationType!
       
        updateRegistration(id:ID!):Registration!
+      
        createRegistration( 
-                    exam: ExamWhereUniqueInput!,
                     candidate: CandidateWhereUniqueInput!,
                     series: SeriesWhereUniqueInput!,
-                    session: SessionWhereUniqueInput!,
-                    center: CenterWhereUniqueInput!,
-                    candExamSecretCode: String!
+                    candExamSecretCode: String!,
+                    candExamSession: String!,
+                    centerExamSessionSeries:CenterExamSessionSeriesWhereUniqueInput!
                     ):Registration!
 
        updateCenterAdmin(id:ID!):CenterAdmin!
        createCenterAdmin( 
-                    exam: ExamWhereUniqueInput!,
                     rank: RankWhereUniqueInput!,
-                    session: SessionWhereUniqueInput!,
-                    center: CenterWhereUniqueInput!
+                    centerExamSession: CenterExamSessionWhereUniqueInput!
                     authName: String!
                     authCode: String!
                     authMatricule: String!
@@ -104,7 +111,7 @@ type Mutation {
        updateTown(id: ID!, townName: String, townCode: String ):Town!
 
        createCenter(centerName: String!, centerCode: String!, centerNumber: Int, town: TownWhereUniqueInput! ):Center!
-       updateCenter(id: ID!, centerName: String, centerCode: String ):Center!
+       updateCenter(id: ID!, centerName: String, centerCode: String, centerNumber: Int ):Center!
 
        createGender(genderName: String! , genderCode: String!):Gender!
        updateGender(id: ID!, genderName: String, genderCode: String ):Gender!
@@ -145,13 +152,30 @@ type Query {
         subjectTypes(orderBy:SubjectTypeOrderByInput):[SubjectType]! 
         subjectType(id: ID!):SubjectType! 
 
+        centerExamSessions(
+          exam: ExamWhereUniqueInput!
+ 		center: CenterWhereUniqueInput!
+	session: SessionWhereUniqueInput!):[CenterExamSession]! 
+        centerExamSession(id: ID!):CenterExamSession! 
+
+        centerExamSessionSerieses(centerExamSession: String!):[CenterExamSessionSeries]! 
+
+        centerExamSessionSeriesForResults(centerExamSession: String!):[CenterExamSessionSeries]! 
+
         registrations:[Registration]! 
-        registration(candExamSecretCode: String!):Registration! 
+        getCandidateByCode(candCode: String! ):[Candidate]! 
+        candidateRegistrationID(centerExamSession:CenterExamSessionWhereUniqueInput!, candidate: CandidateWhereUniqueInput!):Registration!
+        getCenterResults(centerExamSession: String!):[CenterExamSessionSeries]!
+        centerExamSessionIDs(centerExamSession: CenterExamSessionWhereUniqueInput!):[CenterExamSession]!
+        getAllBoardResults(exam:ExamWhereUniqueInput!, session: SessionWhereUniqueInput!):[Registration]!
+        registration(id: ID!):Registration! 
 
         serieses(orderBy:SeriesOrderByInput):[Series]! 
+        # allSerieses(orderBy:SeriesOrderByInput):[Series]! 
         series(id: ID!):Series! 
         subjSeries(id: ID!):Series! 
 
+        subjectSerieses(orderBy:SubjectSeriesOrderByInput):[SubjectSeries]! 
         subjects(orderBy:SubjectOrderByInput):[Subject]! 
         subject(id: ID!):Subject! 
 
@@ -166,19 +190,20 @@ type Query {
         educationTypes(orderBy:EducationTypeOrderByInput):[EducationType]! 
         educationType(id: ID!):EducationType! 
       
-         subjectSerieses: SubjectSeries!
          subjectSeries(id:ID! ): SubjectSeries!
 
        division(id: ID!): Division!
        divisions(orderBy:DivisionOrderByInput):[Division]!
+
        town(id: ID!): Town!
        towns(orderBy:TownOrderByInput):[Town]!
+       
        subDivision(id: ID!): SubDivision!
        subDivisions(orderBy:SubDivisionOrderByInput):[SubDivision]!
        center(id: ID!): Center!
        centers(orderBy:CenterOrderByInput):[Center]!
-
-         users:[User]!
+        
+             users:[User]!
          genders(orderBy:GenderOrderByInput):[Gender]!
          gender(id:ID!):Gender!
          Region(where:RegionWhereUniqueInput!):Region!

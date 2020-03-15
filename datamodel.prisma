@@ -70,20 +70,19 @@ type Center {
     centerNumber : Int ! @unique
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt
-    registration: [Registration]!
     centerAdmin:[CenterAdmin]!
-    scores:[Score]!
+    centerExamSession: [CenterExamSession]!
 }
 
 type Series {
     id : ID  ! @id @unique
     seriesName : String !
     seriesCode : String ! @unique
-    
     subjectSeries: [SubjectSeries]!
+    centerExamSessionSeries: [CenterExamSessionSeries]
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt  
-    educationType : EducationType !
+    educationType : EducationType!
     
 }
 type EducationType {
@@ -100,6 +99,7 @@ type Exam {
     id : ID  ! @id @unique
     examName : String !
     registration: [Registration]!
+     centerExamSession: [CenterExamSession]!
     examCode : String ! @unique
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt 
@@ -117,7 +117,8 @@ type Subject {
 
 type Session {
     id : ID  ! @id @unique
-      registration: [Registration]!
+    registration: [Registration]!
+    centerExamSession: [CenterExamSession]!
     sessionName : String !@unique
     sessionCode : String ! @unique
     createdAt : DateTime! @createdAt
@@ -140,6 +141,8 @@ type Candidate {
     cand2ndName : String
     cand3rdName : String
     placeOfBirth : String
+    momName: String
+    dadName: String
     image : String
     birthCertNumber : String
     candCode : String! @unique
@@ -168,11 +171,8 @@ type CenterAdmin {
     authPhone: Int!
     authMatricule: String!
     authCode: String! @unique
-    exam: Exam!
     rank: Rank!
-    session: Session!
-    center : Center!
-    sessionRank: String! @unique
+    centerExamSession : CenterExamSession!
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
     report : [Report]!
@@ -187,6 +187,27 @@ type Report {
 
 }
 
+type CenterExamSession {
+    id : ID! @id @unique    
+    exam: Exam!
+    session: Session!
+    center: Center!
+    centerExamSessionSeries: [CenterExamSessionSeries]!
+     centerAdmin : [CenterAdmin]!
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt
+}
+
+
+type CenterExamSessionSeries {
+    id : ID! @id @unique
+    centerExamSession: CenterExamSession!
+    registration: [Registration]!
+    series: Series!
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt
+}
+
 type Score {
     id : ID! @id @unique
     subjectAve : Float
@@ -199,19 +220,19 @@ type Score {
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt
 }
+
 type Registration {
     id : ID  ! @id @unique
     candidate : Candidate !
-    exam: Exam!
-    series: Series!
-    session: Session!
-    center : Center!
-    createdAt : DateTime ! @createdAt
-    updatedAt : DateTime ! @updatedAt
-    scores: [Score]!
+    centerExamSessionSeries: CenterExamSessionSeries!
     candExamSecretCode: String! @unique
+    candExamSession: String! @unique
+    scores: [Score]!
+    series: Series!
     chefSecCode: String
     chargeMissionCode: String
+    createdAt : DateTime ! @createdAt
+    updatedAt : DateTime ! @updatedAt
 
 }
 
@@ -227,27 +248,9 @@ type SubjectSeries {
 
 
 
-
-type SubCenter {
-    subCenterName: String!
-    subCenterCode: String!
-    id : ID! @id @unique  
-    createdAt : DateTime! @createdAt
-    updatedAt : DateTime! @updatedAt 
-    center: Center! 
-
-}
-
 type SubjectType {
     subjectTypeName: String!@unique
     subjectTypeCode: String!@unique
-    id : ID! @id @unique  
-    createdAt : DateTime! @createdAt
-    updatedAt : DateTime! @updatedAt  
-
-}
-
-type AnotherType {
     id : ID! @id @unique  
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  

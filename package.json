@@ -1,15 +1,16 @@
 {
-  "name": "inex-backend",
-  "description": "the backend of Inex",
+  "name": "sygex-backend",
+  "description": "the backend of Systeme de Gestion des Examens",
   "scripts": {
     "start": "nodemon -e js,graphql -x node src/index.js",
-    "dev": "nodemon -e js,graphql -x node --inspect=35000 src/index.js",
+    "dev": "nodemon -e js,graphql -x node --inspect=40000 src/index.js",
     "test": "jest",
     "deploy": "prisma deploy --env-file variables.env"
   },
   "dependencies": {
     "babel-preset-env": "^1.7.0",
     "bcryptjs": "2.4.3",
+    "cartesian": "^1.0.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "6.0.0",
     "graphql": "^0.13.2",
