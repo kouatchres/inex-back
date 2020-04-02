@@ -121,35 +121,58 @@ const Mutation = {
 		const newCenterRegistration = { ...args };
 		// show the region name from the new regions array because will not have to update the id
 
-		const { exam, center, session } = newCenterRegistration;
+		const { examSession, center } = newCenterRegistration;
 
 		const [alreadyRegistered] = await ctx.db.query.centerExamSessions({
 			where: {
 				center: { id: center.id },
-				session: { id: session.id },
-				exam: { id: exam.id }
+				examSession: { id: examSession.id }
 			}
 		});
 		if (alreadyRegistered) {
 			throw new Error('Ce Centre est déjà inscrit à cet examen pour cette session.');
 		}
 
-		const getAllSeries = await ctx.db.query.serieses()
-
-		// //make an array of all series for the center in question
-		const seriesList = getAllSeries.map((item) => {
-			//connect each series with the accompanying attributes
-			const seriesList = {
-				series: {
-					connect: { id: item.id }
-				},
-
-			};
-
-			return seriesList;
-		});
 
 		const centerExamSession = await ctx.db.mutation.createCenterExamSession(
+			{
+				data: {
+					examSession: {
+						connect: { id: examSession.id }
+					},
+
+					center: {
+						connect: { id: center.id }
+					},
+
+				}
+			},
+			info
+		);
+		console.log(args);
+		return centerExamSession;
+	},
+
+
+	async createExamSession(parents, args, ctx, info) {
+		//    make a copy  of the args
+		const newExamSessionRegistration = { ...args };
+		// show the region name from the new regions array because will not have to update the id
+
+		const { exam, session } = newExamSessionRegistration;
+
+		const [alreadyRegistered] = await ctx.db.query.centerExamSessions({
+			where: {
+				session: { id: session.id },
+				exam: { id: exam.id }
+			}
+		});
+		if (alreadyRegistered) {
+			throw new Error('Ceci est déjà inscrit à cet examen pour cette session.');
+		}
+
+
+		const ExamSession = await ctx.db.mutation.createExamSession(
 			{
 				data: {
 					exam: {
@@ -159,28 +182,70 @@ const Mutation = {
 					session: {
 						connect: { id: session.id }
 					},
-					center: {
-						connect: { id: center.id }
-					},
-					centerExamSessionSeries: {
-						create: seriesList
-					}
+
 				}
 			},
 			info
 		);
 		console.log(args);
-		return centerExamSession;
+		return ExamSession;
+	},
+
+	async createCenterExamSessionSeries(parents, args, ctx, info) {
+		//    make a copy  of the args
+		const newCenterRegistration = { ...args };
+		// show the region name from the new regions array because will not have to update the id
+
+		const { centerExamSession, series } = newCenterRegistration;
+
+		const [alreadyRegistered] = await ctx.db.query.centerExamSessionSerieses({
+			where: {
+				centerExamSession: { id: centerExamSession.id },
+				series: { id: series.id },
+			}
+		});
+		if (alreadyRegistered) {
+			throw new Error('Cette Séries est déjà inscrite à ce centre.');
+		}
+
+
+		const CESS = await ctx.db.mutation.createCenterExamSessionSeries(
+			{
+				data: {
+
+
+					series: {
+						connect: { id: series.id }
+					},
+					centerExamSession: {
+						connect: { id: centerExamSession.id }
+					},
+
+				}
+			},
+			info
+		);
+		console.log(args);
+		return CESS;
 	},
 
 	async createRegistration(parents, args, ctx, info) {
+
+		// the function that helps to addleading zeroes infront of an interger number
+		Number.prototype.pad = function (size) {
+			var s = String(this);
+			while (s.length < (size || 2)) { s = "0" + s; }
+			return s;
+		}
+
+
+
 		console.log(args);
-		// console.log(ctx)
-		//    make a copy  of the args
+		//    make a copy  of the args	
 		const newRegistartionInfos = { ...args };
 
 		// show the region name from the new regions array because will not have to update the id
-		const { candExamSession, centerExamSessionSeries, candExamSecretCode, candidate, series } = newRegistartionInfos;
+		const { candExamSession, centerExamSession, centerExamSessionSeries, candExamSecretCode, candidate, series, candRegistrationNumber } = newRegistartionInfos;
 
 		const [hasRegisteredForExamInSession] = await ctx.db.query.registrations(
 			{ where: { candExamSession } },
@@ -188,12 +253,12 @@ const Mutation = {
 		);
 		if (hasRegisteredForExamInSession) {
 			throw new Error('Vous êtes déjà inscrit à cet examen pour cette session.');
+
 		}
 
 		// get the series with all associated subjects while adding the coeff, cand secret code etc
-		const where = { id: series.id };
 		let subjsOfSeries = await ctx.db.query.series(
-			{ where },
+			{ where: { id: series.id } },
 			`{ 
         id
         subjectSeries{
@@ -223,20 +288,35 @@ const Mutation = {
 		if (subjectList && subjectList.length === 0) {
 			throw new Error("Pour l'instant, cette série n'est pas disponible pour les inscriptions");
 		}
-		//now  drop the list of subjects on the score table linking it up with the just created registration
 
+
+		// cross check  in the registration table to get the count of all records of a given centerExamSession
+		const candCount = await ctx.db.query.registrationsConnection({
+			where: { candRegistrationNumber_contains: candRegistrationNumber }
+		}, `{
+			aggregate{
+				count
+			}
+		}`);
+
+		const newCount = candCount.aggregate.count + 1;
+		// recreate the next candidate registration Number
+		const newCandRegistrationNumber = `${candRegistrationNumber + newCount.pad(5)}`
+		//now  drop the list of subjects on the score table linking it up with the just created registration
 		const newRegistration = ctx.db.mutation.createRegistration(
 			{
 				data: {
 					candExamSecretCode,
 					candExamSession,
-
+					candRegistrationNumber: newCandRegistrationNumber,
+					centerExamSessionSeries: {
+						connect: { id: centerExamSessionSeries.id }
+					},
 					series: {
 						connect: { id: series.id }
 					},
-
-					centerExamSessionSeries: {
-						connect: { id: centerExamSessionSeries.id }
+					centerExamSession: {
+						connect: { id: centerExamSession.id }
 					},
 
 					candidate: {
@@ -244,7 +324,7 @@ const Mutation = {
 					},
 					scores: {
 						create: subjectList
-					}
+					},
 				}
 			},
 			info
@@ -253,14 +333,14 @@ const Mutation = {
 		return newRegistration;
 	},
 
-	async createCenterAdmin(parents, args, ctx, info) {
+	async createCenterExamSessionAuthority(parents, args, ctx, info) {
 		console.log(args);
 		//    make a copy  of the args
 		const newCenterAdminInfos = { ...args };
-		s
+
 		const { centerExamSession, rank, ...others } = newCenterAdminInfos;
 
-		const [rankRegistered] = await ctx.db.query.centerAdmins({
+		const [rankRegistered] = await ctx.db.query.centerExamSessionAuthoritys({
 			where: {
 				centerExamSession: { id: centerExamSession.id },
 				rank: { id: rank.id }
@@ -270,7 +350,7 @@ const Mutation = {
 			throw new Error('Rang déjà occupé, Veuillez Verifier avec le chef de centre');
 		}
 
-		const centerAdmin = await ctx.db.mutation.createCenterAdmin(
+		const centerAdmin = await ctx.db.mutation.createCenterExamSessionAuthority(
 			{
 				data: {
 					centerExamSession: {
@@ -323,19 +403,41 @@ const Mutation = {
 	},
 
 	async createRegion(parents, args, ctx, info) {
-		const region = await ctx.db.mutation.createRegion(
-			{
-				data: { ...args }
-			},
-			info
-		);
+		const region = await ctx.db.mutation.createRegion({ data: { ...args } }, info);
 		return region;
 	},
 
 	async createSession(parents, args, ctx, info) {
+
+		const allExams = await ctx.db.query.exams()
+
+		const refinedExams = allExams.map(({ __typename, createdAt, updatedAt, examName, examCode, ...others }) => others)
+
+		const getExamItems = refinedExams.map((item) => {
+			const getExamItems = {
+				exam: {
+					connect: { id: item.id }
+				},
+
+			}
+			return getExamItems
+		}
+		)
+		// return getExasmItems
+
+
+
 		const session = await ctx.db.mutation.createSession(
 			{
-				data: { ...args }
+				data: {
+					...args,
+
+
+					examSession: {
+						create: getExamItems
+					},
+
+				}
 			},
 			info
 		);
@@ -372,6 +474,8 @@ const Mutation = {
 		return educationType;
 	},
 
+
+
 	async createExam(parents, args, ctx, info) {
 		const exam = await ctx.db.mutation.createExam(
 			{
@@ -381,6 +485,8 @@ const Mutation = {
 		);
 		return exam;
 	},
+
+
 
 	async createReport(parents, args, ctx, info) {
 		const allArgs = { ...args };
@@ -398,6 +504,8 @@ const Mutation = {
 		);
 		return report;
 	},
+
+
 
 	async createSeries(parents, args, ctx, info) {
 		//make a copy  of the args
@@ -420,6 +528,8 @@ const Mutation = {
 		return series;
 	},
 
+
+
 	async createSubject(parents, args, ctx, info) {
 		const newSbujectTypes = { ...args };
 		const { educType, subjectType, ...others } = newSbujectTypes;
@@ -441,12 +551,12 @@ const Mutation = {
 		return subject;
 	},
 
+
+
 	async createGender(parents, args, ctx, info) {
 		const gender = await ctx.db.mutation.createGender(
 			{
-				data: {
-					...args
-				}
+				data: { ...args }
 			},
 			info
 		);
@@ -457,9 +567,7 @@ const Mutation = {
 	async createUser(parents, args, ctx, info) {
 		const user = await ctx.db.mutation.createUser(
 			{
-				data: {
-					...args
-				}
+				data: { ...args }
 			},
 			info
 		);
@@ -487,7 +595,8 @@ const Mutation = {
 	updateDivision(parent, args, ctx, info) {
 		const { id, ...updates } = args;
 		// run the update method
-		console.log('calling division update mutation!!');
+		console.log('calling division update mutation!');
+
 		return ctx.db.mutation.updateDivision(
 			{
 				data: updates,
@@ -497,6 +606,7 @@ const Mutation = {
 		);
 		console.log(updates);
 	},
+
 	async updateScore(parent, args, ctx, info) {
 		console.log(args);
 
@@ -522,7 +632,7 @@ const Mutation = {
 		);
 		console.log(getScoreID);
 		if (!getScoreID) {
-			throw new Error("Ce code du candidat n'est pas le bon");
+			throw new Error("Code candidat erroné ");
 		}
 		// updating the marks for the given subject for the given student
 		return ctx.db.mutation.updateScore(
@@ -721,33 +831,33 @@ const Mutation = {
 		return ctx.db.mutation.deleteRegion({ where }, info);
 	},
 
-	async signUp(parent, args, ctx, info) {
-		const APP_SECRET = 'jwtsecret123';
-		// lowercase their email
-		args.email = args.email.toLowerCase();
-		// hash their password
-		const password = await bcrypt.hash(args.password, 10);
-		// create the user in the database
-		const user = await ctx.db.mutation.createUser(
-			{
-				data: {
-					...args,
-					password,
-					permissions: { set: ['USER'] }
-				}
-			},
-			info
-		);
-		// create the JWT token for them
-		const token = jwt.sign({ userId: user.id }, APP_SECRET);
-		// We set the jwt as a cookie on the response
-		ctx.response.cookie('token', token, {
-			httpOnly: true,
-			maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
-		});
-		// Finally we return the user to the browser
-		// console.log(`Your port is ${APP_SECRET}`);
-		return user;
-	}
+	// async signUp(parent, args, ctx, info) {
+	// 	const APP_SECRET = 'jwtsecret123';
+	// 	// lowercase their email
+	// 	args.email = args.email.toLowerCase();
+	// 	// hash their password
+	// 	const password = await bcrypt.hash(args.password, 10);
+	// 	// create the user in the database
+	// 	const user = await ctx.db.mutation.createUser(
+	// 		{
+	// 			data: {
+	// 				...args,
+	// 				password,
+	// 				permissions: { set: ['CANDIDATE'] }
+	// 			}
+	// 		},
+	// 		info
+	// 	);
+	// 	// create the JWT token for them
+	// 	const token = jwt.sign({ userId: user.id }, APP_SECRET);
+	// 	// We set the jwt as a cookie on the response
+	// 	ctx.response.cookie('token', token, {
+	// 		httpOnly: true,
+	// 		maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
+	// 	});
+	// 	// Finally we return the user to the browser
+	// 	// console.log(`Your port is ${APP_SECRET}`);
+	// 	return user;
+	// }
 };
 module.exports = Mutation;

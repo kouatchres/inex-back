@@ -2,6 +2,8 @@
 
         USER
         ADMIN
+        CANDIDATE
+        CENTER
         ITEM_CREATE
         ITEM_DELETE
         ITEM_UPDATE
@@ -38,7 +40,6 @@ type Division {
     region : Region !
     subDivision : [SubDivision]!
     createdAt : DateTime! @createdAt
-    
     updatedAt : DateTime! @updatedAt  
 }
 
@@ -66,11 +67,12 @@ type Center {
     id : ID  ! @id @unique
     centerName : String !
     centerCode : String ! @unique
+    centerSecretCode : String ! @unique
     town : Town !
     centerNumber : Int ! @unique
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt
-    centerAdmin:[CenterAdmin]!
+    centerExamSessionAuthority:[CenterExamSessionAuthority]!
     centerExamSession: [CenterExamSession]!
 }
 
@@ -98,8 +100,7 @@ type EducationType {
 type Exam {
     id : ID  ! @id @unique
     examName : String !
-    registration: [Registration]!
-     centerExamSession: [CenterExamSession]!
+    examSession: [ExamSession]!
     examCode : String ! @unique
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt 
@@ -117,8 +118,7 @@ type Subject {
 
 type Session {
     id : ID  ! @id @unique
-    registration: [Registration]!
-    centerExamSession: [CenterExamSession]!
+    examSession: [ExamSession]!
     sessionName : String !@unique
     sessionCode : String ! @unique
     createdAt : DateTime! @createdAt
@@ -152,7 +152,6 @@ type Candidate {
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
     gender : Gender !
-    scores: [Score]!
     registration: [Registration]!
 }
 
@@ -162,9 +161,8 @@ type Rank {
     rankCode : String !
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
-    centerAdmin : [CenterAdmin]!
 }
-type CenterAdmin {
+type CenterExamSessionAuthority {
     id : ID  ! @id @unique
     authName: String!
     authCNI: String!
@@ -180,7 +178,7 @@ type CenterAdmin {
 type Report {
     id : ID  ! @id @unique
     reportName : String !
-    centerAdmin : CenterAdmin !
+    centerExamSessionAuthority : CenterExamSessionAuthority !
     reportImage: String!
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
@@ -189,11 +187,20 @@ type Report {
 
 type CenterExamSession {
     id : ID! @id @unique    
+    examSession: ExamSession!
+    center: Center!
+    registration: [Registration]!
+    centerExamSessionSeries: [CenterExamSessionSeries]!
+    centerExamSessionAuthority : [CenterExamSessionAuthority]!
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt
+}
+
+type ExamSession {
+    id : ID! @id @unique    
     exam: Exam!
     session: Session!
-    center: Center!
-    centerExamSessionSeries: [CenterExamSessionSeries]!
-     centerAdmin : [CenterAdmin]!
+    centerExamSession: [CenterExamSession]!
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt
 }
@@ -223,16 +230,17 @@ type Score {
 
 type Registration {
     id : ID  ! @id @unique
-    candidate : Candidate !
+    candidate : Candidate!
     centerExamSessionSeries: CenterExamSessionSeries!
+    centerExamSession: CenterExamSession!
     candExamSecretCode: String! @unique
     candExamSession: String! @unique
     scores: [Score]!
     series: Series!
-    chefSecCode: String
-    chargeMissionCode: String
-    createdAt : DateTime ! @createdAt
-    updatedAt : DateTime ! @updatedAt
+    candRegistrationNumber: String! @unique 
+    serial: Int
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt
 
 }
 

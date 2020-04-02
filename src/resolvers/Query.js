@@ -1,6 +1,22 @@
 const { forwardTo } = require('prisma-binding');
 
+
 const Query = {
+
+	registrationsConnection: forwardTo('db'),
+
+
+	// async registrationsConnection(parent, args, ctx, info) {
+	// 	const { candRegistrationNumber } = { ...args }
+
+	// 	const candCount = await ctx.db.query.registrationsConnection({
+	// 		where: {
+	// 			candRegistrationNumber_contains: candRegistrationNumber.slice(0, -5)
+	// 		}
+	// 	}, info);
+
+	// 	return candCount;
+	// },
 	async candidates(parent, args, ctx, info) {
 		const allCandidates = await ctx.db.query.candidates();
 		return allCandidates;
@@ -58,13 +74,17 @@ const Query = {
 		return oneSubDivision;
 	},
 
-	async centerAdminSignIn(parent, args, ctx, info) {
-		const where = { authCode: args.authCode };
-		const centerAdmin = await ctx.db.query.subjectTypes({ where }, info);
-		const getCAID = centerAdmin.id;
-		console.log(getCAID);
-		return getCAID;
+	async  countRegisteredCandidates(parent, args, ctx, info) {
+		console.log('in countRegistered Candidates')
+		console.log(args)
+
+		const where = { id: args.id }
+		const getCount = await ctx.db.query.centerExamSessions({ where }, info)
+
+		return getCount
+
 	},
+
 	async subjectTypes(parent, args, ctx, info) {
 		const allSubjectTypes = await ctx.db.query.subjectTypes();
 		return allSubjectTypes;
@@ -92,6 +112,28 @@ const Query = {
 	async center(parent, args, ctx, info) {
 		const where = { id: args.id };
 		const oneCenter = await ctx.db.query.center({ where }, info);
+		return oneCenter;
+	},
+	async centerByNumber(parent, args, ctx, info) {
+		console.log(args)
+		const { centerNumber } = { ...args }
+		const where = { centerNumber };
+		const oneCenter = await ctx.db.query.center({ where }, info);
+
+		if (!oneCenter) {
+			throw new Error('Numéro de centre inexistent')
+		}
+		return oneCenter;
+	},
+	async centerByCode(parent, args, ctx, info) {
+		console.log(args)
+		const { centerCode } = { ...args }
+		const where = { centerCode };
+		const oneCenter = await ctx.db.query.center({ where }, info);
+
+		if (!oneCenter) {
+			throw new Error('Code centre inexistent')
+		}
 		return oneCenter;
 	},
 
@@ -184,29 +226,34 @@ const Query = {
 			centerExamSession: { id: centerExamSession.id },
 			series: { id: series.id }
 		};
-		return [allCenterExamSessionSeries] = await ctx.db.query.centerExamSessionSerieses({ where }, info);
-		// return allCenterExamSession;
+		return seriesExists = await ctx.db.query.centerExamSessionSerieses({ where }, info);
+
 	},
 
-	async centerExamSessionSeriesForResults(parent, args, ctx, info) {
+	async centerExamSessionForResults(parent, args, ctx, info) {
 		console.log(args);
 		const { centerExamSession } = { ...args };
 
-		const allCenterExamSessionSeries = await ctx.db.query.centerExamSessionSerieses({ where: { centerExamSession } }, info);
-		return allCenterExamSessionSeries;
-	},
-	async centerExamSessions(parent, args, ctx, info) {
-		console.log(args);
-		const { center, exam, session } = { ...args };
 
 		const where = {
-			exam: { id: args.exam.id },
-			center: { id: args.center.id },
-			session: { id: args.session.id }
+			centerExamSession: { id: centerExamSession.id },
+		};
+		const allCenterExamSessionSeries = await ctx.db.query.centerExamSessionForResults({ where }, info);
+		return allCenterExamSessionSeries;
+	},
+
+
+	async centerExamSessions(parent, args, ctx, info) {
+		console.log(args);
+		const { center, examSession } = { ...args };
+
+		const where = {
+			examSession: { id: examSession.id },
+			center: { id: center.id },
 		};
 		return [allCenterExamSession] = await ctx.db.query.centerExamSessions({ where }, info);
-		// return allCenterExamSession;
 	},
+
 	async centerExamSession(parent, args, ctx, info) {
 		const where = { id: args.id };
 		const oneCenterExamSession = await ctx.db.query.centerExamSession({ where }, info);
@@ -231,6 +278,26 @@ const Query = {
 		const oneRank = await ctx.db.query.rank({ where }, info);
 		return oneRank;
 	},
+	async examSessions(parent, args, ctx, info) {
+		console.log(args)
+		const { session, exam } = { ...args }
+		const where = {
+			session: { id: session.id },
+			exam: { id: exam.id }
+		}
+		const allExamSessions = await ctx.db.query.examSessions({ where }, info);
+		return allExamSessions;
+	},
+
+
+
+
+
+	async examSession(parent, args, ctx, info) {
+		const where = { id: args.id };
+		const oneExamSession = await ctx.db.query.examSession({ where }, info);
+		return oneExamSession;
+	},
 
 	async educationTypes(parent, args, ctx, info) {
 		const allEducationType = await ctx.db.query.educationTypes();
@@ -243,6 +310,8 @@ const Query = {
 	},
 
 	async registrations(parent, args, ctx, info) {
+		console.log(args)
+		const where = { id: args.id };
 		const allRegistration = await ctx.db.query.registrations();
 		return allRegistration;
 	},
@@ -253,57 +322,85 @@ const Query = {
 		return oneRegistration;
 	},
 
+	// // obtain all rsults for a given center
+	// async centerExamSessionIDs(parent, args, ctx, info) {
+	// 	console.log('center registration  infos');
+	// 	console.log(args);
+	// 	const { exam, session, center } = args;
+	// 	const where = {
+	// 		center: { id: center.id },
+	// 		exam: { id: exam.id },
+	// 		session: { id: session.id }
+	// 	};
+	// 	const centerRegisIDs = await ctx.db.query.registrations({ where }, `{id}`);
+	// 	return centerRegisIDs;
+	// },
+
 	// obtain all rsults for a given center
-	async centerExamSessionIDs(parent, args, ctx, info) {
-		console.log('center registration  infos');
-		console.log(args);
-		const { exam, session, center } = args;
-		const where = {
-			exam: { id: exam.id },
-			center: { id: center.id },
-			session: { id: session.id }
-		};
-		const centerRegisIDs = await ctx.db.query.registrations({ where }, `{id}`);
-		return centerRegisIDs;
-	},
-
-	// obtain all results for a given candidate for a given year
 	async candidateRegistrationID(parent, args, ctx, info) {
+		console.log('cand registration  infos');
 		console.log(args);
-		const { centerExamSession, candidate } = { ...args };
+		const { candidate, centerExamSession } = args;
+		const where = {
+			centerExamSession: { id: centerExamSession.id },
+			candidate: { candCode: candidate.candCode }
+		};
+		const [candidateRegisIDs] = await ctx.db.query.registrations({ where }, `{id}`);
 
-		const [getCandRegID] = await ctx.db.query.registrations(
-			{
-				where: {
-					centerExamSession: { id: centerExamSession.id },
-					candidate: { candCode: candidate.candCode }
-				}
-			},
-			info
-		);
-
-		if (!getCandRegID) {
-			throw new Error("Verifie que soit la session, l'examen ou le Code Candidat est correcte");
+		if (!candidateRegisIDs) {
+			throw new Error('Vous avez choisi, soit le mauvais examen, soit la mauvaise session, soit votre code candidat est erroné')
 		}
 
-		return getCandRegID;
+
+		return candidateRegisIDs;
+	},
+	// obtain all rsults for a given center
+	async candidateRegistrationIDs(parent, args, ctx, info) {
+		console.log('cand registration  infos');
+		console.log(args);
+		const { candidate } = { args }
+		const where = {
+			candidate: { id: args }
+		};
+		const candidateRegisIDs = await ctx.db.query.candidateRegistrationIDs({ where }, info);
+
+		if (!candidateRegisIDs) {
+			throw new Error("Vous n'etes pas inscrit a un examen sur la plateforme")
+		}
+
+
+		return candidateRegisIDs;
+	},
+	// obtain all rsults for a given center
+	async candidateCode(parent, args, ctx, info) {
+		console.log('cand ID  infos');
+		console.log(args);
+		const where = { candCode: args.candCode };
+		const candidateRegisIDs = await ctx.db.query.candidate({ where }, `{id}`);
+
+		// if (!candidateRegisIDs) {
+		// 	throw new Error("Code Candidat erroné")
+		// }
+
+
+		return candidateRegisIDs;
 	},
 
-	async centerAdmins(parent, args, ctx, info) {
-		const allCenterAdmin = await ctx.db.query.centerAdmins();
-		return allCenterAdmin;
+	async centerExamSessionAuthoritys(parent, args, ctx, info) {
+		const allCenterExamSessionAuthority = await ctx.db.query.centerExamSessionAuthoritys();
+		return allCenterExamSessionAuthority;
 	},
 	async getCenterResults(parent, args, ctx, info) {
 		console.log(args)
 		const { centerExamSession } = { ...args }
 		const where = { centerExamSession: centerExamSession.id }
-		const allCenterAdmin = await ctx.db.query.centerExamSessionSerieses({ where }, info);
-		return allCenterAdmin;
+		const allCenterExamSessionAuthority = await ctx.db.query.centerExamSessionSerieses({ where }, info);
+		return allCenterExamSessionAuthority;
 	},
-	async centerAdmin(parent, args, ctx, info) {
+	async centerExamSessionAuthority(parent, args, ctx, info) {
 		const where = { id: args.id };
-		const oneCenterAdmin = await ctx.db.query.centerAdmin({ where }, info);
-		return oneCenterAdmin;
+		const oneCenterExamSessionAuthority = await ctx.db.query.centerExamSessionAuthority({ where }, info);
+		return oneCenterExamSessionAuthority;
 	}
 };
 
