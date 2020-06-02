@@ -1,9 +1,9 @@
 {
-  "name": "sygex-backend",
-  "description": "the backend of Systeme de Gestion des Examens (SYGEX  BACK-END)",
+  "name": "SYGEFEX-backend-formik",
+  "description": "the backend of Systeme de Gestion Efficace et Facile des Examens (SYGEFEX  BACK-END  Formik)",
   "scripts": {
     "start": "nodemon -e js,graphql -x node src/index.js",
-    "dev": "nodemon -e js,graphql -x node --inspect=40000 src/index.js",
+    "dev": "nodemon -e js,graphql -x node --inspect=50000 src/index.js",
     "test": "jest",
     "deploy": "prisma deploy --env-file variables.env"
   },
@@ -13,6 +13,7 @@
     "cartesian": "^1.0.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "6.0.0",
+    "google-auth-library": "^6.0.0",
     "graphql": "^0.13.2",
     "graphql-cli": "^2.16.7",
     "graphql-yoga": "1.17.4",
@@ -27,7 +28,7 @@
   },
   "license": "MIT",
   "repository": {
-    "url": "wesbos.com"
+    "url": "ezykargo.com"
   },
   "babel": {
     "presets": [

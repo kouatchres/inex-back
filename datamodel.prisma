@@ -10,24 +10,23 @@
         PERMISSION_UPDATE
 
   }
-  
-
-type User {
-    id : ID! @id @unique
-    name : String !
-    email : String ! @unique
-    password: String!
-    resetToken: String
-    resetTokenExpiry: String
-    createdAt : DateTime! @createdAt
-    updatedAt : DateTime! @updatedAt
-    permissions: [Permission]! @scalarList(strategy: RELATION)
-}
-
+ 
+ type User {
+     id: ID!@id @unique
+     email : String! @unique
+     name : String!
+     password : String!
+     resetToken: String
+     resetTokenExpiry: String
+      createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+ }
+ 
 type Region {
     id : ID  ! @id @unique
     regName : String !
     regCode : String ! @unique
+    country: Country!
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
     division : [Division]!
@@ -58,6 +57,7 @@ type Town {
     townName : String !
     townCode : String ! @unique
     subDiv : SubDivision !
+    office : Office 
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt  
     center : [Center]!
@@ -72,7 +72,7 @@ type Center {
     centerNumber : Int ! @unique
     createdAt : DateTime! @createdAt 
     updatedAt : DateTime! @updatedAt
-    centerExamSessionAuthority:[CenterExamSessionAuthority]!
+    centerExamSessionExaminer:[CenterExamSessionExaminer]!
     centerExamSession: [CenterExamSession]!
 }
 
@@ -162,15 +162,63 @@ type Rank {
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
 }
-type CenterExamSessionAuthority {
+
+type Office {
     id : ID  ! @id @unique
-    authName: String!
-    authCNI: String!
-    authPhone: Int!
-    authMatricule: String!
-    authCode: String! @unique
-    rank: Rank!
+    officeName : String !
+    officeCode : String !
+    town: [Town]!
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+}
+
+type Country {
+    id : ID  ! @id @unique
+    countryName : String !
+    region:[Region]!
+    countryCode : String !
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+}
+
+type Phase {
+    id : ID  ! @id @unique
+    phaseName : String !
+    phaseCode : String !
+    phaseRank: [PhaseRank]
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+}
+
+type PhaseRank {
+    id : ID  ! @id @unique
+    phase : Phase !
+    rankName : String !
+    rankCode : String!
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+}
+
+type Examiner {
+    id : ID  ! @id @unique
+    examiner1stName: String!
+    examiner2ndName: String!
+    examinerOtherNames: String!
+    examinerCNI: String!
+    examinerPhone: Int!
+    examinerMatricule: String!
+    examinerEmail: String!
+    examinerImage: String!
+    gender: Gender!
+    examinerCode: String! @unique
+    createdAt : DateTime! @createdAt
+    updatedAt : DateTime! @updatedAt  
+}
+type CenterExamSessionExaminer {
+    id : ID  ! @id @unique
+    examiner: Examiner!
     centerExamSession : CenterExamSession!
+    phaseRank: PhaseRank!
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
     report : [Report]!
@@ -178,7 +226,7 @@ type CenterExamSessionAuthority {
 type Report {
     id : ID  ! @id @unique
     reportName : String !
-    centerExamSessionAuthority : CenterExamSessionAuthority !
+    centerExamSessionExaminer : CenterExamSessionExaminer !
     reportImage: String!
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
@@ -191,9 +239,9 @@ type CenterExamSession {
     center: Center!
     registration: [Registration]!
     centerExamSessionSeries: [CenterExamSessionSeries]!
-    centerExamSessionAuthority : [CenterExamSessionAuthority]!
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt
+    centerExamSessionExaminer : [CenterExamSessionExaminer]!
 }
 
 type ExamSession {
@@ -204,7 +252,6 @@ type ExamSession {
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt
 }
-
 
 type CenterExamSessionSeries {
     id : ID! @id @unique
@@ -254,12 +301,10 @@ type SubjectSeries {
     subjectCode : String ! 
 }
 
-
-
 type SubjectType {
+    id : ID! @id @unique  
     subjectTypeName: String!@unique
     subjectTypeCode: String!@unique
-    id : ID! @id @unique  
     createdAt : DateTime! @createdAt
     updatedAt : DateTime! @updatedAt  
 
