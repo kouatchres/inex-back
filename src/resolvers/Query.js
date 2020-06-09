@@ -662,7 +662,8 @@ const Query = {
             return null
         }
         return db.query.user({ where: { id: getUserID }, info })
-    }
+    },
+    
 };
 
 module.exports = Query;

@@ -193,10 +193,10 @@ type Phase {
 type PhaseRank {
     id : ID  ! @id @unique
     phase : Phase !
-    rankName : String !
+    rankName : String!
     rankCode : String!
-    createdAt : DateTime! @createdAt
-    updatedAt : DateTime! @updatedAt  
+    createdAt : DateTime!@createdAt
+    updatedAt : DateTime!@updatedAt  
 }
 
 type Examiner {
